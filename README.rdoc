@@ -1,6 +1,6 @@
 = kete_trackable_items
 
-Description goes here.
+A Rails engine gem that works in conjunction with kete_gets_trollied to track where an item (with a corresponding physical archive) is physically located.
 
 == Note on Patches/Pull Requests
  

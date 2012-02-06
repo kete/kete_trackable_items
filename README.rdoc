@@ -5,7 +5,8 @@ Description goes here.
 == Note on Patches/Pull Requests
  
 * Fork the project.
-* Make your feature addition or bug fix.
+* Open an issue for feature or bug fix.
+* Create a corresponding branch for the issue, similar to the way working for branches is outlined here (particularly in regards to naming of branch): http://kete.net.nz/documentation/topics/show/326-working-with-git-branches-on-github
 * Add tests for it. This is important so I don't break it in a
   future version unintentionally.
 * Commit, do not mess with rakefile, version, or history.

@@ -9,8 +9,9 @@ begin
     gem.description = %Q{TODO: longer description of your gem}
     gem.email = "walter@katipo.co.nz"
     gem.homepage = "http://github.com/kete/kete_trackable_items"
-    gem.authors = ["Horowhenua Library Trust"]
+    gem.authors = ["Walter McGinnis", "Noel Gomez", "Chris Toynbee"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_dependency "kete_gets_trollied"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -20,9 +21,7 @@ end
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+  # in the future may include own tests under dummy app or generators for kete app specific tests.
 end
 
 begin

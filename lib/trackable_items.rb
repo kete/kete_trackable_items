@@ -17,7 +17,7 @@ module TrackableItems
       options = args.last.is_a?(Hash) ? args.pop : Hash.new
 
       # don't allow multiple calls
-      return if self.included_modules.include?(KeteTrackableItems::InstanceMethods)
+      return if self.included_modules.include?(TrackableItems::InstanceMethods)
       
       send :include, TrackableItems::InstanceMethods
       

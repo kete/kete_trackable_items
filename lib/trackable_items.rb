@@ -23,7 +23,7 @@ module TrackableItems
       
       send :has_many, :shelf_locations
       # not sure if it has many/what about subitems?
-      send :has_one, :organisations
+      send :has_one, :on_loan_organisations
     
     def description_for_tracked_item
       

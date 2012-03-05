@@ -1,26 +1,28 @@
 require "active_record"
 
-module KeteTrackableItems
+module TrackableItems
   def self.included(base)
     base.extend(ClassMethods)
   end
 
   module ClassMethods
-    def set_up_kete_trackable_items(*args)
+    def set_up_trackable_items(*args)
       options = args.last.is_a?(Hash) ? args.pop : Hash.new
 
       # don't allow multiple calls
       return if self.included_modules.include?(KeteTrackableItems::InstanceMethods)
       
-      send :include, KeteTrackableItems::InstanceMethods
+      send :include, TrackableItems::InstanceMethods
       
       send :has_many, :shelf_locations
-      send :has_many, :item_subparts
+      send :has_many, :items
       
       # box_number
       # state
       
       # series_number
+    
+    def description_for_tracked_item
       
     end
   

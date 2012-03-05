@@ -1,5 +1,7 @@
+# Archives Central, PNCC, WDC
+# name
+# other contact details?
 class Repository < ActiveRecord::Base
-  # Archives Central, PNCC, WDC
   
   has_many :shelf_locations
     

@@ -1,5 +1,11 @@
 require "active_record"
 
+# Attributes
+# box_number
+# state
+# series_number
+# current_location
+
 module TrackableItems
   def self.included(base)
     base.extend(ClassMethods)
@@ -15,12 +21,8 @@ module TrackableItems
       send :include, TrackableItems::InstanceMethods
       
       send :has_many, :shelf_locations
-      send :has_many, :items
-      
-      # box_number
-      # state
-      
-      # series_number
+      # not sure if it has many/what about subitems?
+      send :has_one, :organisations
     
     def description_for_tracked_item
       

@@ -2,6 +2,7 @@ require "active_record"
 
 # Attributes
 # box_number
+# description
 # state
 # series_number
 # current_location

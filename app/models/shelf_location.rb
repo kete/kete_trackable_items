@@ -7,8 +7,4 @@ class ShelfLocation < ActiveRecord::Base
   
   has_many :items
 
-  #validates_uniqueness_of :shelfcode
-  # shelf_code?
-  # unknown location fields
-  # normal rails date fields
 end

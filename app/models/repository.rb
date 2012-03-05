@@ -1,5 +1,4 @@
-# Archives Central, PNCC, WDC
-# name
+# name Archives Central, PNCC, WDC
 # other contact details?
 class Repository < ActiveRecord::Base
   

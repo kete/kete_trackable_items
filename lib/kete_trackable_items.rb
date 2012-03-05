@@ -14,6 +14,14 @@ module KeteTrackableItems
       
       send :include, KeteTrackableItems::InstanceMethods
       
+      send :has_many, :shelf_locations
+      send :has_many, :item_subparts
+      
+      # box_number
+      # state
+      
+      # series_number
+      
     end
   
   end

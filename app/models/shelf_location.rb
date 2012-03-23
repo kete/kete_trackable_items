@@ -6,6 +6,7 @@
 
 class ShelfLocation < ActiveRecord::Base
   belongs_to :repository
+  belongs_to :trackable_item, :polymorphic => true
   
   # has_many :items
 

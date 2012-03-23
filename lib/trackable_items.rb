@@ -18,20 +18,30 @@ module TrackableItems
       include Workflow
 
       state :allocated do
-
+        event :display, :transitions_to => :display
+        event :held_out, :transitions_to => :held_out
+        event :on_loan_organisation, :transitions_to => :on_loan_organisation
       end
 
       state :display do
-
+        event :held_out, :transitions_to => :held_out
+        event :on_loan_organisation, :transitions_to => :on_loan_organisation
+        event :to_be_refiled, :transitions_to => :to_be_refiled
       end
 
       state :held_out do
-
+        # to complete
       end
 
       state :on_loan_organisation do
+        # to complete
+      end
+      
+      # This looks like it might be a state too or a substate of one of the others
+      state :to_be_refiled do
 
       end
+      
 
     end
   end
@@ -53,6 +63,27 @@ module ClassMethods
 
     def description_for_tracked_item
 
+    end
+    
+    # Define workflow methods
+    def allocated
+      
+    end
+ 
+    def display
+      
+    end   
+
+    def held_out
+   
+    end
+    
+    def on_loan_organisation
+
+    end
+    
+    def to_be_refiled
+    
     end
 
   end

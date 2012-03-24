@@ -1,8 +1,17 @@
 class MigrationsGenerator < Rails::Generator::NamedBase
   def manifest
     record do |m|
-      # Walter: If you are happy with this approach I'll add the rest of the migrations
-      m.file "20120320031742_create_tracking_lists.rb",   "db/migrate/20120320031742_create_tracking_lists.rb"
+      record do |m|
+            m.migration_template 'create_tracking_list.rb', 'db/migrate', { :migration_file_name => "create_tracking_list" }
+            m.sleep(1)
+            m.migration_template 'create_repositories.rb', 'db/migrate', { :migration_file_name => "create_repositories" }
+            m.sleep(1)
+            m.migration_template 'create_shelf_locations.rb', 'db/migrate', { :migration_file_name => "create_shelf_locations" }
+            m.sleep(1)
+            m.migration_template 'create_tracked_items.rb', 'db/migrate', { :migration_file_name => "create_tracked_items" }
+            m.sleep(1)
+            m.migration_template 'trackable_items_shelf_locations.rb', 'db/migrate', { :migration_file_name => "trackable_items_shelf_locations" }
+          end
     end
   end
 end

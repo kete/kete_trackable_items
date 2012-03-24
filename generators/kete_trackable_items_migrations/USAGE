@@ -1,2 +1,2 @@
 Description:
-	Generates the migrations necessary for using the kete_translable_items gem in Kete application.
+	Generates the migrations necessary for using the kete_trackable_items gem in Kete application. Namely repository, shelf location, tracked item, tracking list and trackable item to shelf locations.

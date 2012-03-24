@@ -18,28 +18,32 @@ module TrackableItems
       include Workflow
 
       state :allocated do
-        event :display, :transitions_to => :display
-        event :held_out, :transitions_to => :held_out
-        event :on_loan_organisation, :transitions_to => :on_loan_organisation
+        event :put_on_display, :transitions_to => :displayed
+        event :hold_out, :transitions_to => :held_out
+        event :loan, :transitions_to => :on_loan_to_organisation
       end
 
-      state :display do
-        event :held_out, :transitions_to => :held_out
-        event :on_loan_organisation, :transitions_to => :on_loan_organisation
-        event :to_be_refiled, :transitions_to => :to_be_refiled
+      state :displayed do
+        event :hold_out, :transitions_to => :held_out
+        event :loan, :transitions_to => :on_loan_to_organisation
+        event :make_ready_to_refile, :transitions_to => :waiting_to_be_refiled
       end
 
       state :held_out do
-        # to complete
+        event :loan, :transitions_to => :on_loan_to_organisation
+        event :make_ready_to_refile, :transitions_to => :waiting_to_be_refiled
       end
 
-      state :on_loan_organisation do
-        # to complete
+      state :on_loan_to_organisation do
+        event :put_on_display, :transitions_to => :displayed
+        event :hold_out, :transitions_to => :held_out
+        event :make_ready_to_refile, :transitions_to => :waiting_to_be_refiled
       end
       
       # This looks like it might be a state too or a substate of one of the others
-      state :to_be_refiled do
-
+      state :waiting_to_be_refiled do
+        event :allocate, :transitions_to => :allocated
+        # Not sure if it makes sense to be able to go to any other states from here
       end
       
 

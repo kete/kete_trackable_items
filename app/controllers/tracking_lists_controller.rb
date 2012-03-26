@@ -6,6 +6,11 @@ class TrackingListsController < ApplicationController
   before_filter :get_trackable_items_user
   before_filter :get_tracking_list
   
+  def show
+    respond_to do |format|
+      format.html
+    end
+  end
   
   protected
 

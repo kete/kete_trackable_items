@@ -17,6 +17,10 @@ module TrackableItems
     base.class_eval do
       include Workflow
 
+      state :waiting_to_be_on_shelf do
+        event :put_on_shelf, :transitions_to => :on_shelf
+      end
+
       state :on_shelf do
         event :put_on_display, :transitions_to => :displayed
         event :hold_out, :transitions_to => :held_out
@@ -39,13 +43,13 @@ module TrackableItems
         event :hold_out, :transitions_to => :held_out
         event :make_ready_to_refile, :transitions_to => :waiting_to_be_refiled
       end
-      
+
       # This looks like it might be a state too or a substate of one of the others
       state :waiting_to_be_refiled do
         event :put_on_shelf, :transitions_to => :on_shelf
         # Not sure if it makes sense to be able to go to any other states from here
       end
-      
+
     end
   end
 
@@ -67,26 +71,26 @@ module ClassMethods
     def description_for_tracked_item
 
     end
-    
+
     # Define workflow methods
     def allocated
-      
+
     end
- 
+
     def display
-      
-    end   
+
+    end
 
     def held_out
-   
+
     end
-    
+
     def on_loan_organisation
 
     end
-    
+
     def to_be_refiled
-    
+
     end
 
   end

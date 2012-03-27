@@ -46,7 +46,6 @@ module TrackableItems
         # Not sure if it makes sense to be able to go to any other states from here
       end
       
-
     end
   end
 

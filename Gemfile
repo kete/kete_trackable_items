@@ -1,1 +1,1 @@
-gem "shoulda"
+gemspec

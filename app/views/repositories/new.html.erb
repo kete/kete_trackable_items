@@ -1,0 +1,8 @@
+<h2>
+  <%= h(@title) -%>
+  <%= show_all_fields_link %>
+</h2>
+
+<% form_for :repository, :url => {:action => 'create', :show_all_fields => params[:show_all_fields] } do |form| %>
+  <%= render :partial => 'form', :object => form %>
+<% end %>

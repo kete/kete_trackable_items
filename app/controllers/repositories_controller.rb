@@ -1,5 +1,6 @@
 # scaffold only - needs fleshing out
 class RepositoriesController < ApplicationController
+  
   # GET /repositories
   def index
     @repositories = Repository.all

@@ -1,0 +1,20 @@
+<h1>Listing Repositories</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @repositories.each do |repository| %>
+  <tr>
+    <td><%= repository.name %></td>
+    <td><%= link_to ('Show', :controller => :repositories, :action => :show, :id => repository.id, :urlified_name => @current_basket.urlified_name) %></td>
+    <td><%= link_to ('Edit', :controller => :repositories, :action => :edit, :id => repository.id, :urlified_name => @current_basket.urlified_name) %></td>
+
+  </tr>
+<% end %>
+</table>
+
+<br />

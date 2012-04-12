@@ -39,7 +39,7 @@ class RepositoriesController < ApplicationController
 
     respond_to do |format|
       if @repository.save
-        format.html { redirect_to @repository }
+        render :action => 'index'
       else
         render :action => 'new'
       end

@@ -1,4 +1,4 @@
-<% form_for @repository do |f| %>
+<% form_for :repository, :url => {:action => @repository.new_record? ? 'new' : 'create', :urlified_name => @current_basket.urlified_name, :id => @repository} do |f| %>
   <%= f.error_messages %>
 
   <p>

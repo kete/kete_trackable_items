@@ -39,7 +39,7 @@ class RepositoriesController < ApplicationController
 
     respond_to do |format|
       if @repository.save
-        render :action => 'index'
+        redirect_to :controller => 'repositories', :action => 'index'
       else
         render :action => 'new'
       end
@@ -52,7 +52,7 @@ class RepositoriesController < ApplicationController
 
     respond_to do |format|
       if @repository.update_attributes(params[:repository])
-        format.html { redirect_to @repository }
+         redirect_to :controller => 'repositories', :action => 'edit', :id => @repository.id
       else
         render :action => 'edit'
       end

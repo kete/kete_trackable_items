@@ -39,12 +39,13 @@ class RepositoriesController < ApplicationController
 
     respond_to do |format|
       if @repository.save
-        redirect_to :controller => 'repositories', :action => 'index'
+        format.html { redirect_to @repository }
       else
         render :action => 'new'
       end
     end
   end
+
 
   # PUT /repositories/1
   def update

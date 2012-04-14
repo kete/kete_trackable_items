@@ -1,0 +1,15 @@
+<h3>
+  Repository: <%= @shelf_location.repository.name %>
+  |
+  Shelf Location: <%= @shelf_location.code %>
+</h3>
+<p>
+  Status: <%= @shelf_location.status %>
+</p>
+<p>
+  Edit 
+  | 
+  Delete 
+  |
+  <%= link_to 'Back', shelf_locations_path %>
+</p>

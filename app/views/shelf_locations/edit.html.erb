@@ -1,0 +1,17 @@
+<h1>Edit Shelf Location</h1>
+
+<% form_for(@shelf_location, 
+      :url =>
+        shelf_location_path( :id => @shelf_location.id,
+         :urlified_name => @current_basket.urlified_name ),
+      :method => :put
+    ) do |f| %>
+  <%# form_for @shelf_location, :url => {:action => @shelf_location.new_record? ? 'create' : 'update', :urlified_name => @current_basket.urlified_name, :id => @shelf_location} do |f| %>
+
+  <%= render :partial => "form", :locals => { :f => f } %>
+  <p>
+    <%= f.submit 'Update Shelf Location' %>
+    <%= link_to 'Back', shelf_locations_path %>
+  </p>
+<% end %>
+

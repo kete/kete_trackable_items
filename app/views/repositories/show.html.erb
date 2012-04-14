@@ -1,0 +1,18 @@
+<h1>
+  Repository: <%= @repository.name %>
+</h1>
+<p>
+  <% @shelf_locations = @repository.shelf_locations %>
+  <%= render "shelf_locations/index" %>
+</p>
+<p>
+  <%= link_to "Create New Shelf Location" , 
+  new_shelf_location_path(:repo => @repository.id) %>
+</p>
+<p>
+  Edit 
+  | 
+  Delete 
+  |
+  <%= link_to 'Back', repositories_path %>
+</p>

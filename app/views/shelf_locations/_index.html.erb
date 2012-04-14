@@ -1,0 +1,38 @@
+<h2>Shelf Locations</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Repository</th>
+      <th>Code</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shelf_locations.each do |location| %>
+      <tr>
+        <td>
+          <%= location.repository.name %>
+        </td> 
+        <td>
+          <%= link_to location.code , 
+          shelf_location_path( :id => location.id, :urlified_name => @current_basket.urlified_name ) %>
+        </td>
+        <td>
+          <%= location.status %>
+        </td>
+        <td>
+          <%= link_to "Edit" , edit_shelf_location_path( :id => location.id, :urlified_name => @current_basket.urlified_name ) %>
+          |
+          <%= link_to "Delete" , 
+              shelf_location_path( :id => location.id, :urlified_name => @current_basket.urlified_name ),
+              :confirm => 'Are you sure?',
+              :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+

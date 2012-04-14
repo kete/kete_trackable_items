@@ -1,0 +1,14 @@
+<%= f.error_messages %>
+
+<p>
+  <%#= f.label :repository_id,"Repository" %><br />
+  <%#= f.collection_select(:repository_id, 
+  Repository.all, :id, :name) %>
+  <%= repo.name %>
+</p>
+<%= f.hidden_field :repository_id, :value => repo.id %>
+
+<p>
+  <%= f.label :code %><br />
+  <%= f.text_field :code %>
+</p>

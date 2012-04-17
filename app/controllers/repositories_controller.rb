@@ -1,39 +1,33 @@
-# scaffold only - needs fleshing out
 class RepositoriesController < ApplicationController
   
-  # GET /repositories
   def index
     @repositories = Repository.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
     end
   end
 
-  # GET /repositories/1
   def show
     @repository = Repository.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
     end
   end
 
-  # GET /repositories/new
   def new
     @repository = Repository.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
     end
   end
 
-  # GET /repositories/1/edit
   def edit
     @repository = Repository.find(params[:id])
   end
 
-  # POST /repositories
   def create
     @repository = Repository.new(params[:repository])
 
@@ -46,21 +40,18 @@ class RepositoriesController < ApplicationController
     end
   end
 
-
-  # PUT /repositories/1
   def update
     @repository = Repository.find(params[:id])
 
-    respond_to do |format|
-      if @repository.update_attributes(params[:repository])
-         redirect_to :controller => 'repositories', :action => 'edit', :id => @repository.id
-      else
-        render :action => 'edit'
-      end
+    if @repository.update_attributes(params[:repository])
+      render :action => 'index'
+       # redirect_to :controller => 'repositories', :action => 'edit', :id => @repository.id
+       #
+    else
+      render :action => 'edit'
     end
   end
 
-  # DELETE /repositories/1
   def destroy
     @repository = Repository.find(params[:id])
     @repository.destroy

@@ -44,7 +44,6 @@ class ShelfLocationsController < ApplicationController
     if @shelf_location.update_attributes(params[:shelf_location])
       render :action => 'index'
       # redirect_to :controller => 'shelf_location', :action => 'edit', :id => @shelf_location.id
-
       #redirect_to shelf_locations_path} #, :urlified_name => @current_basket.urlified_name  }
     else
       render :action => 'edit'

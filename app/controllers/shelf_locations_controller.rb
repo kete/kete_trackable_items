@@ -31,7 +31,7 @@ class ShelfLocationsController < ApplicationController
 
     respond_to do |format|
       if @shelf_location.save
-        format.html { redirect_to repositories_path }
+        redirect_to @shelf_location.repository, @shelf_location
       else
         render :action => 'new'
       end
@@ -42,7 +42,7 @@ class ShelfLocationsController < ApplicationController
     @shelf_location = ShelfLocation.find(params[:id])
 
     if @shelf_location.update_attributes(params[:shelf_location])
-      render :action => 'index'
+      redirect_to :controller => 'shelf_location', :action => 'show', :id => @shelf_location.id, :urlified_name => @current_basket.urlified_name
       # redirect_to :controller => 'shelf_location', :action => 'edit', :id => @shelf_location.id
       #redirect_to shelf_locations_path} #, :urlified_name => @current_basket.urlified_name  }
     else

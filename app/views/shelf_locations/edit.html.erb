@@ -6,9 +6,8 @@
          :urlified_name => @current_basket.urlified_name ),
       :method => :put
     ) do |f| %>
-  <%# form_for @shelf_location, :url => {:action => @shelf_location.new_record? ? 'create' : 'update', :urlified_name => @current_basket.urlified_name, :id => @shelf_location} do |f| %>
 
-  <%= render :partial => "form", :locals => { :f => f } %>
+  <%= render :partial => "form", :locals => { :f => f, :repository => @shelf_location.repository } %>
   <p>
     <%= f.submit 'Update Shelf Location' %>
     <%= link_to 'Back', shelf_locations_path %>

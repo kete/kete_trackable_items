@@ -10,23 +10,23 @@
     </tr>
   </thead>
   <tbody>
-    <% @shelf_locations.each do |location| %>
+    <% @shelf_locations.each do |shelf_location| %>
       <tr>
         <td>
-          <%= location.repository.name %>
+          <%= shelf_location.repository.name %>
         </td> 
         <td>
-          <%= link_to location.code , 
-          shelf_location_path( :id => location.id, :urlified_name => @current_basket.urlified_name ) %>
+          <%= link_to shelf_location.code , 
+          shelf_location_path( :id => shelf_location.id, :urlified_name => @current_basket.urlified_name ) %>
         </td>
         <td>
-          <%= location.status %>
+          <%= shelf_location.status %>
         </td>
         <td>
-          <%= link_to "Edit" , edit_shelf_location_path( :id => location.id, :urlified_name => @current_basket.urlified_name ) %>
+          <%= link_to "Edit" , edit_shelf_location_path( :id => shelf_location.id, :urlified_name => @current_basket.urlified_name ) %>
           |
           <%= link_to "Delete" , 
-              shelf_location_path( :id => location.id, :urlified_name => @current_basket.urlified_name ),
+              shelf_location_path( :id => shelf_location.id, :urlified_name => @current_basket.urlified_name ),
               :confirm => 'Are you sure?',
               :method => :delete %>
         </td>

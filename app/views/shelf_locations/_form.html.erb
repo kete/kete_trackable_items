@@ -4,9 +4,9 @@
   <%#= f.label :repository_id,"Repository" %><br />
   <%#= f.collection_select(:repository_id, 
   Repository.all, :id, :name) %>
-  <%= repo.name %>
+  <%= repository.name %>
 </p>
-<%= f.hidden_field :repository_id, :value => repo.id %>
+<%= f.hidden_field :repository_id, :value => repository.id %>
 
 <p>
   <%= f.label :code %><br />

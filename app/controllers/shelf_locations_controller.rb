@@ -4,7 +4,7 @@ class ShelfLocationsController < ApplicationController
     @shelf_locations = ShelfLocation.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
     end
   end
 
@@ -24,38 +24,42 @@ class ShelfLocationsController < ApplicationController
 
   def edit
     @shelf_location = ShelfLocation.find(params[:id])
+    @repo = @shelf_location.repository
   end
 
   def create
     @shelf_location = ShelfLocation.new(params[:shelf_location])
 
-    respond_to do |format|
-      if @shelf_location.save
-        redirect_to @shelf_location.repository, @shelf_location
-      else
-        render :action => 'new'
-      end
+    if @shelf_location.save
+
+      redirect_to url_for_repository( @shelf_location.repository_id)
+    else
+      render :action => 'new'
     end
   end
 
   def update
+
+
     @shelf_location = ShelfLocation.find(params[:id])
 
     if @shelf_location.update_attributes(params[:shelf_location])
-      redirect_to :controller => 'shelf_location', :action => 'show', :id => @shelf_location.id, :urlified_name => @current_basket.urlified_name
-      # redirect_to :controller => 'shelf_location', :action => 'edit', :id => @shelf_location.id
-      #redirect_to shelf_locations_path} #, :urlified_name => @current_basket.urlified_name  }
+      redirect_to url_for_repository( @shelf_location.repository_id)
     else
       render :action => 'edit'
     end
   end
 
   def destroy
+
+#Rails.logger.debug("what is ID: " + params[:id])
+
     @shelf_location = ShelfLocation.find(params[:id])
+    repo = @shelf_location.repository_id
     @shelf_location.destroy
 
     respond_to do |format|
-      format.html { redirect_to repository_url(@shelf_location.repository.id,:urlified_name => @current_basket.urlified_name)}
+      format.html { redirect_to url_for_repository repo }
     end
   end
 end

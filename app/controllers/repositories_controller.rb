@@ -33,9 +33,7 @@ class RepositoriesController < ApplicationController
 
     respond_to do |format|
       if @repository.save
-        format.html { redirect_to url_for(:action => :show,
-                                          :urlified_name => @current_basket.urlified_name,
-                                          :id => @repository.id) }
+        format.html { redirect_to repository_show_path(@repository.id)}
       else
         render :action => 'new'
       end

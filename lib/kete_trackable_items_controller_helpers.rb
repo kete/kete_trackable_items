@@ -6,8 +6,12 @@ module KeteTrackableItemsControllerHelpers
   
   module UrlFor
     
-    # Under development
-    def url_for_repository
+    def url_for_repository(repo_id)
+      url_for(
+        :controller => "repositories",
+        :action => :show, 
+        :urlified_name => @current_basket.urlified_name,
+        :id => repo_id) 
     end
     
   end

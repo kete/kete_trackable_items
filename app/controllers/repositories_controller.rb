@@ -2,26 +2,14 @@ class RepositoriesController < ApplicationController
   
   def index
     @repositories = Repository.all
-
-    respond_to do |format|
-      format.html
-    end
   end
 
   def show
     @repository = Repository.find(params[:id])
-
-    respond_to do |format|
-      format.html
-    end
   end
 
   def new
     @repository = Repository.new
-
-    respond_to do |format|
-      format.html
-    end
   end
 
   def edit
@@ -31,12 +19,10 @@ class RepositoriesController < ApplicationController
   def create
     @repository = Repository.new(params[:repository])
 
-    respond_to do |format|
-      if @repository.save
-        format.html { redirect_to repository_show_path(@repository.id)}
-      else
-        render :action => 'new'
-      end
+    if @repository.save
+      redirect_to url_for_repository(@repository.id)
+    else
+      render :action => 'new'
     end
   end
 
@@ -44,9 +30,7 @@ class RepositoriesController < ApplicationController
     @repository = Repository.find(params[:id])
 
     if @repository.update_attributes(params[:repository])
-      render :action => 'index'
-       # redirect_to :controller => 'repositories', :action => 'edit', :id => @repository.id
-       #
+      redirect_to url_for_repository(@repository.id)
     else
       render :action => 'edit'
     end
@@ -56,8 +40,6 @@ class RepositoriesController < ApplicationController
     @repository = Repository.find(params[:id])
     @repository.destroy
 
-    respond_to do |format|
-      format.html { redirect_to repositories_url }
-    end
+    redirect_to repositories_url
   end
 end

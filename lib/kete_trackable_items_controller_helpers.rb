@@ -13,7 +13,60 @@ module KeteTrackableItemsControllerHelpers
         :urlified_name => @current_basket.urlified_name,
         :id => repo_id) 
     end
+
+    def url_to_create_repository
+      url_for(
+        :controller => "repositories",
+        :action => :create, 
+        :urlified_name => @current_basket.urlified_name) 
+    end
+
+    def url_to_edit_repository(repo_id)
+      url_for(
+        :controller => "repositories",
+        :action => :edit, 
+        :urlified_name => @current_basket.urlified_name,
+        :id => repo_id) 
+    end
+
+    def url_to_update_repository(repo_id)
+      url_for(
+        :controller => "repositories",
+        :action => :update, 
+        :urlified_name => @current_basket.urlified_name,
+        :id => repo_id) 
+    end
+
+    def url_for_new_repository
+      url_for(
+        :controller => "repositories",
+        :action => :new, 
+        :urlified_name => @current_basket.urlified_name) 
+    end
     
+    def url_for_shelf_location(shelf_id)
+      url_for(
+        :controller => "shelf_locations",
+        :action => :show, 
+        :urlified_name => @current_basket.urlified_name,
+        :id => shelf_id) 
+    end
+
+    def url_to_edit_shelf_location(shelf_id)
+      url_for(
+        :controller => "shelf_locations",
+        :action => :edit, 
+        :urlified_name => @current_basket.urlified_name,
+        :id => shelf_id) 
+    end
+
+    def url_to_edit_shelf_location(shelf_id)
+      url_for(
+        :controller => "shelf_locations",
+        :action => :edit, 
+        :urlified_name => @current_basket.urlified_name,
+        :id => shelf_id) 
+    end
   end
   
 end    

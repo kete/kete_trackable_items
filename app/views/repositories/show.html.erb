@@ -10,9 +10,11 @@
   new_shelf_location_path(:repo => @repository.id) %>
 </p>
 <p>
-  Edit 
+  <%= link_to 'Edit', url_to_edit_repository(@repository.id) %>
   | 
-  Delete 
-  |
-  <%= link_to 'Back', repositories_path %>
+  <%= link_to 'Delete', url_for_repository(@repository.id),
+        :confirm => 'Are you sure?',
+        :method => :delete  %>
+  <br/>
+  <%= link_to 'Back to Repository Listing', repositories_path %>
 </p>

@@ -7,9 +7,11 @@
   Status: <%= @shelf_location.status %>
 </p>
 <p>
-  Edit 
+  <%= link_to 'Edit', url_to_edit_shelf_location(@shelf_location.id) %>
   | 
-  Delete 
-  |
-  <%= link_to 'Back', shelf_locations_path %>
+  <%= link_to 'Delete', url_for_shelf_location(@shelf_location.id),
+        :confirm => 'Are you sure?',
+        :method => :delete  %>
+  <br/>
+  <%= link_to ('Back to Repository', url_for_repository(@shelf_location.repository_id)) %>
 </p>

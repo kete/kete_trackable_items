@@ -1,11 +1,9 @@
-<% form_for :repository, :url => {:action => @repository.new_record? ? 'create' : 'update', :urlified_name => @current_basket.urlified_name, :id => @repository} do |f| %>
-  <%= f.error_messages %>
+<%= f.error_messages %>
 
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+  <%= f.submit %>
+</p>

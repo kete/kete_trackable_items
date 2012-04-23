@@ -17,16 +17,16 @@
         </td> 
         <td>
           <%= link_to shelf_location.code , 
-          shelf_location_path( :id => shelf_location.id, :urlified_name => @current_basket.urlified_name ) %>
+            url_for_shelf_location(shelf_location.id) %>
         </td>
         <td>
           <%= shelf_location.status %>
         </td>
         <td>
-          <%= link_to "Edit" , edit_shelf_location_path( :id => shelf_location.id, :urlified_name => @current_basket.urlified_name ) %>
+          <%= link_to "Edit" , url_to_edit_shelf_location(shelf_location.id) %>
           |
           <%= link_to "Delete" , 
-              shelf_location_path( :id => shelf_location.id, :urlified_name => @current_basket.urlified_name ),
+              url_for_shelf_location(shelf_location.id),
               :confirm => 'Are you sure?',
               :method => :delete %>
         </td>

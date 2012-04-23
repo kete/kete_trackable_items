@@ -7,4 +7,4 @@
   </p>
 <% end %>
 
-<%= link_to ('Back to Repository', :controller => :repositories, :action => :show, :id => @repo.id, :urlified_name => @current_basket.urlified_name) %></td>
+<%= link_to ('Back to Repository', url_for_repository(@repo.id)) %>

@@ -14,6 +14,8 @@ module KeteTrackableItemsControllerHelpers
         :id => repo_id) 
     end
 
+    # Could DRY up these helper methods a bit e.g.
+    # def url_to_controller_action(controller_name, action)
     def url_to_create_repository
       url_for(
         :controller => "repositories",

@@ -97,8 +97,8 @@ module ClassMethods
 
   module InstanceMethods
     # could be called is_allocated_to_shelf ?
-    def has_shelf_location trackable_item
-
+    def has_shelf_location?
+      true
     end
     
       

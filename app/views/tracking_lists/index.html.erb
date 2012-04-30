@@ -2,16 +2,17 @@
 
 <table>
   <tr>
-    <th>Title</th>
+    <th>ID</th>
     <th></th>
     <th></th>
   </tr>
 
 <% @tracking_lists.each do |tracking_list| %>
   <tr>
-    <td><%= tracking_list.title %></td>
-    <td><%= link_to 'Show', tracking_list %></td>
-    <td><%= link_to 'Edit', edit_tracking_list_path(tracking_list) %></td>
+    <td><%= tracking_list.id %></td>
+    <td><%= link_to 'Show', url_for_tracking_list(tracking_list.id) %></td>
   </tr>
 <% end %>
 </table>
+
+<%= link_to "Create New Tracking List" , url_for_new_tracking_list %>

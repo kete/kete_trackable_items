@@ -6,6 +6,7 @@ module KeteTrackableItemsControllerHelpers
   
   module UrlFor
     
+    # Repository URLs
     def url_for_repository(repo_id)
       url_for(
         :controller => "repositories",
@@ -44,6 +45,7 @@ module KeteTrackableItemsControllerHelpers
         :urlified_name => @current_basket.urlified_name) 
     end
     
+    # Shelf Location URLs
     def url_for_shelf_location(shelf_id)
       url_for(
         :controller => "shelf_locations",
@@ -66,6 +68,22 @@ module KeteTrackableItemsControllerHelpers
         :action => :edit, 
         :urlified_name => @current_basket.urlified_name,
         :id => shelf_id) 
+    end
+
+    #Tracking List URLs
+    def url_for_tracking_list(tracking_list_id)
+      url_for(
+        :controller => "tracking_lists",
+        :action => :show, 
+        :urlified_name => @current_basket.urlified_name,
+        :id => tracking_list_id) 
+    end
+
+    def url_for_new_tracking_list
+      url_for(
+        :controller => "tracking_lists",
+        :action => :new, 
+        :urlified_name => @current_basket.urlified_name)  
     end
   end
   

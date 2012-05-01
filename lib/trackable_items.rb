@@ -98,8 +98,7 @@ module TrackableItems
   module InstanceMethods
     # could be called is_allocated_to_shelf ?
     def has_shelf_location?
-      true if self.shelf_locations.size > 1
-      false
+      if shelf_locations.size > 0
     end
 
 

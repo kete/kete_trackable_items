@@ -64,7 +64,9 @@ module TrackableItems
 
       send :include, TrackableItems::InstanceMethods
 
-      send :has_many, :shelf_locations
+      send :has_many, :trackable_item_shelf_locations, :as => :trackable_item
+      send :has_many, :shelf_locations, :through => :trackable_item_shelf_locations
+
       # not sure if it has many/what about subitems?
       send :has_one, :on_loan_organisations
 
@@ -98,10 +100,8 @@ module TrackableItems
   module InstanceMethods
     # could be called is_allocated_to_shelf ?
     def has_shelf_location?
-      true if self.shelf_locations.size > 1
-      false
+      shelf_locations.size > 1
     end
-
 
   end
 end

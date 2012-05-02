@@ -64,12 +64,13 @@ module TrackableItems
 
       send :include, TrackableItems::InstanceMethods
 
-      send :has_many, :trackable_items_shelf_locations, :as => :trackable_item
       # May be necessary: , :dependent => :delete_all
-      send :has_many, :shelf_locations, :through => :trackable_items_shelf_locations
+      send :has_many, :trackable_item_shelf_locations, :as => :trackable_item, :dependent => :delete_all
+      send :has_many, :shelf_locations, :through => :trackable_item_shelf_locations
 
       # not sure if it has many/what about subitems?
       send :has_one, :on_loan_organisations
+
 
       def description_for_tracked_item
 

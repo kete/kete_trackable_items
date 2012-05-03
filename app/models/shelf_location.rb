@@ -6,8 +6,8 @@
 
 class ShelfLocation < ActiveRecord::Base
   belongs_to :repository
-  belongs_to :trackable_item, :polymorphic => true
-  
-  # has_many :items
-
+  # you might be able to leave off the :polymorphic => true bit,
+  # though you might have to specify :source => :trackable_item perhaps
+  has_many :trackable_item_shelf_locations, :source => :trackable_item, :polymorphic => true
+  has_many :trackable_items, :through => :trackable_item_shelf_locations
 end

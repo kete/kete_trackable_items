@@ -1,0 +1,7 @@
+---
+en:
+  trackable_items:
+    helpers:
+      add_trackable_item_to_shelf: "Add item to shelf location"            
+  base:
+    shelf_locations: "Shelf locations"

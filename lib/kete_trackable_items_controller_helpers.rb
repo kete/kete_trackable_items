@@ -62,14 +62,6 @@ module KeteTrackableItemsControllerHelpers
         :id => shelf_id) 
     end
 
-    def url_to_edit_shelf_location(shelf_id)
-      url_for(
-        :controller => "shelf_locations",
-        :action => :edit, 
-        :urlified_name => @current_basket.urlified_name,
-        :id => shelf_id) 
-    end
-
     #Tracking List URLs
     def url_for_tracking_list(tracking_list_id)
       url_for(

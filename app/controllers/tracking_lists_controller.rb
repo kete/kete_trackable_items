@@ -2,24 +2,19 @@ class TrackingListsController < ApplicationController
   # Prevents the following error from showing up, common in Rails engines
   # A copy of ApplicationController has been removed from the module tree but is still active!
   unloadable
-  
-  before_filter :get_trackable_items_user
-  before_filter :get_tracking_list
-  
+
   def show
-    respond_to do |format|
-      format.html
-    end
-  end
-  
-  protected
-
-  def get_trackable_items_user
-    @trackable_items_user = User.find(params[:user_id])
+    @tracking_list = TrackingList.find(params[:id])
   end
 
-  def get_tracking_list
-    @tracking_list = @trackable_items_user.tracking_list
+  def index
+    @tracking_lists = TrackingList.all
   end
-  
+
+  def new
+    @tracking_list = TrackingList.new 
+    @tracking_list.save
+    render :action => "show",:id=>@tracking_list.id
+  end
+    
 end

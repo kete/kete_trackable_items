@@ -37,16 +37,16 @@ class TrackedItemsController < ApplicationController
   before_filter :get_user
   
   def create
-    tracked_item = @trackable_item.tracked_items.build(@trracking_list)
+    tracked_item = @trackable_item.tracked_items.build(@tracking_list)
 
     if tracked_item.save
-      redirect_to url_for_tracking_list(@trracking_list.id)
+      redirect_to url_for_tracking_list(@tracking_list.id)
     end
   end
 
 
   def destroy
-    tracked_item = @trackable_item.tracked_items.find_by_tracking_list_id(@trracking_list)
+    tracked_item = @trackable_item.tracked_items.find_by_tracking_list_id(@tracking_list)
     tracked_item.destroy unless tracked_item.nil?
   end
 
@@ -58,7 +58,7 @@ class TrackedItemsController < ApplicationController
   end
   
   def get_tracking_list
-    @trracking_list ||= TrackingList.find_by_id(params[:tracking_list_id])
+    @tracking_list ||= TrackingList.find_by_id(params[:tracking_list_id])
   end
     
   def get_user

@@ -1,6 +1,6 @@
-class TrackableItemsShelfLocations < ActiveRecord::Migration
+class CreateTrackableItemShelfLocations < ActiveRecord::Migration
   def self.up
-    create_table :trackable_items_shelf_locations do |t|
+    create_table :trackable_item_shelf_locations do |t|
       t.integer :shelf_location_id, :null => false
       t.integer :trackable_item_id, :null => false
       t.string :trackable_item_type, :null => false
@@ -10,6 +10,6 @@ class TrackableItemsShelfLocations < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :trackable_items_shelf_locations
+    drop_table :trackable_item_shelf_locations
   end
 end

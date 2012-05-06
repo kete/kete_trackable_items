@@ -10,7 +10,7 @@ require "active_record"
 # possible states:
 # => allocated, display, held_out, on_loan_organisation,  (specified from external data source?)
 
-module TrackableItems
+module TrackableItem
   def self.included(base)
     base.extend(ClassMethods)
 
@@ -56,13 +56,13 @@ module TrackableItems
   end
 
   module ClassMethods
-    def set_up_trackable_items(*args)
+    def set_up_as_trackable_item(*args)
       options = args.last.is_a?(Hash) ? args.pop : Hash.new
 
       # don't allow multiple calls
-      return if self.included_modules.include?(TrackableItems::InstanceMethods)
+      return if self.included_modules.include?(TrackableItem::InstanceMethods)
 
-      send :include, TrackableItems::InstanceMethods
+      send :include, TrackableItem::InstanceMethods
 
       # May be necessary: , :dependent => :delete_all
       send :has_many, :trackable_item_shelf_locations, :as => :trackable_item, :dependent => :delete_all

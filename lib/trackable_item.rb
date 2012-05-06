@@ -72,6 +72,9 @@ module TrackableItem
       # not sure if it has many/what about subitems?
       send :has_one, :on_loan_organisations
 
+      # set up the ability to be added to a tracking list, etc.
+      has_many :tracked_items, :as => :trackable_item, :dependent => :delete_all
+      send :has_many, :tracking_lists, :through => :tracked_items
 
       def description_for_tracked_item
 

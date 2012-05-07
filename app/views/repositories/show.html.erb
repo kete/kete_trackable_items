@@ -1,18 +1,19 @@
-<h1>
-  Repository: <%= @repository.name %>
-</h1>
+<% @title = t('.title', :name => h(@repository.name)) -%>
+
+<h2><%= @title -%></h2>
 
 <%= render :partial => 'shelf_locations/shelf_locations', :locals => { :repository => @repository } -%>
 
 <p>
-  <%= link_to "Create New Shelf Location", new_repository_shelf_location_url(:repository_id => @repository) %>
+  <%= link_to t('.add_shelf_location'), new_repository_shelf_location_url(:repository_id => @repository) %>
 </p>
+
 <p>
-  <%= link_to 'Edit', edit_repository_url(:id => @repository) %>
+  <%= link_to t('.edit'), edit_repository_url(:id => @repository) %>
   | 
-  <%= link_to 'Delete', repository_url(:id => @repository),
-        :confirm => 'Are you sure?',
+  <%= link_to t('.delete'), repository_url(:id => @repository),
+        :confirm => t('.are_you_sureg'),
         :method => :delete  %>
   <br/>
-  <%= link_to 'Back to Repository Listing', repositories_url %>
+  <%= link_to t('.back_to_repositories'), repositories_url %>
 </p>

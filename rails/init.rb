@@ -1,4 +1,4 @@
-ActionController::Base.send(:helper, KeteTrackableItemsHelper)
+ActionController::Base.send(:helper, TrackableItemsHelper)
 
 config.to_prepare do
   # load our locales

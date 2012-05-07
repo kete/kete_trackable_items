@@ -1,7 +1,9 @@
-<h1>Editing repository</h1>
+<% @title = t('.edit_repository') -%>
+
+<h2><%= @title -%></h2>
 
 <% form_for @repository, :url => repository_url(:id => @repository,  :method => :put) do |f| %>
-  <%= render :partial => 'form',:locals=> {:f => f} %>
+  <%= render :partial => 'form', :locals=> { :f => f } %>
 <% end %>
 
-<%= link_to 'Back to Repository Listing', repositories_path %>
+<%= link_to t('.back_to_repositories'), repositories_path %>

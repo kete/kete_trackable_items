@@ -1,9 +1,14 @@
+<% @submit_text = @repository.new_record? ? t('.create') : t('.save') -%>
+
 <%= f.error_messages %>
 
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-<p>
-  <%= f.submit %>
-</p>
+<fieldset>
+  <div class="form-element">
+    <%= f.label :name %>
+    <%= f.text_field :name, { :tabindex => '1', :label => t('.name_field'), :required => true } %>
+  </div>
+</fieldset>
+
+<div class="wrap">
+  <%= f.submit @submit_text, { :class => "save-button", :tabindex => '1' } -%>
+</div>

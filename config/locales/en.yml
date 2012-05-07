@@ -1,7 +1,61 @@
 ---
 en:
-  trackable_items:
-    helpers:
-      add_trackable_item_to_shelf: "Add item to shelf location"            
   base:
-    shelf_locations: "Shelf locations"
+    repository: "repository"
+    shelf_location: "shelf location"
+    shelf_locations: "{{t.base.shelf_location.pluralize}}"
+    status: "status"
+  trackable_items_helper:
+    add_item_to_shelf_location: "{{t.base.add.capitalize}} to {{t.base.shelf_location}}"
+  repositories:
+    edit:
+      back_to_repositories: "{{t.base.back.capitalize}} {{t.base.repository.pluralize}}"
+      edit_repository: "{{t.base.edit.capitalize}} {{t.base.repository}}"
+    form:
+      create: "{{t.base.create}}"
+      name_field: "{{t.base.name}}"
+      save: "{{t.base.save}}"
+    index:
+      edit: "{{t.base.edit.capitalize}}"
+      name: "{{t.base.name.capitalize}}"
+      new: "{{t.base.new.capitalize}} {{t.base.repository}}"
+      show: "{{t.base.show.capitalize}}"
+      title: "{{t.base.repository.pluralize.capitalize}}"
+    new:
+      back_to_repositories: "{{t.base.back.capitalize}} {{t.base.repository.pluralize}}"
+      title: "{{t.base.new.capitalize}} {{t.base.repository}}"
+    show:
+      add_shelf_location: "{{t.base.add.capitalize}} {{t.base.shelf_location}}"
+      are_you_sure: "{{t.base.are_you_sure}}"
+      back_to_repositories: "{{t.base.back.capitalize}} {{t.base.repository.pluralize}}"
+      edit: "{{t.base.edit.capitalize}}"
+      delete: "{{t.base.delete.capitalize}}"
+      title: "{{t.base.repository.capitalize}}: {{name}}"
+  shelf_locations:
+    form:
+      code: "{{t.base.code}}"
+      create: "{{t.base.create}}"
+      save: "{{t.base.save}}"
+    edit:
+      back_to: "{{t.base.back.capitalize}} to {{name}}"
+      title: "{{t.base.edit.capitalize}} {{t.base.shelf_location}} for {{name}} {{t.base.repository}}"
+    index:
+      title: "{{name}} {{t.base.shelf_locations}}"
+    new:
+      back_to: "{{t.base.back.capitalize}} to {{name}}"
+      title: "{{t.base.new.capitalize}} {{t.base.shelf_location}} for {{name}} {{t.base.repository}}"
+    shelf_location:
+      are_you_sure: "{{t.base.are_you_sure}}"
+      edit: "{{t.base.edit.capitalize}}"
+      delete: "{{t.base.delete.capitalize}}"
+    shelf_locations:
+      action: "Action"
+      code: "{{t.base.code.capitalize}}"
+      status: "{{t.base.status.capitalize}}"
+    show:
+      are_you_sure: "{{t.base.are_you_sure}}"
+      back_to: "{{t.base.back.capitalize}} to {{name}}"
+      edit: "{{t.base.edit.capitalize}}"
+      delete: "{{t.base.delete.capitalize}}"
+      status: "{{t.base.status.capitalize}}"
+      title: "{{code}} {{t.base.shelf_location}} for {{name}} {{t.base.repository}}"

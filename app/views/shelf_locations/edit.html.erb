@@ -1,16 +1,9 @@
-<h1>Edit Shelf Location</h1>
+<% @title = t('.title', :name => h(@repository.name)) -%>
 
-<% form_for(@shelf_location, 
-      :url => repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository),
-      :method => :put
-    ) do |f| %>
+<h2><%= @title -%></h2>
 
+<% form_for(@shelf_location, :url => repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository), :method => :put ) do |f| %>
   <%= render :partial => "form", :locals => { :f => f, :repository => @repository } %>
-  <p>
-    <%= f.submit 'Update Shelf Location' %>
-    <br />
-    <br />
-    <%= link_to ('Back to Repository', repository_url(:id => @repository)) %>
-  </p>
 <% end %>
 
+<%= link_to t('.back_to', :name => h(@repository.name)), repository_url(:id => @repository) %>

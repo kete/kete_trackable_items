@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = KeteTrackableItems::VERSION
   s.authors     = ["Walter McGinnis", "Noel Gomez", "Chris Toynbee"]
   s.email       = ["ctoynbee@gmail.com","walter@katipo.co.nz"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/kete/kete_trackable_items"
   s.summary     = %Q{A Rails engine gem that works in conjunction with kete_gets_trollied to track where an item (with a corresponding physical archive) is physically located.}
   s.description = %Q{A Kete application add-on that allows for tracking the location of an item in a physical archive that corresponds to the item in the Kete application.} 
 

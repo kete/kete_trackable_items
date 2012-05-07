@@ -10,12 +10,12 @@
 <% @repositories.each do |repository| %>
   <tr>
     <td><%= repository.name %></td>
-    <td><%= link_to ('Show', url_for_repository(repository.id)) %></td>
-    <td><%= link_to ('Edit', url_to_edit_repository(repository.id)) %></td>
+    <td><%= link_to ('Show', repository_url(:id => repository)) %></td>
+    <td><%= link_to ('Edit', edit_repository_url(:id => repository)) %></td>
 
   </tr>
 <% end %>
 </table>
 
 <br />
-<%= link_to "Create New Repository" , url_for_new_repository %>
+<%= link_to "Create New Repository" , new_repository_url %>

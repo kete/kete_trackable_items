@@ -1,10 +1,10 @@
 <h1>New Shelf Location</h1>
 
-<% form_for(@shelf_location) do |f| %>
-  <%= render :partial => "form", :locals => { :f => f,:repo => @repo } %>
+<% form_for @shelf_location, :url => repository_shelf_locations_url(:repository_id => @repository, :method => :post) do |f| %>
+  <%= render :partial => "form", :locals => { :f => f, :repository => @repository } %>
   <p>
     <%= f.submit 'Create Shelf Location' %>
   </p>
 <% end %>
 
-<%= link_to ('Back to Repository', url_for_repository(@repo.id)) %>
+<%= link_to ('Back to Repository', repository_url(:id => @repository)) %>

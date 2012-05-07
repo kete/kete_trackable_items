@@ -1,4 +1,3 @@
-ActionController::Base.send(:include, KeteTrackableItemsControllerHelpers)
 ActionController::Base.send(:helper, KeteTrackableItemsHelper)
 
 config.to_prepare do

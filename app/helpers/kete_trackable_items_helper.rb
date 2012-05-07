@@ -1,6 +1,4 @@
 module KeteTrackableItemsHelper
-  include KeteTrackableItemsControllerHelpers::UrlFor
-
   # wrapped in a div to allow for styling the form to be inline
   def button_to_place_in_shelf_location(trackable_item)
     "<div class=\"add-to-shelf-location\">" +

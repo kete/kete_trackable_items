@@ -1,17 +1,14 @@
-<h3>
-  Repository: <%= @shelf_location.repository.name %>
-  |
-  Shelf Location: <%= @shelf_location.code %>
-</h3>
+<p>Repository: <%= @repository.name %></p>
+<p>Code: <%= @shelf_location.code %></p>
 <p>
   Status: <%= @shelf_location.status %>
 </p>
 <p>
-  <%= link_to 'Edit', url_to_edit_shelf_location(@shelf_location.id) %>
+  <%= link_to 'Edit', repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository) %>
   | 
-  <%= link_to 'Delete', url_for_shelf_location(@shelf_location.id),
+  <%= link_to 'Delete', repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository),
         :confirm => 'Are you sure?',
         :method => :delete  %>
   <br/>
-  <%= link_to ('Back to Repository', url_for_repository(@shelf_location.repository_id)) %>
+  <%= link_to ('Back to Repository', repository_url(:id => @repository)) %>
 </p>

@@ -1,6 +1,6 @@
 <h1>Editing repository</h1>
 
-<% form_for @repository, :url => url_to_update_repository(@repository.id) do |f| %>
+<% form_for @repository, :url => repository_url(:id => @repository,  :method => :put) do |f| %>
   <%= render :partial => 'form',:locals=> {:f => f} %>
 <% end %>
 

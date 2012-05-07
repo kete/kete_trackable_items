@@ -1,9 +1,8 @@
 <%= f.error_messages %>
 
-<p>
-  <%= "Repository: #{@repo.name}" %>
+<p>Repository: 
+  <%= h(@repository.name) -%>
 </p>
-<%= f.hidden_field :repository_id, :value => @repo.id %>
 
 <p>
   <%= f.label :code %><br />

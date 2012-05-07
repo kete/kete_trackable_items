@@ -23,7 +23,7 @@ class RepositoriesController < ApplicationController
     @repository = Repository.new(params[:repository])
 
     if @repository.save
-      redirect_to url_for_repository(@repository.id)
+      redirect_to repository_url(:id => @repository)
     else
       render :action => 'new'
     end
@@ -33,7 +33,7 @@ class RepositoriesController < ApplicationController
     @repository = Repository.find(params[:id])
 
     if @repository.update_attributes(params[:repository])
-      redirect_to url_for_repository(@repository.id)
+      redirect_to repository_url(:id => @repository)
     else
       render :action => 'edit'
     end

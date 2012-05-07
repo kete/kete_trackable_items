@@ -1,0 +1,17 @@
+<tr>
+  <td>
+    <%= link_to shelf_location.code , 
+        repository_shelf_location_url(:id => shelf_location, :repository_id => shelf_location.repository) %>
+  </td>
+  <td>
+    <%= shelf_location.status %>
+  </td>
+  <td>
+    <%= link_to "Edit" , edit_repository_shelf_location_url(:id => shelf_location, :repository_id => shelf_location.repository) %>
+    |
+    <%= link_to "Delete" , 
+        repository_shelf_location_url(:id => shelf_location, :repository_id => shelf_location.repository),
+    :confirm => 'Are you sure?',
+    :method => :delete %>
+  </td>
+</tr>

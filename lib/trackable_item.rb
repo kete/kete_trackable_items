@@ -52,16 +52,16 @@ module TrackableItem
 
       send :include, TrackableItem::InstanceMethods
 
-      # May be necessary: , :dependent => :delete_all
+      # associations to support allocating a trackable_item to a shelf_location or shelf_locations
       send :has_many, :trackable_item_shelf_locations, :as => :trackable_item, :dependent => :delete_all
       send :has_many, :shelf_locations, :through => :trackable_item_shelf_locations
 
-      # not sure if it has many/what about subitems?
-      send :has_one, :on_loan_organisations
-
-      # set up the ability to be added to a tracking list, etc.
+      # associations to support adding a trackable_item to a tracking_list
       send :has_many, :tracked_items, :as => :trackable_item, :dependent => :delete_all
       send :has_many, :tracking_lists, :through => :tracked_items
+
+      # when a trackable_item is in 'on_loan' state, which on_loan_organization is it on loan to?
+      send :has_one, :on_loan_organisations
     end
   end
 

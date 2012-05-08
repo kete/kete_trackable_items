@@ -14,21 +14,21 @@ module TrackableItem
         state :on_shelf do
           event :display, :transitions_to => :displayed
           event :hold_out, :transitions_to => :held_out
-          event :loan, :transitions_to => :on_loan_to_organisation
+          event :loan, :transitions_to => :on_loan_to_organization
         end
 
         state :displayed do
           event :hold_out, :transitions_to => :held_out
-          event :loan, :transitions_to => :on_loan_to_organisation
+          event :loan, :transitions_to => :on_loan_to_organization
           event :queue_for_refiling, :transitions_to => :to_be_refiled
         end
 
         state :held_out do
-          event :loan, :transitions_to => :on_loan_to_organisation
+          event :loan, :transitions_to => :on_loan_to_organization
           event :queue_for_refiling, :transitions_to => :to_be_refiled
         end
 
-        state :on_loan_to_organisation do
+        state :on_loan_to_organization do
           event :display, :transitions_to => :displayed
           event :hold_out, :transitions_to => :held_out
           event :queue_for_refiling, :transitions_to => :to_be_refiled
@@ -61,7 +61,7 @@ module TrackableItem
       send :has_many, :tracking_lists, :through => :tracked_items
 
       # when a trackable_item is in 'on_loan' state, which on_loan_organization is it on loan to?
-      send :has_one, :on_loan_organisations
+      send :has_one, :on_loan_organization
     end
   end
 

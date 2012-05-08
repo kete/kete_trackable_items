@@ -17,12 +17,12 @@ module TrackableItem
     base.class_eval do
       include Workflow
       workflow do
-        state :waiting_to_be_on_shelf do
-          event :put_on_shelf, :transitions_to => :on_shelf
+        state :unallocated do
+          event :allocate, :transitions_to => :on_shelf
         end
 
         state :on_shelf do
-          event :put_on_display, :transitions_to => :displayed
+          event :display, :transitions_to => :displayed
           event :hold_out, :transitions_to => :held_out
           event :loan, :transitions_to => :on_loan_to_organisation
         end
@@ -30,26 +30,25 @@ module TrackableItem
         state :displayed do
           event :hold_out, :transitions_to => :held_out
           event :loan, :transitions_to => :on_loan_to_organisation
-          event :make_ready_to_refile, :transitions_to => :waiting_to_be_refiled
+          event :queue_for_refiling, :transitions_to => :to_be_refiled
         end
 
         state :held_out do
           event :loan, :transitions_to => :on_loan_to_organisation
-          event :make_ready_to_refile, :transitions_to => :waiting_to_be_refiled
+          event :queue_for_refiling, :transitions_to => :to_be_refiled
         end
 
         state :on_loan_to_organisation do
-          event :put_on_display, :transitions_to => :displayed
+          event :display, :transitions_to => :displayed
           event :hold_out, :transitions_to => :held_out
-          event :make_ready_to_refile, :transitions_to => :waiting_to_be_refiled
+          event :queue_for_refiling, :transitions_to => :to_be_refiled
         end
 
         # This looks like it might be a state too or a substate of one of the others
-        state :waiting_to_be_refiled do
-          event :put_on_shelf, :transitions_to => :on_shelf
+        state :to_be_refiled do
+          event :refile, :transitions_to => :on_shelf
           # Not sure if it makes sense to be able to go to any other states from here
         end
-
       end
     end
 

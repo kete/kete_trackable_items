@@ -61,7 +61,7 @@ module TrackableItem
       send :has_many, :tracking_lists, :through => :tracked_items
 
       # when a trackable_item is in 'on_loan' state, which on_loan_organization is it on loan to?
-      send :has_one, :on_loan_organization
+      send :belongs_to, :on_loan_organization
     end
   end
 

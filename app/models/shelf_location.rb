@@ -8,6 +8,8 @@ class ShelfLocation < ActiveRecord::Base
   belongs_to :repository
   has_many :trackable_item_shelf_locations
 
+  validates_uniqueness_of :code, :case_sensitive => false, :scope => :repository_id
+
   # returns a hash with trackable_item_type as key
   # and array of ids for that type as value
   def trackable_items_types_and_ids

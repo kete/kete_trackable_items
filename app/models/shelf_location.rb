@@ -5,10 +5,32 @@
 # relationship between trackable_item and shelf_location is polymorphic ??
 
 class ShelfLocation < ActiveRecord::Base
+  include KeteTrackableItems::WorkflowUtilities
+
   belongs_to :repository
   has_many :trackable_item_shelf_locations
 
   validates_uniqueness_of :code, :case_sensitive => false, :scope => :repository_id
+
+  workflow do
+    state :available do
+      event :allocate, :transitions_to => :allocated
+      event :deactivate, :transitions_to => :deactivated
+    end
+   
+    state :allocated do
+      # probably want to create an instance method for clear_out
+      # that destroys all trackable_item_shelf_locations
+      event :clear_out, :transitions_to => :available
+      event :deactivate, :transitions_to => :deactivated
+    end
+
+    state :deactivated do
+      event :reactivate, :transitions_to => :available
+    end
+  end
+
+  set_up_workflow_named_scopes.call
 
   # returns a hash with trackable_item_type as key
   # and array of ids for that type as value

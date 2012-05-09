@@ -3,8 +3,10 @@ class TrackingListsController < ApplicationController
   # A copy of ApplicationController has been removed from the module tree but is still active!
   unloadable
 
+  before_filter :set_repository
+  before_filter :set_tracking_list, :except => [:index, :create, :new]
+
   def show
-    @tracking_list = TrackingList.find(params[:id])
   end
 
   def index
@@ -12,7 +14,7 @@ class TrackingListsController < ApplicationController
   end
 
   def create
-    @tracking_list = @trackable_item.tracked_items.build(@tracking_list)
+    @tracking_list = @repository.tracking_lists.build(params[:tracking_list])
 
     if @tracking_list.save
       redirect_to tracking_list_url(:id => @tracking_list)
@@ -20,11 +22,19 @@ class TrackingListsController < ApplicationController
   end
 
   def destroy
-    tracked_item = @trackable_item.tracked_items.find_by_tracking_list_id(@tracking_list)
-    tracked_item.destroy unless tracked_item.nil?
+    @tracking_list.destroy
 
     # TODO: this redirect may need to redirect a different place in some contexts
     redirect_to tracking_list_url(:id => @tracking_list)
   end
-    
+
+  private
+
+  def set_repository
+    @repository = Repository.find(params[:repository_id])
+  end
+
+  def set_tracking_list
+    @tracking_list = @repository.tracking_lists.find(params[:id])
+  end
 end

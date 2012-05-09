@@ -6,6 +6,6 @@ class Repository < ActiveRecord::Base
   # otherwise must be associated to the basket we are within
   belongs_to :basket
 
-  has_many :shelf_locations
-    
+  has_many :shelf_locations, :dependent => :destroy
+  has_many :tracking_lists, :dependent => :destroy
 end

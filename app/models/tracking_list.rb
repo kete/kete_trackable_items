@@ -2,6 +2,7 @@ class TrackingList < ActiveRecord::Base
   include Workflow
   include KeteTrackableItems::WorkflowUtilities
 
+  belongs_to :repository
   has_many :tracked_items, :dependent => :destroy
 
   # set up workflow states, some are shared with trackable_items

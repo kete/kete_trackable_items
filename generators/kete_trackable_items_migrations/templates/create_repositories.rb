@@ -1,7 +1,8 @@
 class CreateRepositories < ActiveRecord::Migration
   def self.up
     create_table :repositories do |t|
-      t.text :name, :null => false
+      t.string :name, :null => false
+
       t.timestamps
     end
   end

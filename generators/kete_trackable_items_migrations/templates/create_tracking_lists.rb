@@ -1,8 +1,9 @@
 class CreateTrackingLists < ActiveRecord::Migration
   def self.up
     create_table :tracking_lists do |t|
-      # Could add this later
-      #t.order_id :integer
+      t.integer :repository_id, :null => false
+      t.string :workflow_state, :default => 'new', :null => false
+
       t.timestamps
     end
   end

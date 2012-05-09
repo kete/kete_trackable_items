@@ -11,7 +11,7 @@ en:
     already_in_tracking_list: "This item is already in this tracking list"
   repositories:
     edit:
-      back_to_repositories: "{{t.base.back.capitalize}} {{t.base.repository.pluralize}}"
+      back_to_repositories: "{{t.base.back.capitalize}} to {{t.base.repository.pluralize}}"
       edit_repository: "{{t.base.edit.capitalize}} {{t.base.repository}}"
     form:
       create: "{{t.base.create}}"
@@ -24,12 +24,12 @@ en:
       show: "{{t.base.show.capitalize}}"
       title: "{{t.base.repository.pluralize.capitalize}}"
     new:
-      back_to_repositories: "{{t.base.back.capitalize}} {{t.base.repository.pluralize}}"
+      back_to_repositories: "{{t.base.back.capitalize}} to {{t.base.repository.pluralize}}"
       title: "{{t.base.new.capitalize}} {{t.base.repository}}"
     show:
       add_shelf_location: "{{t.base.add.capitalize}} {{t.base.shelf_location}}"
       are_you_sure: "{{t.base.are_you_sure}}"
-      back_to_repositories: "{{t.base.back.capitalize}} {{t.base.repository.pluralize}}"
+      back_to_repositories: "{{t.base.back.capitalize}} to {{t.base.repository.pluralize}}"
       edit: "{{t.base.edit.capitalize}}"
       delete: "{{t.base.delete.capitalize}}"
       title: "{{t.base.repository.capitalize}}: {{name}}"

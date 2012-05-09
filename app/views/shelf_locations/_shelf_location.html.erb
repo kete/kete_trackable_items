@@ -4,7 +4,7 @@
         repository_shelf_location_url(:id => shelf_location, :repository_id => shelf_location.repository) %>
   </td>
   <td>
-    <%= shelf_location.status %>
+    <%= shelf_location.current_state_humanized -%>
   </td>
   <td>
     <%= link_to t('.edit') , edit_repository_shelf_location_url(:id => shelf_location, :repository_id => shelf_location.repository) %>

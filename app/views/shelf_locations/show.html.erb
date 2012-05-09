@@ -2,7 +2,7 @@
 
 <h2><%= @title -%></h2>
 
-<p><%= t('.status') -%>: <%= @shelf_location.status %></p>
+<p><%= t('.status') -%>: <%= @shelf_location.current_state_humanized -%></p>
 
 <p>
   <%= link_to t('.edit') , edit_repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository) %>

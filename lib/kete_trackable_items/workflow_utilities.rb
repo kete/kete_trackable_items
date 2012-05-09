@@ -3,7 +3,7 @@ module KeteTrackableItems
     def self.included(base)
       base.send :include, Workflow
       base.extend(ClassMethods)
-      # base.send :include, InstanceMethods
+      base.send :include, InstanceMethods
     end
     
     # mostly grabbed from trollied, would be nice if split into shared lib
@@ -85,7 +85,10 @@ module KeteTrackableItems
       end
     end
 
-    # module InstanceMethods
-    # end
+    module InstanceMethods
+      def current_state_humanized
+        current_state.name.to_s.humanize
+      end
+    end
   end
 end

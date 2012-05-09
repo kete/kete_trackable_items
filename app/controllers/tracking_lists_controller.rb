@@ -11,10 +11,20 @@ class TrackingListsController < ApplicationController
     @tracking_lists = TrackingList.all
   end
 
-  def new
-    @tracking_list = TrackingList.new 
-    @tracking_list.save
-    render :action => "show",:id=>@tracking_list.id
+  def create
+    @tracking_list = @trackable_item.tracked_items.build(@tracking_list)
+
+    if @tracking_list.save
+      redirect_to tracking_list_url(:id => @tracking_list)
+    end
+  end
+
+  def destroy
+    tracked_item = @trackable_item.tracked_items.find_by_tracking_list_id(@tracking_list)
+    tracked_item.destroy unless tracked_item.nil?
+
+    # TODO: this redirect may need to redirect a different place in some contexts
+    redirect_to tracking_list_url(:id => @tracking_list)
   end
     
 end

@@ -62,7 +62,7 @@ module KeteTrackableItems
         '
       end
 
-      def set_up_workflow_name_scopes
+      def set_up_workflow_named_scopes
         Proc.new {
           # create a named_scope for each of our declared states
           workflow_spec.state_names.each do |name|

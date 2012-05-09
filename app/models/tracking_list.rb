@@ -4,7 +4,10 @@ class TrackingList < ActiveRecord::Base
 
   has_many :tracked_items, :dependent => :destroy
 
-  workflow do
+  # set up workflow states, some are shared with trackable_items
+  shared_code_as_string = shared_tracking_workflow_specs_as_string
+  
+  specification = Proc.new {
     state :new do
       event :display, :transitions_to => :displayed
       event :hold_out, :transitions_to => :held_out
@@ -12,11 +15,13 @@ class TrackingList < ActiveRecord::Base
       event :queue_for_refiling, :transitions_to => :to_be_refiled
     end
     
-    eval(shared_tracking_workflow_specs_as_string)
+    eval(shared_code_as_string)
 
     state :cancelled
     state :completed
-  end
+  }
+  
+  workflow(&specification)
 
   set_up_workflow_named_scopes.call
 end

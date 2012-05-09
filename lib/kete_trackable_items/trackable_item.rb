@@ -45,7 +45,7 @@ module KeteTrackableItems
 
           workflow(&specification)
 
-          set_up_workflow_name_scopes.call
+          set_up_workflow_named_scopes.call
         end
       end
     end

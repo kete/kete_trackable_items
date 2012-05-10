@@ -52,7 +52,7 @@ module KeteTrackableItems
 
     module InstanceMethods
       # could be called is_allocated_to_shelf ?
-      def has_shelf_location?
+      def has_shelf_locations?
         shelf_locations.size > 1
       end
 

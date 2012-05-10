@@ -7,10 +7,6 @@ en:
     status: "status"
     tracking_list: "tracking list"
     tracking_lists: "{{t.base.tracking_list.pluralize}}"
-  trackable_items_helper:
-    add_item_to_shelf_location: "{{t.base.add.capitalize}} to {{t.base.shelf_location}}"
-  tracked_item:
-    already_in_tracking_list: "This item is already in this tracking list"
   repositories:
     edit:
       back_to_repositories: "{{t.base.back.capitalize}} to {{t.base.repository.pluralize}}"
@@ -63,6 +59,10 @@ en:
       delete: "{{t.base.delete.capitalize}}"
       status: "{{t.base.status.capitalize}}"
       title: "{{code}} {{t.base.shelf_location}} for {{name}} {{t.base.repository}}"
+  trackable_items_helper:
+    add_to_shelf_location: "{{t.base.add.capitalize}} to {{t.base.shelf_location}}"
+  tracked_item:
+    already_in_tracking_list: "This item is already in this tracking list"
   tracking_lists:
     index:
       back_to: "{{t.base.back.capitalize}} to {{name}}"

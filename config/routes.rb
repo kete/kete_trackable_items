@@ -2,5 +2,5 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :tracked_items, :path_prefix => ':urlified_name', :only => [:create]
   map.resources :trackable_item_shelf_locations, :path_prefix => ':urlified_name', :only => [:create]
-  map.resources :repositories, :path_prefix => ':urlified_name', :has_many => :shelf_locations, :has_many => :tracking_lists
+  map.resources :repositories, :path_prefix => ':urlified_name', :has_many => [:shelf_locations, :tracking_lists]
 end

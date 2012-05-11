@@ -12,7 +12,7 @@ class RepositoriesController < ApplicationController
   permit "site_admin or admin of :site_basket or moderator of :current_basket or admin of :current_basket", :only => READABLE_ACTIONS
 
   def index
-    @repositories = @current_basket == @site_basket ? Repository.all : @current_basket.repositories
+    @repositories = appropriate_repositories_for_basket
   end
 
   def show

@@ -4,7 +4,13 @@ class TrackableItemShelfLocationsController < ApplicationController
   unloadable
 
   def new
+    if params[:trackable_item].present?
+      @trackable_item = params[:trackable_item][:type].constantize.find(params[:trackable_item][:id])
+    end
+
     @repositories = appropriate_repositories_for_basket
+
+    @trackable_item_shelf_location = @trackable_item ? @trackable_item.trackable_item_shelf_locations.build : TrackableItemShelfLocation.new
   end
   
   def create

@@ -1,11 +1,12 @@
 ---
 en:
   base:
-    repository: "repository"
-    shelf_location: "shelf location"
+    allocate: allocate
+    repository: repository
+    shelf_location: shelf location
     shelf_locations: "{{t.base.shelf_location.pluralize}}"
-    status: "status"
-    tracking_list: "tracking list"
+    status: status
+    tracking_list: tracking list
     tracking_lists: "{{t.base.tracking_list.pluralize}}"
   repositories:
     edit:
@@ -61,6 +62,11 @@ en:
       title: "{{code}} {{t.base.shelf_location}} for {{name}} {{t.base.repository}}"
   trackable_items_helper:
     add_to_shelf_location: "{{t.base.add.capitalize}} to {{t.base.shelf_location}}"
+  trackable_item_shelf_locations:
+    new:
+      back_to: "{{t.base.back.capitalize}} to {{name}}"
+      create: "{{t.base.create}}"
+      title: "{{t.base.allocate.capitalize}}"
   tracked_item:
     already_in_tracking_list: "This item is already in this tracking list"
   tracking_lists:

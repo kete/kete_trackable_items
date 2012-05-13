@@ -3,11 +3,15 @@ module TrackableItemsHelper
   def button_to_place_in_shelf_location(trackable_item)
     # whether we should redirect to site basket or not
     # if no repositories are associated with this basket, specify site
-    button_url = @current_basket.repositories.count < 1 ? new_trackable_item_shelf_location_url(:urlified_name => @site_basket.urlified_name) : new_trackable_item_shelf_location_url
+
+    options = { :trackable_item => { :id => trackable_item.id,
+        :type => trackable_item.class.name } }
+
+    options[:urlified_name] = @site_basket.urlified_name if @current_basket.repositories.count < 1
 
     "<div class=\"add-to-shelf-location\">" +
       button_to(t('trackable_items_helper.add_to_shelf_location'),
-                button_url) +
+                new_trackable_item_shelf_location_url(options)) +
       "</div>"
   end
 

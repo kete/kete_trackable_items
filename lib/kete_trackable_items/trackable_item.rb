@@ -17,14 +17,15 @@ module KeteTrackableItems
 
         # associations to support allocating a trackable_item to a shelf_location or shelf_locations
         send :has_many, :trackable_item_shelf_locations, :as => :trackable_item, :dependent => :delete_all
-        send :has_many, :shelf_locations, :through => :trackable_item_shelf_locations
-
+        send :has_many, :shelf_locations, :through => :trackable_item_shelf_locations, :conditions => "trackable_item_shelf_locations.workflow_state = 'active'"
         # associations to support adding a trackable_item to a tracking_list
         send :has_many, :tracked_items, :as => :trackable_item, :dependent => :delete_all
         send :has_many, :tracking_lists, :through => :tracked_items
 
         # when a trackable_item is in 'on_loan' state, which on_loan_organization is it on loan to?
         send :belongs_to, :on_loan_organization
+
+        self.non_versioned_columns << "on_loan_organization_id"
 
         cattr_accessor :described_as_in_tracking_list
         self.described_as_in_tracking_list = options[:described_as] || :title
@@ -47,6 +48,8 @@ module KeteTrackableItems
 
           set_up_workflow_named_scopes.call
         end
+
+        self.non_versioned_columns << "workflow_state"
       end
     end
 
@@ -60,8 +63,10 @@ module KeteTrackableItems
         send(self.class.described_as_in_tracking_list)
       end
 
-      # TODO: add workflow triggered methods that run when corresponding event is triggered
-      # as necessary
+      # add workflow triggered methods that run when corresponding event is triggered as necessary
+      def new_allocation
+        allocate!
+      end
     end
   end
 end

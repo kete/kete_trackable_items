@@ -29,7 +29,7 @@ class ShelfLocation < ActiveRecord::Base
   # returns a hash with trackable_item_type as key
   # and array of ids for that type as value
   def trackable_items_types_and_ids
-    @trackable_items_types_and_ids = trackable_item_shelf_locations.inject(Hash.new) do |result, mapping_object|
+    @trackable_items_types_and_ids = trackable_item_shelf_locations.with_state_active.inject(Hash.new) do |result, mapping_object|
       type_key = mapping_object.trackable_item_type
       item_id = mapping_object.trackable_item_id
 
@@ -53,4 +53,7 @@ class ShelfLocation < ActiveRecord::Base
     @trackable_items
   end
 
+  def new_allocation
+    allocate!
+  end
 end

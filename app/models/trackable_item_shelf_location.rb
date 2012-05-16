@@ -1,6 +1,8 @@
 class TrackableItemShelfLocation < ActiveRecord::Base
   include KeteTrackableItems::WorkflowUtilities
 
+  after_create :update_state_of_shelf_location_and_trackable_item
+
   belongs_to :shelf_location
   belongs_to :trackable_item, :polymorphic => true
 
@@ -25,4 +27,11 @@ class TrackableItemShelfLocation < ActiveRecord::Base
   end
 
   set_up_workflow_named_scopes.call
+
+  private
+  
+  def update_state_of_shelf_location_and_trackable_item
+    shelf_location.new_allocation
+    trackable_item.new_allocation
+  end
 end

@@ -39,7 +39,7 @@ module TrackableItemsHelper
         shelf_locations_count += 1
       end
 
-      html += '</div>'
+      html += '</ul>'
     end
 
     html += button_to_place_in_shelf_location(trackable_item, additional)

@@ -1,3 +1,4 @@
+<% shelf_locations = repository.shelf_locations if shelf_locations.blank? -%>
 <table>
   <thead>
     <tr>
@@ -7,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= render repository.shelf_locations %>
+    <%= render shelf_locations %>
   </tbody>
 
 </table>

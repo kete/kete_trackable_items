@@ -7,6 +7,23 @@ class ShelfLocationsController < ApplicationController
   before_filter :set_shelf_location, :except => [:index, :create, :new]
 
   def index
+    if params[:code_pattern].present?
+      @code_pattern = params[:code_pattern]
+      pattern_for_sql = @code_pattern.downcase + '%'
+      @shelf_locations = @repository.shelf_locations.find(:all,
+                                                          :conditions => ["LOWER(code) like :pattern_for_sql",
+                                                                          { :pattern_for_sql => pattern_for_sql }])
+    else
+      @shelf_locations = @repository.shelf_locations      
+    end
+
+    respond_to do |format|
+      format.html
+      format.json  { render :json => @shelf_locations }
+      format.js do
+        render :inline => "<%= auto_complete_result(@shelf_locations, :code) %>"
+      end
+    end
   end
 
   def show

@@ -1,6 +1,7 @@
-<% @title = t('.title', :name => h(@repository.name)) -%>
+<% @title = t('.title', :name => h(@repository.name))
+     @title += t('.for_code_pattern',  :code_pattern=> h(@code_pattern)) if @code_pattern
+-%>
 
 <h2><%= @title -%></h2>
 
-<%= render :partial => 'shelf_locations', :locals => { :repository => @repository } -%>
-
+<%= render :partial => 'shelf_locations', :locals => { :repository => @repository, :shelf_locations => @shelf_locations } -%>

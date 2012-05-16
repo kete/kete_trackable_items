@@ -14,10 +14,27 @@ class TrackableItemShelfLocationsController < ApplicationController
   end
   
   def create
-  end
+    repository_id = params[:trackable_item_shelf_location].delete(:repository_id)
+    code = params[:trackable_item_shelf_location].delete(:code)
 
-  # ajax autocomplete target that will return json for shelf_locations options
-  # that are within a repository
-  def shelf_locations_for_repository_as_options
+    if repository_id.present?
+      @repository = Repository.find(repository_id)
+      @repositories = [@repository]
+    end
+
+    if @repository.present? && code.present?
+      @shelf_location = @repository.shelf_locations.find_by_code(code)
+      params[:trackable_item_shelf_location][:shelf_location_id] = @shelf_location ? @shelf_location.id : nil
+    end
+
+    @trackable_item_shelf_location = TrackableItemShelfLocation.new(params[:trackable_item_shelf_location])
+    @trackable_item = @trackable_item_shelf_location.trackable_item
+
+    if @trackable_item_shelf_location.save
+      redirect_to url_for_dc_identifier(@trackable_item)
+    else
+      render :action => 'new'
+    end
+
   end
 end

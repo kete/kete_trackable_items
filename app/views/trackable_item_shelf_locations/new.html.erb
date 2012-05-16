@@ -1,4 +1,12 @@
-<% @title = t('.title') -%>
+<% if @trackable_item
+       @reference = h(@trackable_item.description_for_tracked_item)
+       @title = t('.title', :reference => @reference)
+     else
+       @reference = h(@shelf_location.code)
+       @title = t('.title_with_shelf_location', :code => @reference)
+     end 
+-%>
+
 
 <h2><%= @title -%></h2>
 
@@ -7,15 +15,48 @@
   <%= f.error_messages %>
 
   <fieldset>
-    <div class="form-element">
       <% if @trackable_item -%>
-        <%= f.hidden_field :trackable_item_id, :value => @trackable_item.id -%>
-        <%= f.hidden_field :trackable_item_type, :value => @trackable_item.class.name -%>
+        <%= f.hidden_field :trackable_item_id -%>
+        <%= f.hidden_field :trackable_item_type -%>
+      <% else -%>
+        <%# TODO: set up choice of trackable_item through  autocomplete based search -%>
       <% end -%>
 
-      <%# TODO: set up choice of repository if necessary %>
-      <%# TODO: set up choice of shelf location, autocomplete based on repository chosen %>
-    </div>
+      <div class="form-element">
+	<% if @repositories.size == 1 -%>
+        <label><%= t('.repository_label') + ' ' +  h(@repositories.first.name) -%></label>
+        <%= f.hidden_field :repository_id, :value => @repositories.first.id -%>
+      <% else -%>
+	<label><%=t '.repository_label' %></label>
+	<%= collection_select :trackable_item_shelf_location, :repository_id, @repositories,
+	    :id, :name, { :tabindex => '1', :label => t('.repository'),
+	:required => true } -%>
+
+	<%# TODO: set up observer on repository_id that clears shelf_location_id and code when changed -%>
+	<% end -%>
+      </div>
+
+
+      <div class="form-element">
+	<label for="code"><%=t '.shelf_location_code' %></label>
+	<%= text_field_with_auto_complete(:trackable_item_shelf_location,
+	    :code,
+	    { :tabindex => '1' },
+	{ :param_name => 'code_pattern', :url =>
+	formatted_repository_shelf_locations_path(:format => :js,
+	:repository_id => @repositories.first.id), :method => :get,
+	  :indicator => 'data_spinner_shelf_location_codes' }) -%>
+	<span id="data_spinner_shelf_location_codes" style="display: none;">
+	  <img src='/images/indicator.gif' width='16' height='16'
+	       alt='<%=t '.getting_shelf_locations_codes' -%>' />
+	  <%= t '.looking_up_shelf_locations_codes' -%>
+	</span>
+      </div>
+
+      <%# TODO: set up choice of shelf location, autocomplete based on repository chosen -%>
+
+      <%# TODO: set up observer on shelf_location.code that sets shelf_location_id when only 1 shelf_location matches value -%>
+      <%= javascript_repository_id_observer_and_adjust_code_autocomplete(@current_basket.urlified_name) -%>
   </fieldset>
 
   <div class="wrap">
@@ -25,5 +66,6 @@
 <% end -%>
 
 <% if @trackable_item.present? -%>
-  <%= link_to t('.back_to', :name => h(@trackable_item.description_for_tracked_item)), url_for_dc_identifier(@trackable_item) %>
+  <%= link_to t('.back_to', :name => @reference),
+  url_for_dc_identifier(@trackable_item)   %>
 <% end %>

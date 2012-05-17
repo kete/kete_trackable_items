@@ -4,6 +4,16 @@
 
 <p><%= t('.status') -%>: <%= @shelf_location.current_state_humanized -%></p>
 
+<h3><%= t '.allocated_for' -%></h3>
+
+<% if @shelf_location.trackable_items.size > 0 -%>
+  <ul>
+    <%= render :partial => 'trackable_item', :collection => @shelf_location.trackable_items -%>
+  </ul>
+<% else -%>
+  <p><%= t '.not_currently_allocated' -%></p>
+<% end -%>
+
 <p>
   <%= link_to t('.edit') , edit_repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository) %>
     | 

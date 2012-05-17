@@ -2,6 +2,7 @@
 en:
   base:
     allocate: allocate
+    allocate: allocated
     repository: repository
     shelf_location: shelf location
     shelf_locations: "{{t.base.shelf_location.pluralize}}"
@@ -56,10 +57,12 @@ en:
       code: "{{t.base.code.capitalize}}"
       status: "{{t.base.status.capitalize}}"
     show:
+      allocated_for: "{{t.base.allocate.capitalize}} for:"
       are_you_sure: "{{t.base.are_you_sure}}"
       back_to: "{{t.base.back.capitalize}} to {{name}}"
       edit: "{{t.base.edit.capitalize}}"
       delete: "{{t.base.delete.capitalize}}"
+      not_currently_allocated: "Not currently {{t.base.allocated}}"
       status: "{{t.base.status.capitalize}}"
       title: "{{code}} {{t.base.shelf_location}} for {{name}} {{t.base.repository}}"
   trackable_items_helper:

@@ -66,6 +66,5 @@
 <% end -%>
 
 <% if @trackable_item.present? -%>
-  <%= link_to t('.back_to', :name => @reference),
-  url_for_dc_identifier(@trackable_item)   %>
+  <%= link_to t('.back_to', :name => @reference), url_for_dc_identifier(@trackable_item) -%>
 <% end %>

@@ -1,0 +1,14 @@
+<% @submit_text = @tracking_list.new_record? ? t('.create') : t('.save') -%>
+
+<%= f.error_messages %>
+
+<fieldset>
+  <div class="form-element">
+    <%# f.label :code %>
+    <%# f.text_field :code, { :tabindex => '1', :label => t('.code'), :required => true } %>
+  </div>
+</fieldset>
+
+<div class="wrap">
+  <%= f.submit @submit_text, { :class => "save-button", :tabindex => '1' } -%>
+</div>

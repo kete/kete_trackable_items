@@ -8,6 +8,7 @@ en:
     shelf_locations: "{{t.base.shelf_location.pluralize}}"
     status: status
     trackable_item: item available for tracking
+    tracked_item: tracked item
     tracking_list: tracking list
     tracking_lists: "{{t.base.tracking_list.pluralize}}"
   repositories:
@@ -85,8 +86,14 @@ en:
   tracked_item:
     already_in_tracking_list: "This item is already in this tracking list"
   tracking_lists:
+    edit:
+      back_to: "{{t.base.back.capitalize}} to {{name}}"
+      title: "{{t.base.edit.capitalize}} {{t.base.tracking_list}} for {{name}} {{t.base.repository}}"
     index:
       back_to: "{{t.base.back.capitalize}} to {{name}}"
       new: "{{t.base.new.capitalize}} {{t.base.tracking_list}}"
-      show: "{{t.base.show.capitalize}}"
       title: "{{name}} {{t.base.tracking_lists}}"
+    show:
+      back_to: "{{t.base.back.capitalize}} to {{name}}"
+      tracked_item_description: "{{t.base.tracked_item.capitalize}}"
+      not_items_in_tracking_list: "No {{t.base.tracked_item.pluralize}} in {{t.base.tracking_list}}"

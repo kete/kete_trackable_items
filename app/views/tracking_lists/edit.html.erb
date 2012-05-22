@@ -1,0 +1,9 @@
+<% @title = t('.title', :name => h(@repository.name)) -%>
+
+<h2><%= @title -%></h2>
+
+<% form_for(@tracking_list, :url => repository_tracking_list_url(:id => @tracking_list, :repository_id => @repository), :method => :put ) do |f| %>
+  <%= render :partial => "form", :locals => { :f => f, :repository => @repository } %>
+<% end %>
+
+<%= link_to t('.back_to', :name => h(@repository.name)), repository_url(:id => @repository) %>

@@ -1,2 +1,18 @@
-Show
-id <%= @tracking_list.id %>
+<fieldset class="tracking_list">
+
+  <table class="tracking_list">
+    <tr>
+      <th abbr="Tracked Item"><%= t '.tracked_item_description' -%></th>
+    </tr>
+
+    <% if @tracking_list.tracked_items.count > 0 -%>
+      <%= render :partial => 'tracked_items/tracked_item', :collection => @tracking_list.tracked_items, :locals => { :tracking_list => @tracking_list } -%>
+    <% else -%>
+      <tr><td><%= t '.not_items_in_tracking_list' %></td></tr>
+    <% end -%>
+
+  </table>
+
+</fieldset>
+
+<%= link_to t('.back_to', :name => h(@repository.name)), repository_url(:id => @repository) %>

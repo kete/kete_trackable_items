@@ -4,7 +4,7 @@ class TrackingListsController < ApplicationController
   unloadable
 
   before_filter :set_repository
-  before_filter :set_tracking_list, :except => [:index, :create, :new]
+  before_filter :set_tracking_list, :except => [:index, :create]
 
   def show
   end
@@ -17,15 +17,16 @@ class TrackingListsController < ApplicationController
     @tracking_list = @repository.tracking_lists.build(params[:tracking_list])
 
     if @tracking_list.save
-      redirect_to tracking_list_url(:id => @tracking_list)
+      redirect_to repository_tracking_list_url(:id => @tracking_list,
+                                               :repository_id => @repository)
     end
   end
 
   def destroy
     @tracking_list.destroy
 
-    # TODO: this redirect may need to redirect a different place in some contexts
-    redirect_to tracking_list_url(:id => @tracking_list)
+    # TODO: may need to redirect a different place in some contexts
+    redirect_to repository_tracking_lists_url(:repository_id => @repository)
   end
 
   private

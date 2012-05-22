@@ -9,11 +9,10 @@ config.to_prepare do
   exts = File.join(File.dirname(__FILE__), '../lib/kete_trackable_items/extensions/{controllers,helpers}/*')
   # use Kernel.load here so that changes to the extensions are reloaded on each request in development
   Dir[exts].each { |ext_path| Kernel.load(ext_path) }
+
   # models we extend
-  Kete.extensions[:blocks] ||= Hash.new
   Dir[File.join(File.dirname(__FILE__), '../lib/kete_trackable_items/extensions/models/*')].each do |ext_path|
     key = File.basename(ext_path, '.rb').to_sym
-    Kete.extensions[:blocks][key] ||= Array.new
-    Kete.extensions[:blocks][key] << Proc.new { Kernel.load(ext_path) }
+    Kete.add_code_to_extensions_for(key, Proc.new { Kernel.load(ext_path) })
   end
 end

@@ -34,6 +34,7 @@ module KeteTrackableItems
       def shared_tracking_workflow_specs_as_string
         '
           state :on_shelf do
+            event :unassign_location, :transitions_to => :unallocated
             event :display, :transitions_to => :displayed
             event :hold_out, :transitions_to => :held_out
             event :loan, :transitions_to => :on_loan_to_organization

@@ -71,6 +71,10 @@ module KeteTrackableItems
       def new_allocation
         allocate!
       end
+
+      def mapping_deactivated_or_destroyed
+        unassign_location! if on_shelf? && !has_shelf_locations?
+      end
     end
   end
 end

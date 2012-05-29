@@ -1,9 +1,14 @@
 ---
 en:
+  application_helper:
+    add_trackable_items_links:
+      add_items_to_tracking_list: "{{t.base.add.capitalize}} {{t.base.trackable_item.pluralize}}"
+      close_add_items_to_tracking_list: "{{t.base.close.capitalize}} {{t.base.add}} {{t.base.trackable_item.pluralize}}"
   base:
     action: action
     allocate: allocate
     allocated: allocated
+    deallocate: deallocate
     repository: repository
     shelf_location: shelf location
     shelf_locations: "{{t.base.shelf_location.pluralize}}"
@@ -41,8 +46,11 @@ en:
       tracking_lists: "{{t.base.tracking_list.pluralize.capitalize}}"
   shelf_locations:
     form:
+      allocate_to: "{{t.base.allocated.capitalize}} these items to {{t.base.shelf_location}}:"
       code: "{{t.base.code}}"
       create: "{{t.base.create}}"
+      do_not_add: "Do not add this item"
+      no_matches: "No matching {{t.base.trackable_item.pluralize}}."
       save: "{{t.base.save}}"
     edit:
       back_to: "{{t.base.back.capitalize}} to {{name}}"
@@ -66,14 +74,23 @@ en:
       are_you_sure: "{{t.base.are_you_sure}}"
       back_to: "{{t.base.back.capitalize}} to {{name}}"
       edit: "{{t.base.edit.capitalize}}"
-      delete: "{{t.base.delete.capitalize}}"
+      delete: "{{t.base.delete.capitalize}} {{t.base.shelf_location}}"
+      item_actions: "{{t.base.action.pluralize.capitalize}}"
+      item_description: "{{t.base.tracked_item.capitalize}}"
       not_currently_allocated: "Not currently {{t.base.allocated}}"
+      shelf_location_controls_preface: "{{t.base.shelf_location.capitalize}} {{t.base.action.pluralize}}:"
       status: "{{t.base.status.capitalize}}"
       title: "{{code}} {{t.base.shelf_location}} for {{name}} {{t.base.repository}}"
+    trackable_item:
+      deallocate: "{{t.base.deallocate.capitalize}}"
+      are_you_sure: "{{t.base.are_you_sure}}"
+    update:
+      state_change_failed: "We failed to {{event_transition}} the {{t.base.tracking_list}}."
   trackable_items_helper:
     add_to_shelf_location: "{{t.base.add.capitalize}} to {{t.base.shelf_location}}"
     add_to_additional_shelf_location: "{{t.base.add.capitalize}} to additional {{t.base.shelf_location}}"
   trackable_item_shelf_location:
+    previously_allocated_reactivate_instead: "previously allocated to this {{t.base.trackable_item}}, reactitvate instead?"
     shelf_location_blank_or_does_not_match: "left blank or does not match existing {{t.base.shelf_location}}"
     trackable_item_blank_or_does_not_match: "left blank or does not match existing {{t.base.trackable_item}}"
   trackable_item_shelf_locations:
@@ -92,7 +109,7 @@ en:
   tracked_items:
     tracked_item:
       are_you_sure: "{{t.base.are_you_sure}}"
-      delete: "{{t.base.delete.capitalize}}"
+      delete: "Drop from list"
   tracking_lists:
     edit:
       back_to: "{{t.base.back.capitalize}} to {{t.base.tracking_list}}"
@@ -109,10 +126,8 @@ en:
       back_to: "{{t.base.back.capitalize}} to {{name}}"
       title: "{{t.base.new.capitalize}} {{t.base.tracking_list}} for {{name}} {{t.base.repository}}"
     show:
-      add_items_to_tracking_list: "{{t.base.add.capitalize}} {{t.base.trackable_item.pluralize}}"
       are_you_sure: "{{t.base.are_you_sure}}"
       back_to: "{{t.base.back.capitalize}} to {{name}} {{t.base.repository}}"
-      close_add_items_to_tracking_list: "{{t.base.close.capitalize}} {{t.base.add}} {{t.base.trackable_item.pluralize}}"
       delete_tracking_list: "{{t.base.delete.capitalize}} {{t.base.tracking_list}}"
       not_items_in_tracking_list: "No {{t.base.tracked_item.pluralize}} in {{t.base.tracking_list}}"
       tracked_item_actions: "{{t.base.action.pluralize.capitalize}}"
@@ -120,7 +135,7 @@ en:
       tracking_list_controls_preface: "{{t.base.tracking_list.capitalize}} {{t.base.action.pluralize}}:"
     trackable_item_search_form:
       search_button: "{{t.base.search}}"
-      search_for_trackable_items_for_tracking_list: "{{t.base.search.capitalize}} for {{t.base.trackable_item.pluralize}} to {{t.base.add}}"
+      search_for_trackable_items_for_target: "{{t.base.search.capitalize}} for {{t.base.trackable_item.pluralize}} to {{t.base.add}}"
       topic_search: "{{t.base.zoom_types.topic.capitalize.pluralize}}"
     tracking_lists:
       id: "{{t.base.tracking_list.capitalize}}"

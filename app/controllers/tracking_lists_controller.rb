@@ -13,7 +13,15 @@ class TrackingListsController < ApplicationController
   end
 
   def show
-    @possible_events = @tracking_list.current_state.events.keys.collect(&:to_s).sort
+    if params[:format] == 'html'
+      @possible_events = @tracking_list.current_state.events.keys.collect(&:to_s).sort
+    end
+
+    # xls support as outlined in http://www.arydjmal.com/blog/export-to-excel-in-rails-2
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xls { render :layout => false } if params[:format] == 'xls' # blog post noted that otherwise always interpretted as xls
+    end
   end
 
   # unused at this point

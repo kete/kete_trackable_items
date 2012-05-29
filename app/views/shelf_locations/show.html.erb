@@ -2,25 +2,47 @@
 
 <h2><%= @title -%></h2>
 
-<p><%= t('.status') -%>: <%= @shelf_location.current_state_humanized -%></p>
+<fieldset class="tracking_list">
+  <h3><%= t('.status') -%>: <%= @shelf_location.current_state_humanized -%></h3>
 
-<h3><%= t '.allocated_for' -%></h3>
+  <h3><%= t '.allocated_for' -%></h3>
 
-<% if @shelf_location.trackable_items.size > 0 -%>
-  <ul>
-    <%= render :partial => 'trackable_item', :collection => @shelf_location.trackable_items -%>
-  </ul>
-<% else -%>
-  <p><%= t '.not_currently_allocated' -%></p>
-<% end -%>
+  <table class="order">
+    <tr>
+      <th abbr="Actions for Item"><%= t '.item_actions' %></th>
+      <th abbr="Item"><%= t '.item_description' -%></th>
+    </tr>
+    
+    <% if @shelf_location.trackable_items.size > 0 -%>
+      <%= render :partial => 'trackable_item', :collection => @shelf_location.trackable_items, :locals => { :shelf_location => @shelf_location }-%>
+    <% else -%>
+      <tr><td><%= t '.not_currently_allocated' -%></td></tr>
+    <% end -%>
+
+    <tr class="order-buttons">
+      <td><%= t '.shelf_location_controls_preface' -%></td>
+
+      <td>
+	<%= add_trackable_items_links -%>
+
+	<%= render :partial => 'event_button', :collection => @possible_events, :locals => { :shelf_location => @shelf_location } %>
+
+	<%= button_to t('.edit') , edit_repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository), :method => :get %>
+
+	<%= button_to(t('.delete'), repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository),
+	:confirm => t('.are_you_sure'),
+	:method => :delete) %>
+      </td>
+
+    </tr>
+  </table>
+
+  <div id="trackable_item_search_form" style="display: none;">
+    <%= render :partial => 'tracking_lists/trackable_item_search_form', :locals => { :target => @shelf_location } -%>
+  </div>
+
+</fieldset>
 
 <p>
-  <%= link_to t('.edit') , edit_repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository) %>
-    | 
-  <%= link_to t('.delete') , 
-      repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository),
-  :confirm => t('.are_you_sure'),
-  :method => :delete %>
-  <br/>
   <%= link_to t('.back_to', :name => h(@repository.name)), repository_url(:id => @repository) %>
 </p>

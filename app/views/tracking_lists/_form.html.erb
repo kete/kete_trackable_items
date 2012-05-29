@@ -4,12 +4,12 @@
   <fieldset>
   
     <% f.fields_for :tracked_items do |tracked_item_form| %>
-    <%= link_to(h(tracked_item_form.object.description_for_tracked_item),
-	url_for_dc_identifier(tracked_item_form.object.trackable_item)) %>
-    <%= tracked_item_form.hidden_field :trackable_item_type %>
-    <%= tracked_item_form.hidden_field :trackable_item_id %>
-    <%= tracked_item_form.label :_destroy, t('.do_not_add') %>
-    <%= tracked_item_form.check_box :_destroy %>  
+      <%= link_to(h(tracked_item_form.object.description_for_tracked_item),
+	  url_for_dc_identifier(tracked_item_form.object.trackable_item)) %>
+      <%= tracked_item_form.hidden_field :trackable_item_type %>
+      <%= tracked_item_form.hidden_field :trackable_item_id %>
+      <%= tracked_item_form.label :_destroy, t('.do_not_add') %>
+      <%= tracked_item_form.check_box :_destroy %>  
     <% end %>
   </fieldset>
 

@@ -1,10 +1,10 @@
-<h3><%= t '.search_for_trackable_items_for_tracking_list' %></h3>
+<h3><%= t '.search_for_trackable_items_for_target' %></h3>
 
 <table>
 
   <% Kete.trackable_item_scopes.keys.each do |trackable_type| -%>
   <% trackable_type_param_key = trackable_type.tableize -%>
-  <% form_tag ({ :id => tracking_list, :repository_id => tracking_list.repository, :action => :edit }, :method => :get) do %>
+  <% form_tag ({ :id => target, :repository_id => target.repository, :action => :edit }, :method => :get) do %>
   <tr>
     <td>
       <%= t('.' + trackable_type + '_search') %>:

@@ -17,28 +17,8 @@
 
       <td>
 	<% if @tracking_list.current_state.name == :new -%>
-	  <%= link_to(t('.add_items_to_tracking_list'), '#', :id => 'add-items-button', :tabindex => 2, :class => 'save-button' ) -%>
-
-	  <%= link_to(t('.close_add_items_to_tracking_list'), '#', :id => 'close-add-items-button', :tabindex => 2, :style => 'display: none;', :class => 'save-button' )  -%>
-
-	  <%= javascript_tag("jQuery(document).ready(function(){
-			      jQuery('#add-items-button').click(function() {
-		              jQuery('#trackable_item_search_form').slideDown('slow',
-			      function() {
-		              jQuery('#add-items-button').hide();
-			      jQuery('#close-add-items-button').show();
-			      });
-			      });
-			      jQuery('#close-add-items-button').click(function() {
-		              jQuery('#trackable_item_search_form').slideUp('slow',
-			      function() {
-			      jQuery('#close-add-items-button').hide();
-		              jQuery('#add-items-button').show();
-			      });
-			      });
-			      });
-			      ") %>
-	  <% end -%>
+	  <%= add_trackable_items_links -%>
+        <% end -%>
 
 	<% if @tracking_list.tracked_items.count > 0 -%>
 	  <%= render :partial => 'event_button', :collection => @possible_events, :locals => { :tracking_list => @tracking_list } %>
@@ -53,8 +33,8 @@
   </table>
 
   <div id="trackable_item_search_form" style="display: none;">
-    <%= render :partial => 'trackable_item_search_form', :locals => { :tracking_list => @tracking_list } -%>
-   </div>
+    <%= render :partial => 'trackable_item_search_form', :locals => { :target => @tracking_list } -%>
+  </div>
 </fieldset>
 
 <%= link_to t('.back_to', :name => h(@repository.name)), repository_url(:id => @repository) %>

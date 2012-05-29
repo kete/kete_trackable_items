@@ -35,6 +35,30 @@ class TrackableItemShelfLocationsController < ApplicationController
     else
       render :action => 'new'
     end
-
   end
+
+  def update
+    @trackable_item_shelf_location = TrackableItemShelfLocation.find(params[:id])
+
+    if params[:event]
+      original_state = @trackable_item_shelf_location.current_state
+      event_method = params[:event] + '!'
+      @trackable_item_shelf_location.send(event_method)
+      @successful = @trackable_item_shelf_location.current_state != original_state
+      @state_change_failed = @succesful
+    else
+      @successful = @trackable_item_shelf_location.update_attributes(params[:shelf_location])
+    end
+    
+    if @successful || @state_change_failed
+      flash[:notice] = t('shelf_locations.update.state_change_failed', :event_transition => params[:event].humanize) if @state_change_failed
+
+      url = repository_shelf_location_url(:id => @trackable_item_shelf_location.shelf_location,
+                                          :repository_id => @trackable_item_shelf_location.shelf_location.repository)
+      redirect_to url
+    else
+      render :action => 'edit'
+    end
+  end
+  
 end

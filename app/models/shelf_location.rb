@@ -2,7 +2,7 @@ class ShelfLocation < ActiveRecord::Base
   include KeteTrackableItems::WorkflowUtilities
 
   belongs_to :repository
-  has_many :trackable_item_shelf_locations
+  has_many :trackable_item_shelf_locations, :dependent => :destroy
 
   validates_uniqueness_of :code, :case_sensitive => false, :scope => :repository_id
 
@@ -14,9 +14,9 @@ class ShelfLocation < ActiveRecord::Base
    
     state :allocated do
       # probably want to create an instance method for clear_out
-      # that destroys all trackable_item_shelf_locations
+      # that deactivates all trackable_item_shelf_locations
       event :clear_out, :transitions_to => :available
-      event :deactivate, :transitions_to => :deactivated
+      event :deallocate, :transitions_to => :available
     end
 
     state :deactivated do
@@ -55,5 +55,15 @@ class ShelfLocation < ActiveRecord::Base
 
   def new_allocation
     allocate!
+  end
+
+  def mapping_deactivated_or_destroyed
+    deallocate! if allocated? && trackable_items.size == 0
+  end
+
+  def clear_out
+    trackable_item_shelf_locations.each do |mapping|
+      mapping.make_deactivated
+    end
   end
 end

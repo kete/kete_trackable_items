@@ -1,1 +1,12 @@
-<li><%= link_to trackable_item.description_for_tracked_item, url_for_dc_identifier(trackable_item)   %></li>
+<% trackable_item_shelf_location = shelf_location.trackable_item_shelf_locations.find(:first, :conditions => { :trackable_item_type => trackable_item.class.name, :trackable_item_id => trackable_item }) -%>
+<tr>
+  <td>
+    <% if trackable_item_shelf_location.trackable_item.on_shelf? -%>
+      <%= button_to t('.deallocate'), { :controller => :trackable_item_shelf_locations,
+      :action => :update,
+      :id => trackable_item_shelf_location,
+      :event => :deactivate }, :method => :put %>
+    <% end -%>
+  </td>
+<td><%= link_to trackable_item.description_for_tracked_item, url_for_dc_identifier(trackable_item) %></td>
+</tr>

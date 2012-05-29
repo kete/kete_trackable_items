@@ -55,6 +55,16 @@ class RepositoriesController < ApplicationController
   private
   
   def get_repository
-    @repository = @current_basket == @site_basket ? Repository.find(params[:id]) : @current_basket.repositories.find(params[:id])
+    begin
+      @repository = @current_basket.repositories.find(params[:id])
+    rescue
+      @repository = Repository.find(params[:id])
+
+      if @current_basket != @repository.basket
+        redirect_to url_for(:urlified_name => @site_basket.urlified_name,
+                            :action => params[:action],
+                            :id => params[:id])
+      end
+    end
   end
 end

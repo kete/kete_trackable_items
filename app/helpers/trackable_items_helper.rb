@@ -34,7 +34,9 @@ module TrackableItemsHelper
         html += ' class="first"'if shelf_locations_count == 1
         html += '>'
 
-        html += link_to(shelf_location.code, repository_shelf_location_url(:repository_id => shelf_location.repository_id, :id => shelf_location))
+        html += link_to(shelf_location.code, repository_shelf_location_url(:repository_id => shelf_location.repository_id,
+                                                                           :id => shelf_location,
+                                                                           :urlified_name => shelf_location.repository.basket.urlified_name))
         html += '</li>'
         shelf_locations_count += 1
       end

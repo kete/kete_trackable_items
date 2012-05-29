@@ -42,6 +42,10 @@ module KeteTrackableItems
             end
 
             eval(shared_code_as_string)
+
+            state :to_be_refiled do
+              event :refile, :transitions_to => :on_shelf
+            end
           }
 
           workflow(&specification)

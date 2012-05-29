@@ -13,6 +13,6 @@ class TrackedItem < ActiveRecord::Base
   private
 
   def validate
-    errors.add(:tracking_list, I18n.t('tracked_item.already_in_tracking_list')) if tracking_list.contains?(trackable_item)
+    errors.add(:tracking_list, I18n.t('tracked_item.already_in_tracking_list')) if tracking_list.tracked_items.include?(self)
   end
 end

@@ -1,7 +1,8 @@
 <fieldset class="tracking_list">
-
-  <table class="tracking_list">
+  <h3><%= @tracking_list.current_state_humanized -%></h3>
+  <table class="order">
     <tr>
+      <th abbr="Actions for Tracked Item"><%= t '.tracked_item_actions' %></th>
       <th abbr="Tracked Item"><%= t '.tracked_item_description' -%></th>
     </tr>
 
@@ -11,8 +12,49 @@
       <tr><td><%= t '.not_items_in_tracking_list' %></td></tr>
     <% end -%>
 
+    <tr class="order-buttons">
+      <td><%= t '.tracking_list_controls_preface' -%></td>
+
+      <td>
+	<% if @tracking_list.current_state.name == :new -%>
+	  <%= link_to(t('.add_items_to_tracking_list'), '#', :id => 'add-items-button', :tabindex => 2, :class => 'save-button' ) -%>
+
+	  <%= link_to(t('.close_add_items_to_tracking_list'), '#', :id => 'close-add-items-button', :tabindex => 2, :style => 'display: none;', :class => 'save-button' )  -%>
+
+	  <%= javascript_tag("jQuery(document).ready(function(){
+			      jQuery('#add-items-button').click(function() {
+		              jQuery('#trackable_item_search_form').slideDown('slow',
+			      function() {
+		              jQuery('#add-items-button').hide();
+			      jQuery('#close-add-items-button').show();
+			      });
+			      });
+			      jQuery('#close-add-items-button').click(function() {
+		              jQuery('#trackable_item_search_form').slideUp('slow',
+			      function() {
+			      jQuery('#close-add-items-button').hide();
+		              jQuery('#add-items-button').show();
+			      });
+			      });
+			      });
+			      ") %>
+	  <% end -%>
+
+	<% if @tracking_list.tracked_items.count > 0 -%>
+	  <%= render :partial => 'event_button', :collection => @possible_events, :locals => { :tracking_list => @tracking_list } %>
+	<% end -%>
+
+	<%= button_to(t('.delete_tracking_list'), repository_tracking_list_url(:id => @tracking_list, :repository_id => @repository),
+	:confirm => t('.are_you_sure'),
+	:method => :delete) %>
+      </td>
+
+    </tr>
   </table>
 
+  <div id="trackable_item_search_form" style="display: none;">
+    <%= render :partial => 'trackable_item_search_form', :locals => { :tracking_list => @tracking_list } -%>
+   </div>
 </fieldset>
 
 <%= link_to t('.back_to', :name => h(@repository.name)), repository_url(:id => @repository) %>

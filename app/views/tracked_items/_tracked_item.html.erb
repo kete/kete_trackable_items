@@ -1,3 +1,10 @@
 <tr>
+  <td>
+    <%= button_to t('.delete'), { :controller => :tracked_items,
+    :action => :destroy,
+    :id => tracked_item,
+    :tracking_list_id => tracking_list,
+    :confirm => t('.are_you_sure') }, :method => :delete %>
+  </td>
   <td><%= link_to tracked_item.description_for_tracked_item, url_for_dc_identifier(tracked_item.trackable_item) -%></td>
 </tr>

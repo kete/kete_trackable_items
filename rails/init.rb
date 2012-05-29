@@ -52,14 +52,15 @@ config.to_prepare do
       end
 
       if options['search_scopes']['text_searches'].present?
-        options['search_scopes']['text_searches'].each do |scope_key, scope_code|
-          extension = Proc.new {
-            klass.class_eval do
-              named_scope(scope_key.to_sym, eval(scope_code))
-            end
-          }
-
-          Kete.add_code_to_extensions_for(key, extension)
+        options['search_scopes']['text_searches'].each do |search_specs|
+          search_specs.each do |scope_key, scope_code|
+            extension = Proc.new {
+              klass.class_eval do
+                named_scope(scope_key.to_sym, eval(scope_code))
+              end
+            }
+            Kete.add_code_to_extensions_for(key, extension)
+          end
         end
       end
     end

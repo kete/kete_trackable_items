@@ -1,0 +1,28 @@
+<h3><%= t '.search_for_trackable_items_for_tracking_list' %></h3>
+
+<table>
+
+  <% Kete.trackable_item_scopes.keys.each do |trackable_type| -%>
+  <% trackable_type_param_key = trackable_type.tableize -%>
+  <% form_tag ({ :id => tracking_list, :repository_id => tracking_list.repository, :action => :edit }, :method => :get) do %>
+  <tr>
+    <td>
+      <%= t('.' + trackable_type + '_search') %>:
+      <%= hidden_field_tag 'trackable_type_param_key', trackable_type_param_key -%>
+    </td>
+    <% Kete.trackable_item_scopes[trackable_type]['search_scopes']['text_searches'].each do |search_specs| -%>
+    <% search_specs.keys.each do |text_field_key| -%>
+    <% trackable_type_field_key_param_key =  trackable_type_param_key + '[' + text_field_key + ']' -%>
+    <td  class="label"><label for="<%= trackable_type_field_key_param_key.sub('[', '_').sub(']', '')-%>"><%= text_field_key.humanize %></label></td>
+    <td class="fields">
+      <%= text_field_tag trackable_type_field_key_param_key, nil, :size => 10, :tabindex => '2' %>
+    </td>
+    <% end -%>
+    <% end -%>
+    <td>
+      <%= submit_tag t('.search_button'), { :class => "save-button", :tabindex => '2' } -%>
+    </td>
+  </tr>
+  <% end -%>
+  <% end -%>
+</table>

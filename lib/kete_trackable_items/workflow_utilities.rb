@@ -55,10 +55,6 @@ module KeteTrackableItems
             event :hold_out, :transitions_to => :held_out
             event :queue_for_refiling, :transitions_to => :to_be_refiled
           end
-
-          state :to_be_refiled do
-            event :refile, :transitions_to => :on_shelf
-          end
         '
       end
 

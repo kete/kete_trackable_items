@@ -3,6 +3,8 @@ class TrackableItemShelfLocation < ActiveRecord::Base
 
   after_create :update_state_of_shelf_location_and_trackable_item
 
+  # TODO: after deactivate or destroy, change state of trackable_item and shelf_location
+
   belongs_to :shelf_location
   belongs_to :trackable_item, :polymorphic => true
 

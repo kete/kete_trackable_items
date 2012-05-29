@@ -31,6 +31,7 @@ en:
       title: "{{t.base.new.capitalize}} {{t.base.repository}}"
     show:
       add_shelf_location: "{{t.base.add.capitalize}} {{t.base.shelf_location}}"
+      add_tracking_list: "{{t.base.add.capitalize}} {{t.base.tracking_list}}"
       are_you_sure: "{{t.base.are_you_sure}}"
       back_to_repositories: "{{t.base.back.capitalize}} to {{t.base.repository.pluralize}}"
       edit: "{{t.base.edit.capitalize}}"
@@ -119,5 +120,9 @@ en:
       search_button: "{{t.base.search}}"
       search_for_trackable_items_for_tracking_list: "{{t.base.search.capitalize}} for {{t.base.trackable_item.pluralize}} to {{t.base.add}}"
       topic_search: "{{t.base.zoom_types.topic.capitalize.pluralize}}"
+    tracking_lists:
+      id: "{{t.base.tracking_list.capitalize}}"
+      number_of_tracked_items: "Number of {{t.base.trackable_item.pluralize}}"
+      status: "{{t.base.status.capitalize}}"
     update:
       state_change_failed: "We failed to {{event_transition}} the {{t.base.tracking_list}}."

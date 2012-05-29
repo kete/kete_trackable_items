@@ -1,2 +1,11 @@
-<li><%= link_to tracking_list.id, repository_tracking_list_url(:id => tracking_list.id, :repository_id => tracking_list.repository) %></li>
-
+<tr>
+  <td>
+    <%= link_to tracking_list.id, repository_tracking_list_url(:id => tracking_list.id, :repository_id => tracking_list.repository) %>
+  </td>
+  <td>
+    <%= tracking_list.current_state_humanized -%>
+  </td>
+  <td>
+    <%= tracking_list.tracked_items.count -%>
+  </td>
+</tr>

@@ -8,6 +8,12 @@
   <%= link_to t('.add_shelf_location'), new_repository_shelf_location_url(:repository_id => @repository) %>
 </p>
 
+<%= render :partial => 'tracking_lists/tracking_lists', :locals => { :repository => @repository } -%>
+
+<p>
+  <%= link_to t('.add_tracking_list'), new_repository_tracking_list_url(:repository_id => @repository) %>
+</p>
+
 <p>
   <%= link_to t('.edit'), edit_repository_url(:id => @repository) %>
   | 

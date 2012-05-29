@@ -1,0 +1,14 @@
+<% tracking_lists = repository.tracking_lists if tracking_lists.blank? -%>
+<table>
+  <thead>
+    <tr>
+      <th><%= t('.id') -%></th>
+      <th><%= t('.status') -%></th>
+      <th><%= t('.number_of_tracked_items') -%></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render tracking_lists %>
+  </tbody>
+
+</table>

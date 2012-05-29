@@ -2,9 +2,7 @@
 
 <h2><%= @title -%></h2>
 
-<ul>
-  <%= render @tracking_lists %>
-</ul>
+<%= render :partial => 'tracking_lists', :locals => { :repository => @repository, :tracking_lists => @tracking_lists } -%>
 
 <p><%= button_to t('.new'),
        repository_tracking_lists_url(:repository_id => @repository, :method => :post) %></p>

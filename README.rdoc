@@ -2,6 +2,12 @@
 
 A Rails engine gem that works in conjunction with kete_gets_trollied to track where an item (with a corresponding physical archive) is physically located.
 
+== Usage
+
+You'll need to add the following to your application's config/initializers/mime_types.rb
+
+Mime::Type.register "application/vnd.ms-excel", :xls
+
 == Note on Patches/Pull Requests
  
 * Fork the project.

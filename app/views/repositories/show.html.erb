@@ -2,16 +2,21 @@
 
 <h2><%= @title -%></h2>
 
+<h3><%= t '.shelf_locations' -%></h3>
+
 <%= render :partial => 'shelf_locations/shelf_locations', :locals => { :repository => @repository } -%>
 
 <p>
   <%= link_to t('.add_shelf_location'), new_repository_shelf_location_url(:repository_id => @repository) %>
 </p>
 
+<h3><%= t '.tracking_lists' -%></h3>
+
 <%= render :partial => 'tracking_lists/tracking_lists', :locals => { :repository => @repository } -%>
 
 <p>
-  <%= link_to t('.add_tracking_list'), new_repository_tracking_list_url(:repository_id => @repository) %>
+  <%= button_to t('.add_tracking_list'),
+      repository_tracking_lists_url(:repository_id => @repository, :method => :post) %>
 </p>
 
 <p>

@@ -36,7 +36,9 @@ en:
       back_to_repositories: "{{t.base.back.capitalize}} to {{t.base.repository.pluralize}}"
       edit: "{{t.base.edit.capitalize}}"
       delete: "{{t.base.delete.capitalize}}"
+      shelf_locations: "{{t.base.shelf_location.pluralize.capitalize}}"
       title: "{{t.base.repository.capitalize}}: {{name}}"
+      tracking_lists: "{{t.base.tracking_list.pluralize.capitalize}}"
   shelf_locations:
     form:
       code: "{{t.base.code}}"

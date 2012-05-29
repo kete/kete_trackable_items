@@ -3,6 +3,10 @@
   <table class="order">
     <tr>
       <th abbr="Actions for Tracked Item"><%= t '.tracked_item_actions' %></th>
+      <th abbr="Tracked Item Series No"><%= t '.tracked_item_series_no' -%></th>
+      <th abbr="Tracked Item Box No"><%= t '.tracked_item_box_no' -%></th>
+      <th abbr="Tracked Item Item No"><%= t '.tracked_item_item_no' -%></th>
+      <th abbr="Tracked Item Shelf Code"><%= t '.tracked_item_shelf_code' -%></th>
       <th abbr="Tracked Item"><%= t '.tracked_item_description' -%></th>
     </tr>
 
@@ -15,7 +19,7 @@
     <tr class="order-buttons">
       <td><%= t '.tracking_list_controls_preface' -%></td>
 
-      <td>
+      <td colspan="5">
 	<% if @tracking_list.current_state.name == :new -%>
 	  <%= add_trackable_items_links -%>
         <% end -%>

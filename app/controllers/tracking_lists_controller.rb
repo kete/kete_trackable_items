@@ -13,7 +13,7 @@ class TrackingListsController < ApplicationController
   end
 
   def show
-    if params[:format] == 'html'
+    unless params[:format] == 'xls'
       @possible_events = @tracking_list.current_state.events.keys.collect(&:to_s).sort
     end
 

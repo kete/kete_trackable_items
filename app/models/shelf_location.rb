@@ -54,7 +54,7 @@ class ShelfLocation < ActiveRecord::Base
   end
 
   def new_allocation
-    allocate!
+    allocate! unless allocated?
   end
 
   def mapping_deactivated_or_destroyed

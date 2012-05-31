@@ -69,7 +69,7 @@ module KeteTrackableItems
 
       # add workflow triggered methods that run when corresponding event is triggered as necessary
       def new_allocation
-        allocate!
+        allocate! unless on_shelf? # a previous addition of shelf location may have triggered transition to on_shelf
       end
 
       def mapping_deactivated_or_destroyed

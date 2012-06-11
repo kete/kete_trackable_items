@@ -1,0 +1,15 @@
+<% if item.topic_type_id == 8 && logged_in? && @at_least_a_moderator && respond_to?(:shelf_locations_or_appropriate_action) -%>
+  <%= render("topics/secondary_wrapper_start", :div_id => "tracking", :class_suffix => nil) -%>
+
+  <h2><%=t(".location_tracking") %></h2>
+
+  <h3><%=t(".currently") %> <%= item.current_state_humanized -%><h3>
+
+  <h3><%=t(".shelf_locations") %></h3>
+
+  <%= shelf_locations_or_appropriate_action(item) -%>
+
+  <div style="clear:both;"></div>
+
+  <%= render("topics/secondary_wrapper_end") -%>
+<% end -%>

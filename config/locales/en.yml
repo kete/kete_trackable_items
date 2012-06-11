@@ -44,6 +44,11 @@ en:
       shelf_locations: "{{t.base.shelf_location.pluralize.capitalize}}"
       title: "{{t.base.repository.capitalize}}: {{name}}"
       tracking_lists: "{{t.base.tracking_list.pluralize.capitalize}}"
+  shared:
+    tracking:
+      currently: "Currently:"
+      location_tracking: Location Tracking
+      shelf_locations: "{{t.base.shelf_locations.capitalize}}"
   shelf_locations:
     form:
       allocate_to: "{{t.base.allocated.capitalize}} these items to {{t.base.shelf_location}}:"

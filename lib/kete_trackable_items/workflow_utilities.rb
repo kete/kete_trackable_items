@@ -38,6 +38,8 @@ module KeteTrackableItems
             event :display, :transitions_to => :displayed
             event :hold_out, :transitions_to => :held_out
             event :loan, :transitions_to => :on_loan_to_organization
+            # trackable_items can be allocated more than one shelf location
+            event :allocate, :transitions_to => :on_shelf
           end
 
           state :displayed do

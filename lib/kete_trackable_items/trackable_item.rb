@@ -22,6 +22,10 @@ module KeteTrackableItems
         send :has_many, :tracked_items, :as => :trackable_item, :dependent => :delete_all
         send :has_many, :tracking_lists, :through => :tracked_items
 
+        # tracking history, can be historical_item or historical_receiver
+        send :has_many, :tracking_events, :as => :historical_item, :dependent => :delete_all
+        send :has_many, :tracking_receiving_events, :as => :historical_receiver, :dependent => :delete_all
+
         # when a trackable_item is in 'on_loan' state, which on_loan_organization is it on loan to?
         send :belongs_to, :on_loan_organization
 
@@ -46,6 +50,25 @@ module KeteTrackableItems
             state :to_be_refiled do
               event :refile, :transitions_to => :on_shelf
             end
+
+            on_transition do |from, to, event_name, *event_args|
+              attribute_options = { :historical_item => self,
+                :verb => to.to_s,
+                :before_state => from.to_s,
+                :event => event_name.to_s }
+
+              historical_receiver = nil
+              case event_name
+              when :allocate
+                historical_receiver = shelf_locations.last
+              when :loan
+                historical_receiver = on_loan_organization
+              end
+
+              attribute_options[:historical_receiver] = historical_receiver if historical_receiver
+
+              TrackingEvent.create!(attribute_options)
+            end
           }
 
           workflow(&specification)
@@ -67,9 +90,11 @@ module KeteTrackableItems
         send(self.class.described_as_in_tracking_list)
       end
 
+      alias :name_for_tracking_event :description_for_tracked_item
+
       # add workflow triggered methods that run when corresponding event is triggered as necessary
       def new_allocation
-        allocate! unless on_shelf? # a previous addition of shelf location may have triggered transition to on_shelf
+        allocate!
       end
 
       def mapping_deactivated_or_destroyed

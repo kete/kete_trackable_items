@@ -9,6 +9,7 @@ en:
     allocate: allocate
     allocated: allocated
     deallocate: deallocate
+    event: event
     repository: repository
     shelf_location: shelf location
     shelf_locations: "{{t.base.shelf_location.pluralize}}"
@@ -47,6 +48,7 @@ en:
   shared:
     tracking:
       currently: "Currently:"
+      history: "{{t.base.history}}"
       location_tracking: Location Tracking
       shelf_locations: "{{t.base.shelf_locations.capitalize}}"
   shelf_locations:
@@ -80,6 +82,7 @@ en:
       back_to: "{{t.base.back.capitalize}} to {{name}}"
       edit: "{{t.base.edit.capitalize}}"
       delete: "{{t.base.delete.capitalize}} {{t.base.shelf_location}}"
+      history: "{{t.base.history}}"
       item_actions: "{{t.base.action.pluralize.capitalize}}"
       item_description: "{{t.base.tracked_item.capitalize}}"
       not_currently_allocated: "Not currently {{t.base.allocated}}"
@@ -115,6 +118,15 @@ en:
     tracked_item:
       are_you_sure: "{{t.base.are_you_sure}}"
       delete: "Drop from list"
+  tracking_events:
+    index:
+      event: "{{t.base.event.capitalize}}"
+      title: "Tracking {{t.base.event.pluralize}}"
+      title_with_name: "Tracking {{t.base.event.pluralize}} for {{name}}"
+      when: "Date and Time"
+  tracking_list:
+    name_for_tracking_event:
+      tracking_list: "{{t.base.tracking_list}}"
   tracking_lists:
     edit:
       back_to: "{{t.base.back.capitalize}} to {{t.base.tracking_list}}"
@@ -135,6 +147,7 @@ en:
       back_to: "{{t.base.back.capitalize}} to {{name}} {{t.base.repository}}"
       delete_tracking_list: "{{t.base.delete.capitalize}} {{t.base.tracking_list}}"
       download_for_excel: "Download for Excel"
+      history: "{{t.base.history}}"
       not_items_in_tracking_list: "No {{t.base.tracked_item.pluralize}} in {{t.base.tracking_list}}"
       title: "{{state_name}} {{t.base.tracking_list.capitalize}}"
       tracked_item_actions: "{{t.base.action.pluralize.capitalize}}"

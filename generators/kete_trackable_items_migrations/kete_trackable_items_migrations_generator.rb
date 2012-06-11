@@ -14,6 +14,8 @@ class KeteTrackableItemsMigrationsGenerator < Rails::Generator::Base
       m.migration_template 'create_on_loan_organizations.rb', 'db/migrate', { :migration_file_name => "create_on_loan_organizations" }
       m.sleep(1)
       m.migration_template 'add_trackable_item_columns_to_topics.rb', 'db/migrate', { :migration_file_name => "add_trackable_item_columns_to_topics" }
+      m.sleep(1)
+      m.migration_template 'create_tracking_events.rb', 'db/migrate', { :migration_file_name => "create_tracking_events" }
     end
   end
 end

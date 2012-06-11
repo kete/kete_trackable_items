@@ -1,0 +1,25 @@
+<% 
+   if @historical_item
+     @title = t('.title_with_name', :name => @historical_item.name_for_tracking_event)
+   else
+     @title = t '.title'
+   end
+-%>
+
+<h2><%= @title -%></h2>
+
+<table>
+  <tr>
+    <th><%= t('.event') -%></th>
+    <th><%= t('.when') -%></th>
+  </tr>
+
+<% @tracking_events.each do |event| %>
+  <tr>
+    <td><%= event.verb.humanize -%>
+      <%= event.historical_receiver.name_for_tracking_event if event.historical_receiver -%>
+    </td>
+    <td><%= event.created_at.to_s(:short) -%></td>
+  </tr>
+<% end %>
+</table>

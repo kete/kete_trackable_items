@@ -3,7 +3,11 @@
 <h2><%= @title -%></h2>
 
 <fieldset class="tracking_list">
-  <h3><%= t('.status') -%>: <%= @shelf_location.current_state_humanized -%></h3>
+  <h3><%= t('.status') -%>: <%= @shelf_location.current_state_humanized -%>
+    <% if @shelf_location.tracking_events.size > 0 -%>
+    ( <%= link_to(t('.history'), tracking_events_url( :historical_item_type => @shelf_location.class.name, :historical_item_id => @shelf_location.id )) -%> )
+    <% end -%>
+  </h3>
 
   <h3><%= t '.allocated_for' -%></h3>
 

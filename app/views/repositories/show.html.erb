@@ -19,6 +19,7 @@
       repository_tracking_lists_url(:repository_id => @repository, :method => :post) %>
 </p>
 
+<% if @site_admin -%>
 <p>
   <%= link_to t('.edit'), edit_repository_url(:id => @repository) %>
   | 
@@ -28,3 +29,4 @@
   <br/>
   <%= link_to t('.back_to_repositories'), repositories_url %>
 </p>
+<% end -%>

@@ -8,17 +8,21 @@ class TrackingList < ActiveRecord::Base
   accepts_nested_attributes_for :tracked_items, :allow_destroy => true
 
   # tracking history, can be historical_item
-  send :has_many, :tracking_events, :as => :historical_item, :dependent => :delete_all
+  has_many :tracking_events, :as => :historical_item, :dependent => :delete_all
 
   # set up workflow states, some are shared with trackable_items
   shared_code_as_string = shared_tracking_workflow_specs_as_string
   
   specification = Proc.new {
     state :new do
-      event :display, :transitions_to => :displayed
-      event :hold_out, :transitions_to => :held_out
-      event :loan, :transitions_to => :on_loan_to_organization
-      event :queue_for_refiling, :transitions_to => :to_be_refiled
+      # use a tracking list to allocate items in bulk to a shelf_location
+      event :allocate, :transitions_to => :completed
+
+      # manage handling of item after it has been assigned a shelf_location
+      event :display, :transitions_to => :completed
+      event :hold_out, :transitions_to => :completed
+      event :loan, :transitions_to => :completed
+      event :queue_for_refiling, :transitions_to => :completed
       event :cancel, :transitions_to => :cancelled
     end
     
@@ -29,8 +33,23 @@ class TrackingList < ActiveRecord::Base
       event :refile, :transitions_to => :completed
     end
 
+    state :completed do
+      event :reactivate, :transitions_to => :reactivated
+    end
+
+    state :reactivated do
+      # use a tracking list to allocate items in bulk to a shelf_location
+      event :allocate, :transitions_to => :completed
+
+      # manage handling of item after it has been assigned a shelf_location
+      event :display, :transitions_to => :completed
+      event :hold_out, :transitions_to => :completed
+      event :loan, :transitions_to => :completed
+      event :queue_for_refiling, :transitions_to => :completed
+      event :cancel, :transitions_to => :cancelled
+    end
+
     state :cancelled
-    state :completed
 
     on_transition do |from, to, event_name, *event_args|
       attribute_options = { :historical_item => self,
@@ -52,7 +71,8 @@ class TrackingList < ActiveRecord::Base
   # send workflow event, except cancel, to tracked_items
   # upon event being called on tracking_list
   workflow_event_names.each do |event_name|
-    unless event_name == 'cancel'
+    skip_events = %w(cancel complete reactivate allocate)
+    unless skip_events.include?(event_name.to_s)
       code = Proc.new {
         tracked_items.each do |tracked_item|
           tracked_item.trackable_item.send("#{event_name}!")

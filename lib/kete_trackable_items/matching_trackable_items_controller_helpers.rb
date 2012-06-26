@@ -13,7 +13,10 @@ module KeteTrackableItems
         always_scopes = Kete.trackable_item_scopes[type_key]['search_scopes']['always_within_scopes'].keys
 
         # a trackable_item has to be allocated a shelf before it can be added to a tracking_list
-        always_scopes << 'with_state_on_shelf' if params[:controller] == 'tracking_lists'
+        # NOTE: using tracking_lists to allocate shelf_location in bulk for a given set of items
+        # dropping this scope constraint, but leaving for reference
+        # in case it is useful in future
+        # always_scopes << 'with_state_on_shelf' if params[:controller] == 'tracking_lists'
         
         scope_value_pairs = params[type_key_plural].select { |k, v| v.present? }
         

@@ -15,6 +15,12 @@ class TrackingListsController < ApplicationController
   def show
     unless params[:format] == 'xls'
       @possible_events = @tracking_list.current_state.events.keys.collect(&:to_s).sort
+      # we don't want cancel to take a prominent position
+      # take it out of current position and add it at end
+      if @possible_events.include?('cancel')
+        @possible_events.delete('cancel')
+        @possible_events << 'cancel'
+      end
     end
 
     # xls support as outlined in http://www.arydjmal.com/blog/export-to-excel-in-rails-2
@@ -49,12 +55,25 @@ class TrackingListsController < ApplicationController
   # update tracked_items (i.e. add them based on a search)
   # or run state change
   def update
+    url = repository_tracking_list_url(:id => @tracking_list,
+                                       :repository_id => @repository)
     if params[:event]
-      original_state = @tracking_list.current_state
-      event_method = params[:event] + '!'
-      @tracking_list.send(event_method)
-      @successful = @tracking_list.current_state != original_state
-      @state_change_failed = @succesful
+      event = params[:event]
+      # allocating means we need to choose shelf location before proceeding
+      if event == 'allocate'
+        options = { :tracking_list => @tracking_list }
+        options[:urlified_name] = @site_basket.urlified_name if @current_basket.repositories.count < 1
+
+        url = new_trackable_item_shelf_location_url(options)
+        @successful = true
+      else
+        # otherwise, send the event as a method
+        # to the tracking list
+        original_state = @tracking_list.current_state
+        @tracking_list.send(event + '!')
+        @successful = @tracking_list.current_state != original_state
+        @state_change_failed = !@successful
+      end
     else
       @successful = @tracking_list.update_attributes(params[:tracking_list])
     end
@@ -62,8 +81,7 @@ class TrackingListsController < ApplicationController
     if @successful || @state_change_failed
       flash[:notice] = t('tracking_lists.update.state_change_failed', :event_transition => params[:event].humanize) if @state_change_failed
 
-      redirect_to repository_tracking_list_url(:id => @tracking_list,
-                                               :repository_id => @repository)
+      redirect_to url
     else
       render :action => 'edit'
     end

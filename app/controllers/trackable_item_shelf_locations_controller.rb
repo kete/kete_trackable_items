@@ -4,18 +4,21 @@ class TrackableItemShelfLocationsController < ApplicationController
   unloadable
 
   def new
-    if params[:trackable_item].present?
-      @trackable_item = params[:trackable_item][:type].constantize.find(params[:trackable_item][:id])
-    end
-
     @repositories = appropriate_repositories_for_basket
 
-    @trackable_item_shelf_location = @trackable_item ? @trackable_item.trackable_item_shelf_locations.build : TrackableItemShelfLocation.new
+    if params[:trackable_item].present?
+      @trackable_item = params[:trackable_item][:type].constantize.find(params[:trackable_item][:id])
+    elsif params[:tracking_list].present?
+      @tracking_list = TrackingList.find(params[:tracking_list])
+    end
+
+    @trackable_item_shelf_location = @trackable_item.present? ? @trackable_item.trackable_item_shelf_locations.build : TrackableItemShelfLocation.new
   end
   
   def create
     repository_id = params[:trackable_item_shelf_location].delete(:repository_id)
     code = params[:trackable_item_shelf_location].delete(:code)
+    @tracking_list = TrackingList.find(params[:tracking_list]) if params[:tracking_list]
 
     if repository_id.present?
       @repository = Repository.find(repository_id)
@@ -27,11 +30,35 @@ class TrackableItemShelfLocationsController < ApplicationController
       params[:trackable_item_shelf_location][:shelf_location_id] = @shelf_location ? @shelf_location.id : nil
     end
 
-    @trackable_item_shelf_location = TrackableItemShelfLocation.new(params[:trackable_item_shelf_location])
-    @trackable_item = @trackable_item_shelf_location.trackable_item
+    if @tracking_list
+      # create an trackable_item_shelf_location for each tracked_item for the tracking_list
+      @tracking_list.tracked_items.each do |tracked_item|
+        options = params[:trackable_item_shelf_location]
+        options[:trackable_item_type] = tracked_item.trackable_item_type
+        options[:trackable_item_id] = tracked_item.trackable_item_id
 
-    if @trackable_item_shelf_location.save
-      redirect_to url_for_dc_identifier(@trackable_item)
+        @trackable_item_shelf_location = TrackableItemShelfLocation.new(options)
+        @successful = @trackable_item_shelf_location.save
+
+        # stop at the point we get failure, so we only report the error on that one object
+        # far from perfect solution, but hopefully very unlikely
+        break unless @successful
+      end
+      @tracking_list.allocate! if @successful
+
+    else
+      @trackable_item_shelf_location = TrackableItemShelfLocation.new(params[:trackable_item_shelf_location])
+      @trackable_item = @trackable_item_shelf_location.trackable_item
+      @successful = @trackable_item_shelf_location.save
+    end
+
+    if @successful
+      if @tracking_list
+        redirect_to repository_shelf_location_url(:id => @shelf_location,
+                                                  :repository_id => @repository)
+      else
+        redirect_to url_for_dc_identifier(@trackable_item)
+      end
     else
       render :action => 'new'
     end

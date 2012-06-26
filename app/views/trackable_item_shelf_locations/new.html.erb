@@ -2,8 +2,12 @@
        @reference = h(@trackable_item.description_for_tracked_item)
        @title = t('.title', :reference => @reference)
      else
-       @reference = h(@shelf_location.code)
-       @title = t('.title_with_shelf_location', :code => @reference)
+       if @shelf_location
+         @reference = h(@shelf_location.code)
+         @title = t('.title_with_shelf_location', :code => @reference)
+       elsif @tracking_list
+         @title = t('.title_tracking_list')
+       end
      end 
 -%>
 
@@ -19,6 +23,9 @@
         <%= f.hidden_field :trackable_item_id -%>
         <%= f.hidden_field :trackable_item_type -%>
       <% else -%>
+        <% if @tracking_list -%>
+          <%= hidden_field_tag :tracking_list, @tracking_list.id -%>
+	<% end -%>
         <%# TODO: set up choice of trackable_item through  autocomplete based search -%>
       <% end -%>
 

@@ -10,6 +10,9 @@ class ShelfLocation < ActiveRecord::Base
 
   validates_uniqueness_of :code, :case_sensitive => false, :scope => :repository_id
 
+  # we want to list alphabetically by shelf code in most cases
+  default_scope :order => 'code ASC'
+
   workflow do
     state :available do
       event :allocate, :transitions_to => :allocated

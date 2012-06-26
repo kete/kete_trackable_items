@@ -13,6 +13,6 @@
   <td><%= topic.series_no-%></td>
   <td><%= topic.box_no-%></td>
   <td><%= topic.item_no-%></td>
-  <td><%= link_to shelf_location.code, repository_shelf_location_url(:id  => shelf_location, :repository_id => shelf_location.repository) -%></td>
+  <td><%= link_to shelf_location.code, repository_shelf_location_url(:id  => shelf_location, :repository_id => shelf_location.repository)  if shelf_location.present? -%></td>
   <td><%= link_to topic.title, url_for_dc_identifier(tracked_item.trackable_item) -%><%# link_to tracked_item.description_for_tracked_item, url_for_dc_identifier(tracked_item.trackable_item) -%></td>
 </tr>

@@ -52,8 +52,9 @@ class ShelfLocationsController < ApplicationController
     @shelf_location = @repository.shelf_locations.build(params[:shelf_location])
 
     if @shelf_location.save
-      redirect_to repository_shelf_location_url(:id => @shelf_location,
-                                                :repository_id => @repository)
+      # redirect to listing of shelf locations on repository index
+      # instead of show page
+      redirect_to repository_url(:id => @repository)
     else
       render :action => 'new'
     end

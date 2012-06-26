@@ -111,6 +111,7 @@ en:
       repository_label: "{{t.base.repository.capitalize}}:"
       shelf_location_code: "{{t.base.shelf_location.capitalize}} {{t.base.code}}"
       title: "{{t.base.allocate.capitalize}} {{t.base.shelf_location}} to {{reference}}"
+      title_tracking_list: "{{t.base.allocate.capitalize}} {{t.base.shelf_location}} for {{t.base.tracking_list}}"
       title_with_shelf_location: "{{t.base.choose.capitalize}} {{t.base.item}} to {{t.base.allocate.capitalize}} to {{reference}}"
   tracked_item:
     already_in_tracking_list: "This item is already in this tracking list"
@@ -134,7 +135,7 @@ en:
     form:
       add: "{{t.base.add.capitalize}} to {{t.base.tracking_list}}"
       do_not_add: "Skip this line"
-      no_matches: "No {{t.base.trackable_item.pluralize}} matching your criteria. Are you sure they have been {{t.base.allocated}} a {{t.base.shelf_location}}."
+      no_matches: "No {{t.base.trackable_item.pluralize}} matching your criteria."
     index:
       back_to: "{{t.base.back.capitalize}} to {{name}}"
       new: "{{t.base.new.capitalize}} {{t.base.tracking_list}}"

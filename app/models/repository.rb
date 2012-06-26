@@ -8,4 +8,9 @@ class Repository < ActiveRecord::Base
 
   has_many :shelf_locations, :dependent => :destroy
   has_many :tracking_lists, :dependent => :destroy
+
+  validates_uniqueness_of :name, :case_sensitive => false
+
+  # we want to list alphabetically by repository name in most cases
+  default_scope :order => 'name ASC'
 end

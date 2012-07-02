@@ -8,6 +8,11 @@ class OnLoanOrganization < ActiveRecord::Base
   # tracking history, only historical_receiver
   send :has_many, :tracking_receiving_events, :as => :historical_receiver, :dependent => :delete_all
 
+  validates_uniqueness_of :name, :case_sensitive => false
+
+  # we want to list alphabetically by name in most cases
+  default_scope :order => 'name ASC'
+
   def name_for_tracking_event
     name
   end

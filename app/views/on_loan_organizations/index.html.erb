@@ -1,0 +1,7 @@
+<% @title = t('.title')
+      @title += t('.for_name_pattern',  :name_pattern=> h(@name_pattern)) if @name_pattern
+-%>
+
+<h2><%= @title -%></h2>
+
+<%= render :partial => 'on_loan_organizations', :locals => { :on_loan_organizations => @on_loan_organizations } -%>

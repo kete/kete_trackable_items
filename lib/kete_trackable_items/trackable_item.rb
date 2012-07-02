@@ -43,6 +43,9 @@ module KeteTrackableItems
           specification = Proc.new {
             state :unallocated do
               event :allocate, :transitions_to => :on_shelf
+              event :display, :transitions_to => :displayed
+              event :hold_out, :transitions_to => :held_out
+              event :loan, :transitions_to => :on_loan_to_organization
             end
 
             eval(shared_code_as_string)

@@ -1,6 +1,9 @@
 <% @title = t('.title', :state_name => @tracking_list.current_state_humanized) -%>
 <fieldset class="tracking_list">
-  <h3><%=  @title -%> (<%= link_to(t('.download_for_excel'), repository_tracking_list_url(:id => @tracking_list, :repository_id => @tracking_list.repository, :format => :xls)) -%>)
+  <h3><%=  @title -%>
+    <% if @tracking_list.tracked_items.count > 0 -%>
+    (<%= link_to(t('.download_for_excel'), repository_tracking_list_url(:id => @tracking_list, :repository_id => @tracking_list.repository, :format => :xls)) -%>)
+    <% end -%>
     <% if @tracking_list.tracking_events.size > 0 -%>
     ( <%= link_to(t('.history'), tracking_events_url( :historical_item_type => @tracking_list.class.name, :historical_item_id => @tracking_list.id )) -%> )
     <% end -%>

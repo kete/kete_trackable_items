@@ -15,6 +15,9 @@ class TrackingListsController < ApplicationController
   def show
     unless params[:format] == 'xls'
       @possible_events = @tracking_list.current_state.events.keys.collect(&:to_s).sort
+
+      # TODO: take out events that are not possible given the tracked items
+
       # we don't want cancel to take a prominent position
       # take it out of current position and add it at end
       if @possible_events.include?('cancel')
@@ -59,12 +62,20 @@ class TrackingListsController < ApplicationController
                                        :repository_id => @repository)
     if params[:event]
       event = params[:event]
-      # allocating means we need to choose shelf location before proceeding
-      if event == 'allocate'
+      case event
+      when 'allocate'
+        # allocating means we need to choose shelf location before proceeding
         options = { :tracking_list => @tracking_list }
         options[:urlified_name] = @site_basket.urlified_name if @current_basket.repositories.count < 1
 
         url = new_trackable_item_shelf_location_url(options)
+        @successful = true
+      when 'loan'
+        # we need to collect information for a new or existing on_loan_organization
+        options = { :tracking_list => @tracking_list }
+        options[:urlified_name] = @site_basket.urlified_name if @current_basket.repositories.count < 1
+
+        url = new_on_loan_organization_url(options)
         @successful = true
       else
         # otherwise, send the event as a method

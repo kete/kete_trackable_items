@@ -1,0 +1,9 @@
+<% @title = t('.title', :name => h(@on_loan_organization.name)) -%>
+
+<h2><%= @title -%></h2>
+
+<% form_for(@on_loan_organization, :url => on_loan_organization_url(:id => @on_loan_organization), :method => :put ) do |f| %>
+  <%= render :partial => "form", :locals => { :f => f } %>
+<% end %>
+
+<%= link_to t('.back_to'), on_loan_organizations_url %>

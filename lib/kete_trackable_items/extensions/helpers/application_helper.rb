@@ -1,4 +1,15 @@
 ApplicationHelper.module_eval do
+  # a copy of auto_complete plugin's method, but adding id to li
+  def auto_complete_result_with_id(entries, field, phrase = nil)
+    return unless entries
+    items = entries.map do |entry|
+      content_tag("li",
+                  phrase ? highlight(entry[field], phrase) : h(entry[field]),
+                  :id => "#{field}-id-#{entry.id}")
+    end
+    content_tag("ul", items.uniq)
+  end
+
   def add_trackable_items_links
     html = link_to(t('application_helper.add_trackable_items_links.add_items_to_tracking_list'),
                    '#', :id => 'add-items-button', :tabindex => 2)

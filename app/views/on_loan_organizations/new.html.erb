@@ -1,0 +1,64 @@
+<%  @title = t('.title')
+       @button_text = @tracking_list.present? ? t('.create_and_loan') : t('.create.')
+-%>
+
+<h2><%= @title -%></h2>
+
+<% form_for @on_loan_organization, :url => on_loan_organizations_url(:method => :post) do |f| %>
+
+<%= f.error_messages %>
+
+<fieldset>
+  <% if @tracking_list -%>
+    <%= hidden_field_tag :tracking_list, @tracking_list.id -%>
+  <% end -%>
+
+  <%= f.hidden_field :id -%>
+
+  <div class="form-element">
+    <label for="name"><%=t '.on_loan_organization_name' %></label>
+    <%= text_field_with_auto_complete(:on_loan_organization, :name,
+	{ :tabindex => '1' },
+    { :param_name => 'name_pattern', :url => formatted_on_loan_organizations_path(:format => :js),
+    :method => :get,
+    :on_hide => "function(element, update) {
+        if (jQuery('#on_loan_organization_name_auto_complete ul li').size() == 0) {
+          jQuery(\"#on_loan_organization_id\").val('');
+          jQuery(\"#on_loan_organization_contact_details\").show();
+          jQuery(\"#label_for_on_loan_organization_contact_details\").text('#{t('.contact_details_label')}');
+        }
+    }",
+    :after_update_element => "function (element, li) {
+                        var stripped_id = li.id.replace('name-id-','');
+                        jQuery(\"#on_loan_organization_id\").val(stripped_id);
+                        jQuery(\"#on_loan_organization_contact_details\").val('');
+                        jQuery(\"#on_loan_organization_contact_details\").hide();
+                        jQuery(\"#label_for_on_loan_organization_contact_details\").text('#{t('.using_existing_contact_details')}');
+                        jQuery(\"#on_loan_organization_submit\").val('#{t('.loan')}');
+                      }",
+    :indicator => 'data_spinner_on_loan_organization_names' }) -%>
+    <span id="data_spinner_on_loan_organization_names" style="display: none;">
+      <img src='/images/indicator.gif' width='16' height='16'
+	   alt='<%=t '.getting_on_loan_organizations_names' -%>' />
+      <%= t '.looking_up_on_loan_organizations_names' -%>
+    </span>
+  </div>
+
+  <div class="form-element">
+    <label id="label_for_on_loan_organization_contact_details"><%= t('.contact_details_label') -%></label>
+    <%= f.text_area :contact_details, { :tabindex => '1', :label => t('.contact_details'), :cols => 90, :rows => 5, :required => true } %>
+  </div>
+
+  <% javascript_on_loan_organization_id_change_update_contact_details -%>
+
+</fieldset>
+
+<div class="wrap">
+  <%= f.submit @button_text, { :class => "save-button", :tabindex => '1' } -%>
+</div>
+
+<% end -%>
+
+<% if @trackable_list.present? -%>
+  <%= link_to t('.back_to'), repository_tracking_list_url(:id => @tracking_list, :repository_id => @tracking_list.repository.id) -%>
+<% end %>

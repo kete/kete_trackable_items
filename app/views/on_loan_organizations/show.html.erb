@@ -1,0 +1,11 @@
+<% @title = t('.title', :name => h(@on_loan_organization.name)) -%>
+
+<h2><%= @title -%></h2>
+
+<div id="contact-details"><%= h @on_loan_organization.contact_details -%></div>
+
+<p>
+  <%= link_to t('.edit'), edit_on_loan_organization_url(:id => @on_loan_organization) %>
+  <br/>
+  <%= link_to t('.back_to'), on_loan_organizations_url %>
+</p>

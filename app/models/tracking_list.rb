@@ -57,11 +57,12 @@ class TrackingList < ActiveRecord::Base
         :before_state => from.to_s,
         :event => event_name.to_s }
 
-      attribute_options[:historical_receiver] = on_loan_organization if event_name == :loan
+      if event_name == :loan && @on_loan_organization
+        attribute_options[:historical_receiver] = @on_loan_organization
+      end
 
       TrackingEvent.create!(attribute_options)
     end
-
   }
   
   workflow(&specification)
@@ -85,5 +86,16 @@ class TrackingList < ActiveRecord::Base
 
   def name_for_tracking_event
     repository.name + ': ' + I18n.t('tracking_list.name_for_tracking_event.tracking_list') + ' '+ id.to_s
+  end
+
+  def loan_to(on_loan_organization)
+    # TODO: optimize this, probably a query per tracked_item right now
+    # possibly worthwhile to move to a backgroundrb process
+    tracked_items.each do |tracked_item|
+      trackable_item = tracked_item.trackable_item
+      trackable_item.on_loan_organization = on_loan_organization
+      trackable_item.save_without_revision
+    end
+    loan!
   end
 end

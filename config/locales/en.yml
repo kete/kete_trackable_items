@@ -10,6 +10,9 @@ en:
     allocated: allocated
     deallocate: deallocate
     event: event
+    loan: loan
+    organization: "organization"
+    on_loan_organization: "on {{t.base.loan}} to {{t.base.organization}}"
     repository: repository
     shelf_location: shelf location
     shelf_locations: "{{t.base.shelf_location.pluralize}}"
@@ -18,6 +21,43 @@ en:
     tracked_item: tracked item
     tracking_list: tracking list
     tracking_lists: "{{t.base.tracking_list.pluralize}}"
+  on_loan_organizations:
+    edit:
+      back_to: "{{t.base.back.capitalize}} to {{t.base.on_loan_organization.pluralize}}"
+      title: "{{t.base.on_loan_organization.capitalize}}: {{name}}"
+    form:
+      contact_details: "Contact details"
+      name: "{{t.base.name.capitalize}}"
+      save: "{{t.base.save}}"
+    index:
+      for_name_pattern: " that match {{name_pattern}}"
+      title: "{{t.base.on_loan_organization.pluralize.capitalize}}"
+    new:
+      back_to: "{{t.base.back.capitalize}} to {{t.base.tracking_list}}"
+      create: "{{t.base.create}}"
+      create_and_loan: "{{t.base.create}} and {{t.base.loan}} to {{t.base.created}} {{t.base.organization}}"
+      contact_details: "contact details"
+      contact_details_label: "Contact details"
+      getting_on_loan_organizations_names: "getting {{t.base.on_loan_organization}} {{t.base.name.pluralize}} status image. "
+      loan: "{{t.base.loan}}"
+      looking_up_on_loan_organizations_names: "looking up already entered {{t.base.organization.pluralize}}"
+      on_loan_organization_name: "{{t.base.organization.capitalize}} {{t.base.name}}"
+      title: "Add {{t.base.on_loan_organization}}"
+      using_existing_contact_details: "Using existing contact details for matching {{t.base.organization}}."
+    on_loan_organization:
+      are_you_sure: "{{t.base.are_you_sure}}"
+      edit: "{{t.base.edit.capitalize}}"
+      delete: "{{t.base.delete.capitalize}}"
+    on_loan_organizations:
+      name: "{{t.base.name.capitalize}}"
+      action: "{{t.base.action.capitalize}}"
+    show:
+      back_to: "{{t.base.back.capitalize}} to {{t.base.on_loan_organization.pluralize}}"
+      are_you_sure: "{{t.base.are_you_sure}}"
+      edit: "{{t.base.edit.capitalize}}"
+      delete: "{{t.base.delete.capitalize}}"
+      name: "{{t.base.name.capitalize}}"
+      title: "{{t.base.on_loan_organization.capitalize}}: {{name}}"
   repositories:
     edit:
       back_to_repositories: "{{t.base.back.capitalize}} to {{t.base.repository.pluralize}}"
@@ -73,7 +113,7 @@ en:
       edit: "{{t.base.edit.capitalize}}"
       delete: "{{t.base.delete.capitalize}}"
     shelf_locations:
-      action: "Action"
+      action: "{{t.base.action.capitalize}}"
       code: "{{t.base.code.capitalize}}"
       status: "{{t.base.status.capitalize}}"
     show:

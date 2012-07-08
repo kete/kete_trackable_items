@@ -39,7 +39,11 @@ xml.Workbook({
           xml.Cell { xml.Data topic.series_no, 'ss:Type' => 'String' }
           xml.Cell { xml.Data topic.box_no, 'ss:Type' => 'String' }
           xml.Cell { xml.Data topic.item_no, 'ss:Type' => 'String' }
-          xml.Cell { xml.Data topic.shelf_locations.first.code, 'ss:Type' => 'String' }
+	  if topic.shelf_locations.any?
+	    xml.Cell { xml.Data topic.shelf_locations.first.code, 'ss:Type' => 'String' }
+	  else
+	    xml.Cell { xml.Data '', 'ss:Type' => 'String' }
+	  end	    
           xml.Cell { xml.Data topic.title, 'ss:Type' => 'String' }
         end
       end

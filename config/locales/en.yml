@@ -1,9 +1,15 @@
 ---
 en:
   application_helper:
+    add_ons_basket_admin_list:
+      choose_repository: "{{t.base.choose.capitalize}} {{t.base.repository}}"
+      location_admin: "location admin"
+      location_tracking: "location tracking"
     add_trackable_items_links:
       add_items_to_tracking_list: "{{t.base.add.capitalize}} {{t.base.trackable_item.pluralize}}"
       close_add_items_to_tracking_list: "{{t.base.close.capitalize}} {{t.base.add}} {{t.base.trackable_item.pluralize}}"
+    hidden_repository_new_tracking_list_chooser:
+      cancel: "{{t.base.cancel}}"
   base:
     action: action
     allocate: allocate
@@ -82,9 +88,11 @@ en:
       back_to_repositories: "{{t.base.back.capitalize}} to {{t.base.repository.pluralize}}"
       edit: "{{t.base.edit.capitalize}}"
       delete: "{{t.base.delete.capitalize}}"
+      other_actions: "Other {{t.base.action.pluralize}}"
+      repository: "{{t.base.repository.capitalize}}:"
       shelf_locations: "{{t.base.shelf_location.pluralize.capitalize}}"
       title: "{{t.base.repository.capitalize}}: {{name}}"
-      tracking_lists: "{{t.base.tracking_list.pluralize.capitalize}}"
+      view_tracking_lists: "{{t.base.tracking_list.pluralize.capitalize}} reports"
   shared:
     tracking:
       currently: "Currently:"
@@ -171,7 +179,7 @@ en:
   tracking_lists:
     edit:
       back_to: "{{t.base.back.capitalize}} to {{t.base.tracking_list}}"
-      title: "{{t.base.edit.capitalize}} {{t.base.tracking_list}} for {{name}} {{t.base.repository}}"
+      title: "{{t.base.add.capitalize}} to {{t.base.tracking_list}} for {{name}} {{t.base.repository}}"
     form:
       add: "{{t.base.add.capitalize}} to {{t.base.tracking_list}}"
       do_not_add: "Skip this line"
@@ -186,10 +194,11 @@ en:
     show:
       are_you_sure: "{{t.base.are_you_sure}}"
       back_to: "{{t.base.back.capitalize}} to {{name}} {{t.base.repository}}"
-      delete_tracking_list: "{{t.base.delete.capitalize}} {{t.base.tracking_list}}"
+      delete_tracking_list: "{{t.base.delete.capitalize}} and return to {{name}} {{t.base.repository}}"
       download_for_excel: "Download for Excel"
       history: "{{t.base.history}}"
       not_items_in_tracking_list: "No {{t.base.tracked_item.pluralize}} in {{t.base.tracking_list}}"
+      finish: 'Finish'
       title: "{{state_name}} {{t.base.tracking_list.capitalize}}"
       tracked_item_actions: "{{t.base.action.pluralize.capitalize}}"
       tracked_item_description: "{{t.base.tracked_item.capitalize}}"

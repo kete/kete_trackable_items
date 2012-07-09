@@ -13,6 +13,8 @@ class TrackingListsController < ApplicationController
   end
 
   def show
+    @download_modal = params[:download_modal].present? ? params[:download_modal].param_to_obj_equiv : false
+
     unless params[:format] == 'xls'
       @possible_events = @tracking_list.current_state.events.keys.collect(&:to_s).sort
 
@@ -84,6 +86,9 @@ class TrackingListsController < ApplicationController
         @tracking_list.send(event + '!')
         @successful = @tracking_list.current_state != original_state
         @state_change_failed = !@successful
+        url = repository_url(:id => @tracking_list,
+                             :repository_id => @repository,
+                             :download_modal => true)
       end
     else
       @successful = @tracking_list.update_attributes(params[:tracking_list])
@@ -100,9 +105,7 @@ class TrackingListsController < ApplicationController
 
   def destroy
     @tracking_list.destroy
-
-    # TODO: may need to redirect a different place in some contexts
-    redirect_to repository_tracking_lists_url(:repository_id => @repository)
+    redirect_to repository_url(:repository_id => @repository)
   end
 
   private

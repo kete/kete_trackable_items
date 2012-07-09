@@ -10,23 +10,27 @@
   <%= link_to t('.add_shelf_location'), new_repository_shelf_location_url(:repository_id => @repository) %>
 </p>
 
-<h3><%= t '.tracking_lists' -%></h3>
+<h3><%= t '.other_actions' -%></h3>
 
-<%= render :partial => 'tracking_lists/tracking_lists', :locals => { :repository => @repository } -%>
+<%= button_to t('.add_tracking_list'),
+    repository_tracking_lists_url(:repository_id => @repository, :method => :post) %>
 
 <p>
-  <%= button_to t('.add_tracking_list'),
-      repository_tracking_lists_url(:repository_id => @repository, :method => :post) %>
+<%= link_to t('.view_tracking_lists'),
+    repository_tracking_lists_url(:repository_id => @repository) %>
 </p>
 
 <% if @site_admin -%>
-<p>
+<p><%= t('.repository') -%>
   <%= link_to t('.edit'), edit_repository_url(:id => @repository) %>
   | 
   <%= link_to t('.delete'), repository_url(:id => @repository),
         :confirm => t('.are_you_sure'),
         :method => :delete  %>
-  <br/>
+</p>
+ 
+<p>
   <%= link_to t('.back_to_repositories'), repositories_url %>
 </p>
+
 <% end -%>

@@ -10,31 +10,57 @@ ApplicationHelper.module_eval do
     content_tag("ul", items.uniq)
   end
 
-  def add_trackable_items_links
-    html = link_to(t('application_helper.add_trackable_items_links.add_items_to_tracking_list'),
-                   '#', :id => 'add-items-button', :tabindex => 2)
+  # alias versions of method so far to add to them
+  alias_method :superseded_add_ons_basket_admin_list, :add_ons_basket_admin_list
 
-    html += link_to(t('application_helper.add_trackable_items_links.close_add_items_to_tracking_list'),
-                    '#', :id => 'close-add-items-button', :tabindex => 2, :style => 'display: none;' )
+  def add_ons_basket_admin_list
+    html = superseded_add_ons_basket_admin_list
 
-    html += javascript_tag("jQuery(document).ready(function(){
-			    jQuery('#add-items-button').click(function() {
-		            jQuery('#trackable_item_search_form').slideDown('slow',
-			    function() {
-		            jQuery('#add-items-button').hide();
-			    jQuery('#close-add-items-button').show();
-			    });
-			    });
-			    jQuery('#close-add-items-button').click(function() {
-		            jQuery('#trackable_item_search_form').slideUp('slow',
-			    function() {
-			    jQuery('#close-add-items-button').hide();
-		            jQuery('#add-items-button').show();
-			    });
-			    });
-			    });
-			    ")
+    html += "| " + link_to_unless_current(t('application_helper.add_ons_basket_admin_list.location_admin'),
+                                          { :controller => :repositories,
+                                            :action => :index,
+                                            :urlified_name => @current_basket.urlified_name},
+                                          :tabindex => '2')
+
+    if @current_basket.repositories.count > 0
+      if @current_basket.repositories.count == 1
+        button_html = button_to(t('application_helper.add_ons_basket_admin_list.location_tracking'),
+                                repository_tracking_lists_url(:repository_id => @current_basket.repositories.first,
+                                                              :method => :post),
+                                :tabindex => '2')
+        html += javascript_tag("jQuery('#basket-toolbox').append('#{button_html}');")
+      else
+
+        html += "| " + link_to_redbox(t('application_helper.add_ons_basket_admin_list.location_tracking'),
+                                      'RB-choose-repository',
+                                      :tabindex => '2')
+        html += hidden_repository_new_tracking_list_chooser
+      end
+    end
 
     html
+  end
+
+  def hidden_repository_new_tracking_list_chooser
+    # choose a repository
+    html = '<div id="RB-choose-repository" style="display: none;">'
+    html += '<div style="margin: 20px;">'
+    html += "<h3>#{t('application_helper.add_ons_basket_admin_list.choose_repository')}</h3>"
+    html += '</div>'
+    @current_basket.repositories.each do |repository|
+      html += '<div style="margin: 20px;">'
+      html += button_to(repository.name,
+                        repository_tracking_lists_url(:repository_id => repository,
+                                                      :method => :post),
+                        :tabindex => '2')
+      html += '</div>'
+    end
+    
+    html += '<div style="text-align: right; margin-right: 20px; margin-bottom: 20px;">'
+    html += link_to_close_redbox(t('application_helper.hidden_repository_new_tracking_list_chooser.cancel'))
+    html += '</div>'
+    html += '</div>'
+
+    javascript_tag("jQuery('body').append('#{html}');")
   end
 end

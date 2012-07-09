@@ -10,6 +10,9 @@ class TrackingList < ActiveRecord::Base
   # tracking history, can be historical_item
   has_many :tracking_events, :as => :historical_item, :dependent => :delete_all
 
+  # we want to list most recent first in most cases
+  default_scope :order => 'created_at DESC'
+
   # set up workflow states, some are shared with trackable_items
   shared_code_as_string = shared_tracking_workflow_specs_as_string
   
@@ -23,6 +26,7 @@ class TrackingList < ActiveRecord::Base
       event :hold_out, :transitions_to => :completed
       event :loan, :transitions_to => :completed
       event :queue_for_refiling, :transitions_to => :completed
+      event :refile, :transitions_to => :completed
       event :cancel, :transitions_to => :cancelled
     end
     

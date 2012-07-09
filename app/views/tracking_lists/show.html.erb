@@ -1,52 +1,78 @@
 <% @title = t('.title', :state_name => @tracking_list.current_state_humanized) -%>
+<% dowload_link = String.new
+
+   if @tracking_list.tracked_items.count > 0
+    download_link = link_to(t('.download_for_excel'),
+    repository_tracking_list_url(:id => @tracking_list,
+    :repository_id => @tracking_list.repository, :format => :xls))
+   end -%>
+
 <fieldset class="tracking_list">
+  <% if @download_modal -%>
+    <div id="xl-download-link" style="display: none;">
+      <h3 style="text-align: center"><%= download_link -%>
+        |
+        <%= link_to(t('.finish'), '/') -%></h3>
+    </div>
+  <% end -%>
   <h3><%=  @title -%>
-    <% if @tracking_list.tracked_items.count > 0 -%>
-    (<%= link_to(t('.download_for_excel'), repository_tracking_list_url(:id => @tracking_list, :repository_id => @tracking_list.repository, :format => :xls)) -%>)
+    <% unless download_link.blank? -%>
+      <% if @download_modal -%>
+        <%= link_to_redbox(t('.download_for_excel'), 'xl-download-link', :id => 'RB-xl-download-start') -%>
+	<%= javascript_tag("jQuery(document).ready(function(){
+			    jQuery('#RB-xl-download-start').click();
+			    });") -%>
+      <% else -%>
+        (<%= download_link -%>)
+      <% end -%>
     <% end -%>
+    
     <% if @tracking_list.tracking_events.size > 0 -%>
     ( <%= link_to(t('.history'), tracking_events_url( :historical_item_type => @tracking_list.class.name, :historical_item_id => @tracking_list.id )) -%> )
     <% end -%>
   </h3>
-  <table class="order">
-    <tr>
-      <th abbr="Actions for Tracked Item"><%= t '.tracked_item_actions' %></th>
-      <th abbr="Tracked Item Series No"><%= t '.tracked_item_series_no' -%></th>
-      <th abbr="Tracked Item Box No"><%= t '.tracked_item_box_no' -%></th>
-      <th abbr="Tracked Item Item No"><%= t '.tracked_item_item_no' -%></th>
-      <th abbr="Tracked Item Shelf Code"><%= t '.tracked_item_shelf_code' -%></th>
-      <th abbr="Tracked Item"><%= t '.tracked_item_description' -%></th>
-    </tr>
+  
+  <% if @tracking_list.tracking_events.size > 0 -%>
+    <table class="order">
+      <tr>
+	<th abbr="Actions for Tracked Item"><%= t '.tracked_item_actions' %></th>
+	<th abbr="Tracked Item Series No"><%= t '.tracked_item_series_no' -%></th>
+	<th abbr="Tracked Item Box No"><%= t '.tracked_item_box_no' -%></th>
+	<th abbr="Tracked Item Item No"><%= t '.tracked_item_item_no' -%></th>
+	<th abbr="Tracked Item Shelf Code"><%= t '.tracked_item_shelf_code' -%></th>
+	<th abbr="Tracked Item"><%= t '.tracked_item_description' -%></th>
+      </tr>
 
-    <% if @tracking_list.tracked_items.count > 0 -%>
       <%= render :partial => 'tracked_items/tracked_item', :collection => @tracking_list.tracked_items, :locals => { :tracking_list => @tracking_list } -%>
+
+      <tr class="order-buttons">
+	<td><%= t '.tracking_list_controls_preface' -%></td>
+	
+	<td colspan="5">
+	  <% if @tracking_list.tracked_items.count > 0 -%>
+	    <%= render :partial => 'event_button', :collection => @possible_events, :locals => { :tracking_list => @tracking_list } %>
+	  <% end -%>
+	</td>
+
+      </tr>
+    </table>
+
     <% else -%>
-      <tr><td><%= t '.not_items_in_tracking_list' %></td></tr>
+      <p><%= t '.not_items_in_tracking_list' %></p>
     <% end -%>
 
-    <tr class="order-buttons">
-      <td><%= t '.tracking_list_controls_preface' -%></td>
+    <% if @tracking_list.current_state.name == :new -%>
+      <div id="trackable_item_search_form">
+	<%= render :partial => 'trackable_item_search_form', :locals => { :target => @tracking_list } -%>
+      </div>
+    <% end -%>
 
-      <td colspan="5">
-	<% if @tracking_list.current_state.name == :new -%>
-	  <%= add_trackable_items_links -%>
-        <% end -%>
-
-	<% if @tracking_list.tracked_items.count > 0 -%>
-	  <%= render :partial => 'event_button', :collection => @possible_events, :locals => { :tracking_list => @tracking_list } %>
-	<% end -%>
-
-	<%= button_to(t('.delete_tracking_list'), repository_tracking_list_url(:id => @tracking_list, :repository_id => @repository),
-	:confirm => t('.are_you_sure'),
-	:method => :delete) %>
-      </td>
-
-    </tr>
-  </table>
-
-  <div id="trackable_item_search_form" style="display: none;">
-    <%= render :partial => 'trackable_item_search_form', :locals => { :target => @tracking_list } -%>
-  </div>
 </fieldset>
 
-<%= link_to t('.back_to', :name => h(@repository.name)), repository_url(:id => @repository) %>
+<% if @tracking_list.tracked_items.count == 0 && @tracking_list.current_state.name == :new -%>
+  <%= button_to(t('.delete_tracking_list', :name => h(@repository.name)), repository_tracking_list_url(:id => @tracking_list, :repository_id => @repository),
+  :confirm => t('.are_you_sure'),
+  :method => :delete) %>
+<% else -%>
+  <%= link_to t('.back_to', :name => h(@repository.name)), repository_url(:id => @repository) %>
+<% end -%>

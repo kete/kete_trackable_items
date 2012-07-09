@@ -55,7 +55,8 @@ class TrackableItemShelfLocationsController < ApplicationController
     if @successful
       if @tracking_list
         redirect_to repository_shelf_location_url(:id => @shelf_location,
-                                                  :repository_id => @repository)
+                                                  :repository_id => @repository,
+                                                  :download_modal => true)
       else
         redirect_to url_for_dc_identifier(@trackable_item)
       end

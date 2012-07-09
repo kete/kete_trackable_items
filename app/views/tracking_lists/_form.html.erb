@@ -2,15 +2,22 @@
 
 <% if @matching_trackable_items.size > 0 -%>
   <fieldset>
-  
-    <% f.fields_for :tracked_items do |tracked_item_form| %>
-      <%= link_to(h(tracked_item_form.object.description_for_tracked_item),
-	  url_for_dc_identifier(tracked_item_form.object.trackable_item)) %>
-      <%= tracked_item_form.hidden_field :trackable_item_type %>
-      <%= tracked_item_form.hidden_field :trackable_item_id %>
-      <%= tracked_item_form.label :_destroy, t('.do_not_add') %>
-      <%= tracked_item_form.check_box :_destroy %>  
-    <% end %>
+    <table>
+      <% f.fields_for :tracked_items do |tracked_item_form| %>
+        <tr>
+	  <td>
+	    <%= link_to(truncate(h(tracked_item_form.object.description_for_tracked_item), :length => 132, :omission => '...'),
+	                        url_for_dc_identifier(tracked_item_form.object.trackable_item)) %>
+	    <%= tracked_item_form.hidden_field :trackable_item_type %>
+	    <%= tracked_item_form.hidden_field :trackable_item_id %>
+	  </td>
+	  <td>
+	    <%= tracked_item_form.label :_destroy, t('.do_not_add') %>
+	    <%= tracked_item_form.check_box :_destroy %>
+	  </td>
+        </tr>
+      <% end %>
+    </table>
   </fieldset>
 
   <div class="wrap">
@@ -19,9 +26,3 @@
 <% else %>
   <h3><%= t '.no_matches' -%></h3>
 <% end %>
-
-
-
-
-
-

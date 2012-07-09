@@ -55,7 +55,8 @@ class OnLoanOrganizationsController < ApplicationController
 
       url = if @tracking_list
               repository_tracking_list_url(:id => @tracking_list,
-                                           :repository_id => @tracking_list.repository)
+                                           :repository_id => @tracking_list.repository,
+                                           :download_modal => true)
             else
               on_loan_organzation_url(:id => @on_loan_organization)
             end

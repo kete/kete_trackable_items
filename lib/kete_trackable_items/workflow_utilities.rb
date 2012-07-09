@@ -43,20 +43,25 @@ module KeteTrackableItems
           end
 
           state :displayed do
+            event :allocate, :transitions_to => :on_shelf
             event :hold_out, :transitions_to => :held_out
             event :loan, :transitions_to => :on_loan_to_organization
             event :queue_for_refiling, :transitions_to => :to_be_refiled
+            event :refile, :transitions_to => :on_shelf
           end
 
           state :held_out do
+            event :allocate, :transitions_to => :on_shelf
             event :loan, :transitions_to => :on_loan_to_organization
             event :queue_for_refiling, :transitions_to => :to_be_refiled
+            event :refile, :transitions_to => :on_shelf
           end
 
           state :on_loan_to_organization do
             event :display, :transitions_to => :displayed
             event :hold_out, :transitions_to => :held_out
             event :queue_for_refiling, :transitions_to => :to_be_refiled
+            event :refile, :transitions_to => :on_shelf
           end
         '
       end

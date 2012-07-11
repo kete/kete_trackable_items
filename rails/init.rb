@@ -1,6 +1,12 @@
 ActionController::Base.send(:include, KeteTrackableItems::ControllerHelpers)
 ActionController::Base.send(:helper, TrackableItemsHelper)
 
+kete_trackable_items_controllers = ['repositories', 'shelf_locations','tracking_lists',
+                                    'tracking_events', 'trackable_item_shelf_locations']
+
+ApplicationController.add_ons_full_width_content_wrapper_controllers += kete_trackable_items_controllers
+ApplicationController.add_ons_content_wrapper_end_controllers += kete_trackable_items_controllers
+
 config.to_prepare do
   # load our locales
   I18n.load_path += Dir[File.join(File.dirname(__FILE__), '../config/locales/*.{rb,yml}')]

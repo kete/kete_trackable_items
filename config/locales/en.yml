@@ -92,7 +92,7 @@ en:
       repository: "{{t.base.repository.capitalize}}:"
       shelf_locations: "{{t.base.shelf_location.pluralize.capitalize}}"
       title: "{{t.base.repository.capitalize}}: {{name}}"
-      view_tracking_lists: "{{t.base.tracking_list.pluralize.capitalize}} reports"
+      view_tracking_lists: "{{t.base.tracking_list.capitalize}} reports"
   shared:
     tracking:
       currently: "Currently:"

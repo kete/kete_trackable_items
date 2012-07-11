@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Walter McGinnis", "Noel Gomez", "Chris Toynbee"]
-  s.date = %q{2012-06-01}
+  s.date = %q{2012-07-11}
   s.description = %q{A Kete application add-on that allows for tracking the location of an item in a physical archive that corresponds to the item in the Kete application.}
   s.email = %q{walter@katipo.co.nz}
   s.extra_rdoc_files = [
@@ -26,11 +26,14 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "app/controllers/on_loan_organizations_controller.rb",
      "app/controllers/repositories_controller.rb",
      "app/controllers/shelf_locations_controller.rb",
      "app/controllers/trackable_item_shelf_locations_controller.rb",
      "app/controllers/tracked_items_controller.rb",
+     "app/controllers/tracking_events_controller.rb",
      "app/controllers/tracking_lists_controller.rb",
+     "app/helpers/on_loan_organizations_helper.rb",
      "app/helpers/trackable_item_shelf_locations_helper.rb",
      "app/helpers/trackable_items_helper.rb",
      "app/models/on_loan_organization.rb",
@@ -38,12 +41,21 @@ Gem::Specification.new do |s|
      "app/models/shelf_location.rb",
      "app/models/trackable_item_shelf_location.rb",
      "app/models/tracked_item.rb",
+     "app/models/tracking_event.rb",
      "app/models/tracking_list.rb",
+     "app/views/on_loan_organizations/_form.html.erb",
+     "app/views/on_loan_organizations/_on_loan_organization.html.erb",
+     "app/views/on_loan_organizations/_on_loan_organizations.html.erb",
+     "app/views/on_loan_organizations/edit.html.erb",
+     "app/views/on_loan_organizations/index.html.erb",
+     "app/views/on_loan_organizations/new.html.erb",
+     "app/views/on_loan_organizations/show.html.erb",
      "app/views/repositories/_form.html.erb",
      "app/views/repositories/edit.html.erb",
      "app/views/repositories/index.html.erb",
      "app/views/repositories/new.html.erb",
      "app/views/repositories/show.html.erb",
+     "app/views/shared/_tracking.html.erb",
      "app/views/shelf_locations/_event_button.html.erb",
      "app/views/shelf_locations/_form.html.erb",
      "app/views/shelf_locations/_shelf_location.html.erb",
@@ -54,7 +66,8 @@ Gem::Specification.new do |s|
      "app/views/shelf_locations/new.html.erb",
      "app/views/shelf_locations/show.html.erb",
      "app/views/trackable_item_shelf_locations/new.html.erb",
-     "app/views/tracked_items/_tracked_item.html.erb",
+     "app/views/tracked_items/_tracked_item_trackable_item_pair.html.erb",
+     "app/views/tracking_events/index.html.erb",
      "app/views/tracking_lists/_event_button.html.erb",
      "app/views/tracking_lists/_form.html.erb",
      "app/views/tracking_lists/_trackable_item_search_form.html.erb",
@@ -74,6 +87,7 @@ Gem::Specification.new do |s|
      "generators/kete_trackable_items_migrations/templates/create_shelf_locations.rb",
      "generators/kete_trackable_items_migrations/templates/create_trackable_item_shelf_locations.rb",
      "generators/kete_trackable_items_migrations/templates/create_tracked_items.rb",
+     "generators/kete_trackable_items_migrations/templates/create_tracking_events.rb",
      "generators/kete_trackable_items_migrations/templates/create_tracking_lists.rb",
      "kete_trackable_items.gemspec",
      "lib/kete_trackable_items.rb",

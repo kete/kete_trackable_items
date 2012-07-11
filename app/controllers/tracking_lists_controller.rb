@@ -18,14 +18,55 @@ class TrackingListsController < ApplicationController
     unless params[:format] == 'xls'
       @possible_events = @tracking_list.current_state.events.keys.collect(&:to_s).sort
 
-      # TODO: take out events that are not possible given the tracked items
-
       # we don't want cancel to take a prominent position
       # take it out of current position and add it at end
       if @possible_events.include?('cancel')
         @possible_events.delete('cancel')
         @possible_events << 'cancel'
       end
+    end
+
+    page = params[:page].to_i
+    page = 1 if page == 0
+    per_page = params[:per_page].to_i
+    per_page = 10 if per_page == 0
+
+    page_options = { :page => page, :per_page => per_page }
+
+    if params[:format] == 'xls'
+      @tracked_items = @tracking_list.tracked_items
+    else
+      @tracked_items = @tracking_list.tracked_items.paginate(page_options)
+
+      @start_record = @tracked_items.offset + 1
+      @end_record = per_page * page
+      @end_record = @tracked_items.total_entries if @tracked_items.total_entries < @end_record
+    end
+
+    # we want to gather our trackable_items in as few queries as possible
+    types_and_ids = @tracked_items.inject(Hash.new) do |result, tracked_item|
+      type_key = tracked_item.trackable_item_type
+      item_id = tracked_item.trackable_item_id
+
+      values = result[type_key] || Array.new
+      values << item_id
+
+      result[type_key] = values
+      result
+    end
+
+    trackable_items_by_type = Hash.new
+    types_and_ids.each do |k,v|
+      trackable_items_by_type[k] = k.constantize.find(v)
+    end
+
+    @tracked_item_trackable_item_pairs = @tracked_items.inject(Array.new) do |result, tracked_item|
+      trackable_item = trackable_items_by_type[tracked_item.trackable_item_type].select do |item|
+        item.id == tracked_item.trackable_item_id
+      end.first
+
+      result << [tracked_item, trackable_item]
+      result
     end
 
     # xls support as outlined in http://www.arydjmal.com/blog/export-to-excel-in-rails-2

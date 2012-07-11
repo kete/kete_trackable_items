@@ -167,6 +167,9 @@ en:
     tracked_item:
       are_you_sure: "{{t.base.are_you_sure}}"
       delete: "Drop from list"
+    tracked_item_trackable_item_pair:
+      are_you_sure: "{{t.base.are_you_sure}}"
+      delete: "Drop from list"
   tracking_events:
     index:
       event: "{{t.base.event.capitalize}}"
@@ -195,6 +198,7 @@ en:
       are_you_sure: "{{t.base.are_you_sure}}"
       back_to: "{{t.base.back.capitalize}} to {{name}} {{t.base.repository}}"
       delete_tracking_list: "{{t.base.delete.capitalize}} and return to {{name}} {{t.base.repository}}"
+      displaying: "Showing {{start}} - {{end}} of {{total}}"
       download_for_excel: "Download for Excel"
       history: "{{t.base.history}}"
       not_items_in_tracking_list: "No {{t.base.tracked_item.pluralize}} in {{t.base.tracking_list}}"
@@ -206,6 +210,7 @@ en:
       tracked_item_item_no: "Item No"
       tracked_item_series_no: "Series No"
       tracked_item_shelf_code: "Shelf Code"
+      tracked_item_status: "Status"
       tracking_list_controls_preface: "{{t.base.tracking_list.capitalize}} {{t.base.action.pluralize}}:"
     trackable_item_search_form:
       search_button: "{{t.base.search}}"

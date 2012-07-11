@@ -1,7 +1,8 @@
 <%# HACK: using archivescentral knowledge of what tracked_item.trackable_item is -%>
 <%# TODO: replace hack with configuration -%>
-<% topic = Topic.find(tracked_item.trackable_item) -%>
-<% shelf_location = tracked_item.trackable_item.shelf_locations.first -%>
+<% tracked_item = tracked_item_trackable_item_pair[0] -%>
+<% item = tracked_item_trackable_item_pair[1] -%>
+<% shelf_location = item.shelf_locations.first -%>
 <tr>
   <td>
     <%= button_to t('.delete'), { :controller => :tracked_items,
@@ -10,9 +11,10 @@
     :tracking_list_id => tracking_list,
     :confirm => t('.are_you_sure') }, :method => :delete %>
   </td>
-  <td><%= topic.series_no-%></td>
-  <td><%= topic.box_no-%></td>
-  <td><%= topic.item_no-%></td>
+  <td><%= item.series_no -%></td>
+  <td><%= item.box_no -%></td>
+  <td><%= item.item_no -%></td>
+  <td><%= link_to truncate(h(item.description_for_tracked_item), :length => 80, :omission => '...'), url_for_dc_identifier(item) -%></td>
+  <td><%= item.current_state_humanized -%></td>
   <td><%= link_to shelf_location.code, repository_shelf_location_url(:id  => shelf_location, :repository_id => shelf_location.repository)  if shelf_location.present? -%></td>
-  <td><%= link_to topic.title, url_for_dc_identifier(tracked_item.trackable_item) -%><%# link_to tracked_item.description_for_tracked_item, url_for_dc_identifier(tracked_item.trackable_item) -%></td>
 </tr>

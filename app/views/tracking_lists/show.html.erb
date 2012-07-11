@@ -7,6 +7,7 @@
     :repository_id => @tracking_list.repository, :format => :xls))
    end -%>
 
+
 <fieldset class="tracking_list">
   <% if @download_modal -%>
     <div id="xl-download-link" style="display: none;">
@@ -31,19 +32,28 @@
     ( <%= link_to(t('.history'), tracking_events_url( :historical_item_type => @tracking_list.class.name, :historical_item_id => @tracking_list.id )) -%> )
     <% end -%>
   </h3>
+
+  <p>
+    <%= t('.displaying', :start => @start_record, :end => @end_record, :total => @tracked_items.total_entries) -%>
+  </p>
   
-  <% if @tracking_list.tracking_events.size > 0 -%>
+  <% if @tracking_list.tracked_items.size > 0 -%>
     <table class="order">
       <tr>
 	<th abbr="Actions for Tracked Item"><%= t '.tracked_item_actions' %></th>
 	<th abbr="Tracked Item Series No"><%= t '.tracked_item_series_no' -%></th>
 	<th abbr="Tracked Item Box No"><%= t '.tracked_item_box_no' -%></th>
 	<th abbr="Tracked Item Item No"><%= t '.tracked_item_item_no' -%></th>
+	<th abbr="Tracked Item"><%= t '.tracked_item_description'	-%></th>
+	<th abbr="Tracked Item Status"><%= t '.tracked_item_status' -%></th>
 	<th abbr="Tracked Item Shelf Code"><%= t '.tracked_item_shelf_code' -%></th>
-	<th abbr="Tracked Item"><%= t '.tracked_item_description' -%></th>
       </tr>
 
-      <%= render :partial => 'tracked_items/tracked_item', :collection => @tracking_list.tracked_items, :locals => { :tracking_list => @tracking_list } -%>
+      <%= render :partial => 'tracked_items/tracked_item_trackable_item_pair',
+                         :collection => @tracked_item_trackable_item_pairs,
+                         :locals => { :tracking_list => @tracking_list } -%>
+
+      <tr><td colspan="7" style="text-align: right"><%= will_paginate @tracked_items -%></td></tr>
 
       <tr class="order-buttons">
 	<td><%= t '.tracking_list_controls_preface' -%></td>

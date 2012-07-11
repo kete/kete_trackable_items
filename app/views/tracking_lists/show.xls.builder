@@ -28,23 +28,25 @@ xml.Workbook({
         xml.Cell { xml.Data 'Series No', 'ss:Type' => 'String' }
         xml.Cell { xml.Data 'Box No', 'ss:Type' => 'String' }
         xml.Cell { xml.Data 'Item No', 'ss:Type' => 'String' }
-        xml.Cell { xml.Data 'Shelf Code', 'ss:Type' => 'String' }
         xml.Cell { xml.Data 'Description', 'ss:Type' => 'String' }
+        xml.Cell { xml.Data 'Status', 'ss:Type' => 'String' }
+        xml.Cell { xml.Data 'Shelf Code', 'ss:Type' => 'String' }
       end
 
       # Rows
-      for tracked_item in @tracking_list.tracked_items
-      	topic = Topic.find(tracked_item.trackable_item.id)
+      for tracked_item_trackable_item_pair in @tracked_item_trackable_item_pairs
+      	item = tracked_item_trackable_item_pair[1]
         xml.Row do
-          xml.Cell { xml.Data topic.series_no, 'ss:Type' => 'String' }
-          xml.Cell { xml.Data topic.box_no, 'ss:Type' => 'String' }
-          xml.Cell { xml.Data topic.item_no, 'ss:Type' => 'String' }
-	  if topic.shelf_locations.any?
-	    xml.Cell { xml.Data topic.shelf_locations.first.code, 'ss:Type' => 'String' }
+          xml.Cell { xml.Data item.series_no, 'ss:Type' => 'String' }
+          xml.Cell { xml.Data item.box_no, 'ss:Type' => 'String' }
+          xml.Cell { xml.Data item.item_no, 'ss:Type' => 'String' }
+          xml.Cell { xml.Data item.title, 'ss:Type' => 'String' }
+          xml.Cell { xml.Data item.current_state_humanized, 'ss:Type' => 'String' }
+	  if item.shelf_locations.any?
+	    xml.Cell { xml.Data item.shelf_locations.first.code, 'ss:Type' => 'String' }
 	  else
 	    xml.Cell { xml.Data '', 'ss:Type' => 'String' }
 	  end	    
-          xml.Cell { xml.Data topic.title, 'ss:Type' => 'String' }
         end
       end
     end

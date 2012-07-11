@@ -164,9 +164,6 @@ en:
   tracked_item:
     already_in_tracking_list: "This item is already in this tracking list"
   tracked_items:
-    tracked_item:
-      are_you_sure: "{{t.base.are_you_sure}}"
-      delete: "Drop from list"
     tracked_item_trackable_item_pair:
       are_you_sure: "{{t.base.are_you_sure}}"
       delete: "Drop from list"

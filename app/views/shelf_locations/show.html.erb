@@ -14,11 +14,15 @@
   <table class="order">
     <tr>
       <th abbr="Actions for Item"><%= t '.item_actions' %></th>
+      <th abbr="Item Series No"><%= t '.item_series_no' -%></th>
+      <th abbr="Item Box No"><%= t '.item_box_no' -%></th>
+      <th abbr="Item No"><%= t '.item_item_no' -%></th>
       <th abbr="Item"><%= t '.item_description' -%></th>
+      <th abbr="Item Status"><%= t '.item_status' -%></th>
     </tr>
     
     <% if @shelf_location.trackable_items.size > 0 -%>
-      <%= render :partial => 'trackable_item', :collection => @shelf_location.trackable_items, :locals => { :shelf_location => @shelf_location }-%>
+      <%= render :partial => 'trackable_item_shelf_location_trackable_item_pair', :collection => @trackable_item_shelf_location_trackable_item_pairs, :locals => { :shelf_location => @shelf_location }-%>
     <% else -%>
       <tr><td><%= t '.not_currently_allocated' -%></td></tr>
     <% end -%>
@@ -26,7 +30,7 @@
     <tr class="order-buttons">
       <td><%= t '.shelf_location_controls_preface' -%></td>
 
-      <td>
+      <td colspan="5">
 	<%= render :partial => 'event_button', :collection => @possible_events, :locals => { :shelf_location => @shelf_location } %>
 
 	<%= button_to t('.edit') , edit_repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository), :method => :get %>

@@ -44,7 +44,7 @@ en:
       create_and_loan: "{{t.base.create}} and {{t.base.loan}} to {{t.base.created}} {{t.base.organization}}"
       contact_details: "contact details"
       contact_details_label: "Contact details"
-      getting_on_loan_organizations_names: "getting {{t.base.on_loan_organization}} {{t.base.name.pluralize}} status image. "
+      getting_on_loan_organizations_names: "getting {{t.base.on_loan_organization}} {{t.base.name.pluralize}} {{t.base.status}} image. "
       loan: "{{t.base.loan}}"
       looking_up_on_loan_organizations_names: "looking up already entered {{t.base.organization.pluralize}}"
       on_loan_organization_name: "{{t.base.organization.capitalize}} {{t.base.name}}"
@@ -133,11 +133,15 @@ en:
       history: "{{t.base.history}}"
       item_actions: "{{t.base.action.pluralize.capitalize}}"
       item_description: "{{t.base.tracked_item.capitalize}}"
+      item_box_no: "Box No"
+      item_item_no: "Item No"
+      item_series_no: "Series No"
+      item_status: "{{t.base.status.capitalize}}"
       not_currently_allocated: "Not currently {{t.base.allocated}}"
       shelf_location_controls_preface: "{{t.base.shelf_location.capitalize}} {{t.base.action.pluralize}}:"
       status: "{{t.base.status.capitalize}}"
       title: "{{code}} {{t.base.shelf_location}} for {{name}} {{t.base.repository}}"
-    trackable_item:
+    trackable_item_shelf_location_trackable_item_pair:
       deallocate: "{{t.base.deallocate.capitalize}}"
       are_you_sure: "{{t.base.are_you_sure}}"
     update:
@@ -207,7 +211,7 @@ en:
       tracked_item_item_no: "Item No"
       tracked_item_series_no: "Series No"
       tracked_item_shelf_code: "Shelf Code"
-      tracked_item_status: "Status"
+      tracked_item_status: "{{t.base.status.capitalize}}"
       tracking_list_controls_preface: "{{t.base.tracking_list.capitalize}} {{t.base.action.pluralize}}:"
     trackable_item_search_form:
       search_button: "{{t.base.search}}"

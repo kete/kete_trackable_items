@@ -36,6 +36,17 @@ class ShelfLocationsController < ApplicationController
 
     # not available through this interface
     @possible_events -= ['deallocate']
+
+    trackable_item_shelf_locations = @shelf_location.trackable_item_shelf_locations
+    
+    @trackable_item_shelf_location_trackable_item_pairs = @shelf_location.trackable_items.uniq.inject(Array.new) do |result, trackable_item|
+      trackable_item_shelf_location = trackable_item_shelf_locations.select do |mapping|
+        trackable_item.class.name == mapping.trackable_item_type && trackable_item.id == mapping.trackable_item_id
+      end.uniq.first
+
+      result << [trackable_item_shelf_location, trackable_item]
+      result
+    end
   end
 
   def new

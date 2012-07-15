@@ -130,6 +130,7 @@ en:
       back_to: "{{t.base.back.capitalize}} to {{name}}"
       edit: "{{t.base.edit.capitalize}}"
       delete: "{{t.base.delete.capitalize}} {{t.base.shelf_location}}"
+      displaying: "Showing {{start}} - {{end}} of {{total}}"
       history: "{{t.base.history}}"
       item_actions: "{{t.base.action.pluralize.capitalize}}"
       item_description: "{{t.base.tracked_item.capitalize}}"

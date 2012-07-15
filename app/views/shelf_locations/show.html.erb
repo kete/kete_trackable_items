@@ -11,6 +11,10 @@
 
   <h3><%= t '.allocated_for' -%></h3>
 
+  <p>
+    <%= t('.displaying', :start => @start_record, :end => @end_record, :total => @trackable_item_shelf_locations.total_entries) -%>
+  </p>
+
   <table class="order">
     <tr>
       <th abbr="Actions for Item"><%= t '.item_actions' %></th>
@@ -27,6 +31,8 @@
       <tr><td><%= t '.not_currently_allocated' -%></td></tr>
     <% end -%>
 
+    <tr><td colspan="6" style="text-align: right"><%= will_paginate @trackable_item_shelf_locations -%></td></tr>
+
     <tr class="order-buttons">
       <td><%= t '.shelf_location_controls_preface' -%></td>
 
@@ -39,7 +45,6 @@
 	:confirm => t('.are_you_sure'),
 	:method => :delete) %>
       </td>
-
     </tr>
   </table>
 

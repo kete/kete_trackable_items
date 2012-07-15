@@ -37,12 +37,43 @@ class ShelfLocationsController < ApplicationController
     # not available through this interface
     @possible_events -= ['deallocate']
 
-    trackable_item_shelf_locations = @shelf_location.trackable_item_shelf_locations
+    page = params[:page].to_i
+    page = 1 if page == 0
+    per_page = params[:per_page].to_i
+    per_page = 10 if per_page == 0
+
+    page_options = { :page => page, :per_page => per_page }
+
+    @trackable_item_shelf_locations = @shelf_location.trackable_item_shelf_locations.paginate(page_options)
+
+    @start_record = @trackable_item_shelf_locations.offset + 1
+    @end_record = per_page * page
+    @end_record = @trackable_item_shelf_locations.total_entries if @trackable_item_shelf_locations.total_entries < @end_record
     
-    @trackable_item_shelf_location_trackable_item_pairs = @shelf_location.trackable_items.uniq.inject(Array.new) do |result, trackable_item|
-      trackable_item_shelf_location = trackable_item_shelf_locations.select do |mapping|
-        trackable_item.class.name == mapping.trackable_item_type && trackable_item.id == mapping.trackable_item_id
-      end.uniq.first
+    # we want to gather our trackable_items in as few queries as possible
+    # do not want to use @shelf_location.trackable_items, as that would be all items for a shelf location
+    # which could be very large
+    # instead, just want to grab trackable_items for this page's trackable_item_shelf_locations
+    types_and_ids = @trackable_item_shelf_locations.inject(Hash.new) do |result, tracked_item|
+      type_key = tracked_item.trackable_item_type
+      item_id = tracked_item.trackable_item_id
+
+      values = result[type_key] || Array.new
+      values << item_id
+
+      result[type_key] = values
+      result
+    end
+
+    trackable_items_by_type = Hash.new
+    types_and_ids.each do |k,v|
+      trackable_items_by_type[k] = k.constantize.find(v)
+    end
+
+    @trackable_item_shelf_location_trackable_item_pairs = @trackable_item_shelf_locations.inject(Array.new) do |result, trackable_item_shelf_location|
+      trackable_item = trackable_items_by_type[trackable_item_shelf_location.trackable_item_type].select do |item|
+        item.id == trackable_item_shelf_location.trackable_item_id
+      end.first
 
       result << [trackable_item_shelf_location, trackable_item]
       result

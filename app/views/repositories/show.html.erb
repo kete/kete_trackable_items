@@ -12,25 +12,26 @@
 
 <h3><%= t '.other_actions' -%></h3>
 
-<%= button_to t('.add_tracking_list'),
-    repository_tracking_lists_url(:repository_id => @repository, :method => :post) %>
+<ul class="horizontal-list">
+  <li class="first"><%= button_to t('.add_tracking_list'),
+	  repository_tracking_lists_url(:repository_id => @repository, :method => :post) %>
+  </li>
 
-<p>
-<%= link_to t('.view_tracking_lists'),
-    repository_tracking_lists_url(:repository_id => @repository) %>
-</p>
+  <% if @site_admin -%>
+    <li><%= t('.repository') -%>
+      <%= link_to t('.edit'), edit_repository_url(:id => @repository) %>
+      |
+      <%= link_to t('.delete'), repository_url(:id => @repository),
+      :confirm => t('.are_you_sure'),
+      :method => :delete  %></li>
+  <% end -%>
 
-<% if @site_admin -%>
-<p><%= t('.repository') -%>
-  <%= link_to t('.edit'), edit_repository_url(:id => @repository) %>
-  | 
-  <%= link_to t('.delete'), repository_url(:id => @repository),
-        :confirm => t('.are_you_sure'),
-        :method => :delete  %>
-</p>
- 
+  <li><%= link_to t('.view_tracking_lists'),
+			repository_tracking_lists_url(:repository_id => @repository) %>
+ </li>
+</ul>
+  
 <p>
   <%= link_to t('.back_to_repositories'), repositories_url %>
 </p>
 
-<% end -%>

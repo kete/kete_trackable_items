@@ -27,8 +27,6 @@
       <td><%= t '.shelf_location_controls_preface' -%></td>
 
       <td>
-	<%= add_trackable_items_links -%>
-
 	<%= render :partial => 'event_button', :collection => @possible_events, :locals => { :shelf_location => @shelf_location } %>
 
 	<%= button_to t('.edit') , edit_repository_shelf_location_url(:id => @shelf_location, :repository_id => @repository), :method => :get %>
@@ -41,7 +39,7 @@
     </tr>
   </table>
 
-  <div id="trackable_item_search_form" style="display: none;">
+  <div id="trackable_item_search_form">
     <%= render :partial => 'tracking_lists/trackable_item_search_form', :locals => { :target => @shelf_location } -%>
   </div>
 

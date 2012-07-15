@@ -4,6 +4,7 @@ class TrackingListsController < ApplicationController
   unloadable
 
   include KeteTrackableItems::MatchingTrackableItemsControllerHelpers
+  include KeteTrackableItems::PaginateSetUp
 
   before_filter :set_repository
   before_filter :set_tracking_list, :except => [:index, :create]
@@ -26,21 +27,14 @@ class TrackingListsController < ApplicationController
       end
     end
 
-    page = params[:page].to_i
-    page = 1 if page == 0
-    per_page = params[:per_page].to_i
-    per_page = 10 if per_page == 0
-
-    page_options = { :page => page, :per_page => per_page }
-
     if params[:format] == 'xls'
       @tracked_items = @tracking_list.tracked_items
     else
-      @tracked_items = @tracking_list.tracked_items.paginate(page_options)
+      set_page_variables
+      
+      @tracked_items = @tracking_list.tracked_items.paginate(@page_options)
 
-      @start_record = @tracked_items.offset + 1
-      @end_record = per_page * page
-      @end_record = @tracked_items.total_entries if @tracked_items.total_entries < @end_record
+      set_results_variables(@tracked_items)
     end
 
     # we want to gather our trackable_items in as few queries as possible

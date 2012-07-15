@@ -4,6 +4,7 @@ class ShelfLocationsController < ApplicationController
   unloadable
 
   include KeteTrackableItems::MatchingTrackableItemsControllerHelpers
+  include KeteTrackableItems::PaginateSetUp
 
   before_filter :set_repository
   before_filter :set_shelf_location, :except => [:index, :create, :new]
@@ -37,19 +38,12 @@ class ShelfLocationsController < ApplicationController
     # not available through this interface
     @possible_events -= ['deallocate']
 
-    page = params[:page].to_i
-    page = 1 if page == 0
-    per_page = params[:per_page].to_i
-    per_page = 10 if per_page == 0
+    set_page_variables
 
-    page_options = { :page => page, :per_page => per_page }
+    @trackable_item_shelf_locations = @shelf_location.trackable_item_shelf_locations.paginate(@page_options)
 
-    @trackable_item_shelf_locations = @shelf_location.trackable_item_shelf_locations.paginate(page_options)
+    set_results_variables(@trackable_item_shelf_locations)
 
-    @start_record = @trackable_item_shelf_locations.offset + 1
-    @end_record = per_page * page
-    @end_record = @trackable_item_shelf_locations.total_entries if @trackable_item_shelf_locations.total_entries < @end_record
-    
     # we want to gather our trackable_items in as few queries as possible
     # do not want to use @shelf_location.trackable_items, as that would be all items for a shelf location
     # which could be very large

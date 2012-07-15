@@ -146,7 +146,7 @@ class TrackingListsController < ApplicationController
 
   def destroy
     @tracking_list.destroy
-    redirect_to repository_url(:repository_id => @repository)
+    redirect_to repository_url(:id => @repository)
   end
 
   private

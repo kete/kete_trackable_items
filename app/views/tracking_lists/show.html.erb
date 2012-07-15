@@ -79,7 +79,7 @@
 
 </fieldset>
 
-<% if @tracking_list.tracked_items.count == 0 && @tracking_list.current_state.name == :new -%>
+<% if @tracking_list.current_state.name == :new -%>
   <%= button_to(t('.delete_tracking_list', :name => h(@repository.name)), repository_tracking_list_url(:id => @tracking_list, :repository_id => @repository),
   :confirm => t('.are_you_sure'),
   :method => :delete) %>

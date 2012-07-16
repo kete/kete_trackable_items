@@ -15,8 +15,9 @@
   </tr>
 
 <% @tracking_events.each do |event| %>
+  <% verb_or_event = event.verb != 'new' ? event.verb : event.event -%>
   <tr>
-    <td><%= event.verb.humanize -%>
+    <td><%= verb_or_event.humanize -%>
       <%= event.historical_receiver.name_for_tracking_event if event.historical_receiver -%>
     </td>
     <td><%= event.created_at.to_s(:short) -%></td>

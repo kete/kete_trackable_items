@@ -28,6 +28,8 @@ class TrackingList < ActiveRecord::Base
       event :queue_for_refiling, :transitions_to => :completed
       event :refile, :transitions_to => :completed
       event :cancel, :transitions_to => :cancelled
+
+      event :clear_list, :transitions_to => :new
     end
     
     eval(shared_code_as_string)
@@ -101,5 +103,11 @@ class TrackingList < ActiveRecord::Base
       trackable_item.save_without_revision
     end
     loan!
+  end
+
+  def clear_list
+    tracked_items.each do |mapping|
+      mapping.destroy
+    end
   end
 end

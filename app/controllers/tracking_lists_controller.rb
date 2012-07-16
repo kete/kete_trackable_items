@@ -19,8 +19,13 @@ class TrackingListsController < ApplicationController
     unless params[:format] == 'xls'
       @possible_events = @tracking_list.current_state.events.keys.collect(&:to_s).sort
 
-      # we don't want cancel to take a prominent position
+      # we don't want clear out or cancel to take a prominent position
       # take it out of current position and add it at end
+      if @possible_events.include?('clear_list')
+        @possible_events.delete('clear_list')
+        @possible_events << 'clear_list'
+      end
+
       if @possible_events.include?('cancel')
         @possible_events.delete('cancel')
         @possible_events << 'cancel'
@@ -95,27 +100,29 @@ class TrackingListsController < ApplicationController
                                        :repository_id => @repository)
     if params[:event]
       event = params[:event]
+      original_state = @tracking_list.current_state
+
+      options = { :tracking_list => @tracking_list }
+      options[:urlified_name] = @site_basket.urlified_name if @current_basket.repositories.count < 1
+
       case event
       when 'allocate'
         # allocating means we need to choose shelf location before proceeding
-        options = { :tracking_list => @tracking_list }
-        options[:urlified_name] = @site_basket.urlified_name if @current_basket.repositories.count < 1
-
         url = new_trackable_item_shelf_location_url(options)
         @successful = true
       when 'loan'
         # we need to collect information for a new or existing on_loan_organization
-        options = { :tracking_list => @tracking_list }
-        options[:urlified_name] = @site_basket.urlified_name if @current_basket.repositories.count < 1
-
         url = new_on_loan_organization_url(options)
+        @successful = true
+      when 'clear_list'
+        @tracking_list.clear_list!
+        # we transition back to new in this case, so no change in state
         @successful = true
       else
         # otherwise, send the event as a method
         # to the tracking list
-        original_state = @tracking_list.current_state
         @tracking_list.send(event + '!')
-        @successful = @tracking_list.current_state != original_state
+        @successful = @tracking_list.reload.current_state != original_state
         @state_change_failed = !@successful
         url = repository_url(:id => @tracking_list,
                              :repository_id => @repository,

@@ -1,0 +1,57 @@
+<%# HACK: using archivescentral knowledge of what tracked_item.trackable_item is -%>
+<%# TODO: replace hack with configuration -%>
+<% item = matching_trackable_item
+   show_shelf_code = params[:controller] == 'tracking_lists'
+   shelf_location ||= nil
+   if show_shelf_code
+     shelf_location ||= item.shelf_locations.first
+   end
+-%>
+
+<tr id="row-for-<%= item.id -%>">
+  <td>
+	<div id="skip-for-<%= item.id -%>" style="display: inline;">
+	  <%= link_to_remote t('.skip'),
+	      :url => { :action =>:remove_from_list, :remove_id => item.id },
+	  :html => { :class => 'square-button' }, 
+	  :before => "Element.hide('skip-for-#{item.id}'); Element.show('spinner-for-#{item.id}')",
+	  :success => "Element.hide('spinner-for-#{item.id}');
+	  $('row-for-#{item.id}').childElements().each(function(e) {
+	    if ($(e).identify() !== 'anonymous_element_1') {
+	      $(e).setStyle({ textDecoration: 'line-through'});
+	    }
+	  }
+	  );
+	  Element.show('restore-for-#{item.id}');
+	  Element.setStyle('restore-for-#{item.id}', { display: 'inline' } )" -%>
+	</div>
+
+	<div id="restore-for-<%= item.id -%>" style="display: none;">
+	  <%= link_to_remote t('.restore'), 
+	      :url => { :action =>:restore_to_list, :restore_id => item.id }, 
+	  :html => { :class => 'square-button' }, 
+	  :before => "Element.hide('restore-for-#{item.id}'); Element.show('spinner-for-#{item.id}')",
+	  :success =>"Element.hide('spinner-for-#{item.id}');
+	  $('row-for-#{item.id}').childElements().each(function(e) {
+	    if ($(e).identify() !== 'anonymous_element_1') {
+	      $(e).setStyle({ textDecoration: 'none'});
+	    }
+	  }
+	  );
+	  Element.show('skip-for-#{item.id}');
+	  Element.setStyle('skip-for-#{item.id}', { display: 'inline', textDecoration: 'none' } )" -%>
+	</div>
+
+        <img src="/images/indicator.gif" width="16" height="16"
+        alt="<%=t '.progress_indicator_image' %>"
+        id="spinner-for-<%= item.id -%>" style="display:none;" />
+  </td>
+  <td><%= item.series_no -%></td>
+  <td><%= item.box_no -%></td>
+  <td><%= item.item_no -%></td>
+  <td><%= link_to truncate(h(item.description_for_tracked_item), :length => 80, :omission => '...'), url_for_dc_identifier(item) -%></td>
+  <td><%= item.current_state_humanized -%></td>
+  <% if show_shelf_code -%>
+    <td><%= link_to shelf_location.code, repository_shelf_location_url(:id  => shelf_location, :repository_id => shelf_location.repository)  if shelf_location.present? -%></td>
+  <% end -%>
+</tr>

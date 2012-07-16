@@ -1,12 +1,14 @@
 module KeteTrackableItems
   module PaginateSetUp
-    PER_PAGE = 10
+    def per_page_default
+      10
+    end
 
     def set_page_variables
       @page = params[:page].to_i
       @page = 1 if @page == 0
       @per_page = params[:per_page].to_i
-      @per_page = PER_PAGE if @per_page == 0
+      @per_page = per_page_default if @per_page == 0
 
       @page_options = { :page => @page, :per_page => @per_page }
     end

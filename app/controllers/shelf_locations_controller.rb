@@ -4,7 +4,7 @@ class ShelfLocationsController < ApplicationController
   unloadable
 
   include KeteTrackableItems::MatchingTrackableItemsControllerHelpers
-  include KeteTrackableItems::PaginateSetUp
+  include KeteTrackableItems::ListManagementControllers
 
   before_filter :set_repository
   before_filter :set_shelf_location, :except => [:index, :create, :new]
@@ -81,7 +81,7 @@ class ShelfLocationsController < ApplicationController
   def edit
     set_matching_trackable_items
 
-    build_items_for_matching_trackable_items_for(@shelf_location, :trackable_item_shelf_locations)
+    set_session_for_matching_trackable_items
   end
 
   def create
@@ -105,9 +105,31 @@ class ShelfLocationsController < ApplicationController
       @state_change_failed = @succesful
     else
       @successful = @shelf_location.update_attributes(params[:shelf_location])
+
+      # to handle large amount of matches that span paginated pages of results
+      # we use ids in session to create trackable_item_shelf_locations
+      matching_class = session[:matching_class]
+      matching_results_ids = session[:matching_results_ids]
+      values = matching_results_ids.inject(Array.new) do |value, matching_id|
+        value << TrackableItemShelfLocation.new(:trackable_item_type => matching_class,
+                                                :trackable_item_id => matching_id,
+                                                :shelf_location_id => @shelf_location.id)
+        value
+      end
+
+      @successful = TrackableItemShelfLocation.import(values)
+
+      if @successful
+        @shelf_location.new_allocation
+        matching_class.constantize.find(matching_results_ids).each do |trackable_item|
+          trackable_item.new_allocation
+        end
+      end
     end
     
     if @successful || @state_change_failed
+      clear_session_variables_for_list_building
+
       flash[:notice] = t('shelf_locations.update.state_change_failed', :event_transition => params[:event].humanize) if @state_change_failed
 
       redirect_to repository_shelf_location_url(:id => @shelf_location,

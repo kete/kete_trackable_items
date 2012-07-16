@@ -11,18 +11,24 @@
   <% unless @shelf_location.new_record? -%>
     <h3><%= t '.allocate_to' -%></h3>
     <% if @matching_trackable_items.present? -%>
+      <p>
+	<%= t('.displaying', :start => @start_record, :end => @end_record, :total => @matching_trackable_items.total_entries) -%>
+      </p>
 
-      <% f.fields_for :trackable_item_shelf_locations do |trackable_item_form| %>
-        <% Rails.logger.debug("what is trackable_item_form: " + trackable_item_form.inspect) -%>
-        <% Rails.logger.debug("what is trackable_item_form.object.trackable_item: " + trackable_item_form.object.trackable_item.inspect) -%>
-        <%= link_to(h(trackable_item_form.object.description_for_tracked_item),
-	    url_for_dc_identifier(trackable_item_form.object.trackable_item)) %>
-	<%= trackable_item_form.hidden_field :trackable_item_type %>
-	<%= trackable_item_form.hidden_field :trackable_item_id %>
-	<%= trackable_item_form.label :_destroy, t('.do_not_add') %>
-	<%= trackable_item_form.check_box :_destroy %>
-      <% end %>
+      <table  class="order">
+	<tr>
+	  <th abbr="Do not add to list"><%= t '.do_not_add_to_list' %></th>
+	  <th abbr="Item Series No"><%= t '.item_series_no' -%></th>
+	  <th abbr="Item Box No"><%= t '.item_box_no' -%></th>
+	  <th abbr="Item Item No"><%= t '.item_item_no' -%></th>
+	  <th abbr="Item"><%= t '.item_description'	-%></th>
+	  <th abbr="Item Status"><%= t '.item_status' -%></th>
+	</tr>
 
+	<%= render :partial => 'shared/matching_trackable_item', :collection => @matching_trackable_items -%>
+
+      <tr><td colspan="7" style="text-align: right"><%= will_paginate @matching_trackable_items -%></td></tr>
+      </table>
     <% else %>
       <p><%= t '.no_matches' -%></p>
     <% end %>

@@ -20,7 +20,9 @@ en:
     organization: "organization"
     on_loan_organization: "on {{t.base.loan}} to {{t.base.organization}}"
     repository: repository
-    shelf_location: shelf location
+    shelf: shelf
+    shelf_code: "{{t.base.shelf}} {{t.base.code}}"
+    shelf_location: "{{t.base.shelf}} location"
     shelf_locations: "{{t.base.shelf_location.pluralize}}"
     status: status
     trackable_item: trackable item
@@ -94,6 +96,10 @@ en:
       title: "{{t.base.repository.capitalize}}: {{name}}"
       view_tracking_lists: "{{t.base.tracking_list.capitalize}} reports"
   shared:
+    matching_trackable_item:
+      progress_indicator_image: "progress indicator image. "
+      restore: "restore"
+      skip: "remove"
     tracking:
       currently: "Currently:"
       history: "{{t.base.history}}"
@@ -101,10 +107,16 @@ en:
       shelf_locations: "{{t.base.shelf_locations.capitalize}}"
   shelf_locations:
     form:
-      allocate_to: "{{t.base.allocated.capitalize}} these items to {{t.base.shelf_location}}:"
+      allocate_to: "{{t.base.allocate.capitalize}} these items to {{t.base.shelf_location}}:"
       code: "{{t.base.code}}"
       create: "{{t.base.create}}"
-      do_not_add: "Do not add this item"
+      displaying: "Showing {{start}} - {{end}} of {{total}}"
+      do_not_add_to_list: ""
+      item_description: "{{t.base.tracked_item.capitalize}}"
+      item_box_no: "Box No"
+      item_item_no: "Item No"
+      item_series_no: "Series No"
+      item_status: "{{t.base.status.capitalize}}"
       no_matches: "No matching {{t.base.trackable_item.pluralize}}."
       save: "{{t.base.save}}"
     edit:
@@ -187,7 +199,14 @@ en:
       title: "{{t.base.add.capitalize}} to {{t.base.tracking_list}} for {{name}} {{t.base.repository}}"
     form:
       add: "{{t.base.add.capitalize}} to {{t.base.tracking_list}}"
-      do_not_add: "Skip this line"
+      displaying: "Showing {{start}} - {{end}} of {{total}}"
+      do_not_add_to_list: ""
+      item_description: "{{t.base.tracked_item.capitalize}}"
+      item_box_no: "Box No"
+      item_item_no: "Item No"
+      item_series_no: "Series No"
+      item_shelf_code: "{{t.base.shelf_code.capitalize}}"
+      item_status: "{{t.base.status.capitalize}}"
       no_matches: "No {{t.base.trackable_item.pluralize}} matching your criteria."
     index:
       back_to: "{{t.base.back.capitalize}} to {{name}}"
@@ -211,7 +230,7 @@ en:
       tracked_item_box_no: "Box No"
       tracked_item_item_no: "Item No"
       tracked_item_series_no: "Series No"
-      tracked_item_shelf_code: "Shelf Code"
+      tracked_item_shelf_code: "{{t.base.shelf_code.capitalize}}"
       tracked_item_status: "{{t.base.status.capitalize}}"
       tracking_list_controls_preface: "{{t.base.tracking_list.capitalize}} {{t.base.action.pluralize}}:"
     trackable_item_search_form:

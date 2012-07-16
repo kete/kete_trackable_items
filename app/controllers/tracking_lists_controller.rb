@@ -4,7 +4,7 @@ class TrackingListsController < ApplicationController
   unloadable
 
   include KeteTrackableItems::MatchingTrackableItemsControllerHelpers
-  include KeteTrackableItems::PaginateSetUp
+  include KeteTrackableItems::ListManagementControllers
 
   before_filter :set_repository
   before_filter :set_tracking_list, :except => [:index, :create]
@@ -72,9 +72,6 @@ class TrackingListsController < ApplicationController
 
   # unused at this point
   def new
-    set_matching_trackable_items
-
-    build_items_for_matching_trackable_items_for(@tracking_list, :tracked_items)
   end
 
   def create
@@ -88,8 +85,7 @@ class TrackingListsController < ApplicationController
 
   def edit
     set_matching_trackable_items
-
-    build_items_for_matching_trackable_items_for(@tracking_list, :tracked_items)
+    set_session_for_matching_trackable_items
   end
 
   # update tracked_items (i.e. add them based on a search)
@@ -126,10 +122,23 @@ class TrackingListsController < ApplicationController
                              :download_modal => true)
       end
     else
-      @successful = @tracking_list.update_attributes(params[:tracking_list])
+      # to handle large amount of matches that span paginated pages of results
+      # we use ids in session to create tracked_items
+      matching_class = session[:matching_class]
+      matching_results_ids = session[:matching_results_ids]
+      values = matching_results_ids.inject(Array.new) do |value, matching_id|
+        value << TrackedItem.new(:trackable_item_type => matching_class,
+                                 :trackable_item_id => matching_id,
+                                 :tracking_list_id => @tracking_list.id)
+        value
+      end
+
+      @successful = TrackedItem.import(values)
     end
     
     if @successful || @state_change_failed
+      clear_session_variables_for_list_building
+
       flash[:notice] = t('tracking_lists.update.state_change_failed', :event_transition => params[:event].humanize) if @state_change_failed
 
       redirect_to url

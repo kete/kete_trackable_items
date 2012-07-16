@@ -13,6 +13,7 @@ begin
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     gem.add_dependency "kete_gets_trollied"
     gem.add_dependency "workflow", ">= 0.8.0"
+    gem.add_dependency "ar-extensions", ">= 0.9.5"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

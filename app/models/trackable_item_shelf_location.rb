@@ -1,3 +1,4 @@
+require 'ar-extensions'
 class TrackableItemShelfLocation < ActiveRecord::Base
   include KeteTrackableItems::WorkflowUtilities
 

@@ -1,3 +1,4 @@
+require 'ar-extensions'
 class TrackedItem < ActiveRecord::Base
   belongs_to :tracking_list
   belongs_to :trackable_item, :polymorphic => true

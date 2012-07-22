@@ -1,14 +1,30 @@
 <% shelf_locations = repository.shelf_locations if shelf_locations.blank? -%>
+
+  <p>
+    <%= t('.displaying', :start => @start_record, :end => @end_record, :total => shelf_locations.total_entries, :state => @state) -%>
+    [
+    <% ShelfLocation.workflow_spec.state_names.each do |state| -%>
+      <%= link_to_unless_current("#{state.to_s.humanize} (#{repository.shelf_locations.workflow_in(state).count})", { :shelf_state => state }) -%>
+      |
+    <% end -%>
+    <%= link_to_unless_current("#{t('.all')} (#{repository.shelf_locations.count})", { :shelf_state => :all }) -%>
+    ]
+  </p>
+
 <table>
   <thead>
     <tr>
       <th><%= t('.code') -%></th>
+      <% if @state.blank? || @state == 'all' -%>
       <th><%= t('.status') -%></th>
+      <% end -%>
       <th><%= t('.action') -%></th>
     </tr>
   </thead>
   <tbody>
     <%= render shelf_locations %>
+
+    <tr><td colspan="2" style="text-align: right"><%= will_paginate shelf_locations -%></td></tr>
   </tbody>
 
 </table>

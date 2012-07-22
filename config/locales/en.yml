@@ -133,8 +133,10 @@ en:
       edit: "{{t.base.edit.capitalize}}"
       delete: "{{t.base.delete.capitalize}}"
     shelf_locations:
+      all: "{{t.base.all}}"
       action: "{{t.base.action.capitalize}}"
       code: "{{t.base.code.capitalize}}"
+      displaying: "Showing {{state}} {{start}} - {{end}} of {{total}}"
       status: "{{t.base.status.capitalize}}"
     show:
       allocated_for: "{{t.base.allocated.capitalize}} for:"

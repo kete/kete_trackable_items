@@ -2,7 +2,9 @@ class RepositoriesController < ApplicationController
   # Prevents the following error from showing up, common in Rails engines
   # A copy of ApplicationController has been removed from the module tree but is still active!
   unloadable
-  
+
+  include KeteTrackableItems::PaginateSetUp
+
   before_filter :get_repository, :except => [:new, :create, :index]
 
   READABLE_ACTIONS = [:show, :index]
@@ -16,6 +18,16 @@ class RepositoriesController < ApplicationController
   end
 
   def show
+    set_page_variables
+
+    @state = params[:shelf_state].present? ? params[:shelf_state] : 'all'
+    if @state != 'all'
+      @page_options[:conditions] = ["workflow_state = ?", @state]
+    end
+
+    @shelf_locations = @repository.shelf_locations.paginate(@page_options)
+    
+    set_results_variables(@shelf_locations)
   end
 
   def new

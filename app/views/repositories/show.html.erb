@@ -4,7 +4,7 @@
 
 <h3><%= t '.shelf_locations' -%></h3>
 
-<%= render :partial => 'shelf_locations/shelf_locations', :locals => { :repository => @repository } -%>
+<%= render :partial => 'shelf_locations/shelf_locations', :locals => { :repository => @repository, :shelf_locations => @shelf_locations } -%>
 
 <p>
   <%= link_to t('.add_shelf_location'), new_repository_shelf_location_url(:repository_id => @repository) %>

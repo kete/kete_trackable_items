@@ -3,9 +3,11 @@
     <%= link_to shelf_location.code , 
         repository_shelf_location_url(:id => shelf_location, :repository_id => shelf_location.repository) %>
   </td>
+  <% if @state.blank? || @state == 'all' -%>
   <td>
     <%= shelf_location.current_state_humanized -%>
   </td>
+  <% end -%>
   <td>
     <%= link_to t('.edit') , edit_repository_shelf_location_url(:id => shelf_location, :repository_id => shelf_location.repository) %>
     |

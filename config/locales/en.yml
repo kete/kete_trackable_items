@@ -188,6 +188,7 @@ en:
       delete: "Drop from list"
   tracking_events:
     index:
+      displaying: "Showing {{start}} - {{end}} of {{total}}"
       event: "{{t.base.event.capitalize}}"
       title: "Tracking {{t.base.event.pluralize}}"
       title_with_name: "Tracking {{t.base.event.pluralize}} for {{name}}"

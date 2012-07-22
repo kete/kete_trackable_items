@@ -8,6 +8,10 @@
 
 <h2><%= @title -%></h2>
 
+  <p>
+    <%= t('.displaying', :start => @start_record, :end => @end_record, :total => @tracking_events.total_entries) -%>
+  </p>
+
 <table>
   <tr>
     <th><%= t('.event') -%></th>
@@ -23,4 +27,6 @@
     <td><%= event.created_at.to_s(:short) -%></td>
   </tr>
 <% end %>
+
+  <tr><td colspan="2" style="text-align: right"><%= will_paginate @tracking_events -%></td></tr>
 </table>

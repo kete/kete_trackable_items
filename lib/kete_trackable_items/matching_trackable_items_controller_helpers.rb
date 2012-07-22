@@ -21,6 +21,48 @@ module KeteTrackableItems
         session[:matching_class] = class_name
         klass = class_name.constantize
 
+        skip_already_associated_scope = Array.new
+        existing_ids = Array.new
+
+        case params[:controller]
+        when 'shelf_locations'
+          existing_ids = @shelf_location.trackable_item_shelf_locations.find(:all,
+                                                                             :select => 'trackable_item_id',
+                                                                             :conditions => { :trackable_item_type => class_name }).collect(&:trackable_item_id)
+        when 'tracking_lists'
+          existing_ids = @tracking_list.tracked_items.find(:all,
+                                                           :select => 'trackable_item_id',
+                                                           :conditions => { :trackable_item_type => class_name }).collect(&:trackable_item_id)
+        else
+          raise "Controller not currently handled."
+        end
+
+        skip_already_associated_scope << ['not_one_of_these', existing_ids] if existing_ids.any?
+
+        # if we are in a basket other than site
+        # limit our results to only within that basket
+        #
+        # when doing location tracking from site basket (i.e. all repositories view)
+        # we may be handling a repository that is actually associated with a specific basket of items
+        # if so, use the repository's basket to limit our results
+        #
+        # if the repository's basket is site, we need to make sure to not include results
+        # from baskets that have their own repository, rather than being in the site wide catch-all
+        basket_scope_pair = Array.new
+        if @current_basket != @site_basket
+          basket_scope_pair << ['in_basket', @current_basket.id]
+        else
+          if @repository.basket != @site_basket
+            basket_scope_pair << ['in_basket', @repository.basket_id]
+          else
+            repository_basket_ids = Repository.find(:all,
+                                                    :select => 'DISTINCT(basket_id)',
+                                                    :conditions => "basket_id != #{@site_basket.id}").collect(&:basket_id)
+
+            basket_scope_pair << ['not_in_these_baskets', repository_basket_ids]
+          end
+        end
+
         always_scopes = Kete.trackable_item_scopes[type_key]['search_scopes']['always_within_scopes'].keys
 
         # a trackable_item has to be allocated a shelf before it can be added to a tracking_list
@@ -31,9 +73,10 @@ module KeteTrackableItems
         
         scope_value_pairs = params[type_key_plural].select { |k, v| v.present? }
         
-        scope_value_pairs << ['in_basket', @current_basket.id] unless @current_basket == @site_basket
-
-        relevent_scopes = always_scopes + scope_value_pairs
+        relevent_scopes = basket_scope_pair +
+          always_scopes +
+          scope_value_pairs +
+          skip_already_associated_scope
 
         @matching_trackable_items = relevent_scopes.inject(klass) do |model_class, relevent_scope|
           if relevent_scope.is_a?(Array)

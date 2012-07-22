@@ -80,6 +80,12 @@ module KeteTrackableItems
         end
 
         self.non_versioned_columns << "workflow_state"
+
+        # only to be used in combination with some other scope
+        # otherwise you run the possibility of returning an aweful lot of objects!
+        named_scope :not_one_of_these, lambda { |ids| { :conditions => ["id not in ('#{ids.join("\',\'")}')", ids] } }
+
+        named_scope :not_in_these_baskets, lambda { |ids| { :conditions => ["basket_id not in ('#{ids.join("\',\'")}')", ids] } }
       end
     end
 

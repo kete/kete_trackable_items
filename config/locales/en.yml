@@ -89,7 +89,7 @@ en:
       on_loan_details: "{{t.base.on_loan_organization.capitalize}}"
       name: "{{t.base.name.capitalize}}"
       new: "{{t.base.new.capitalize}} {{t.base.repository}}"
-      reports: "Reports"
+      reports: "Item Reporting"
       show: "{{t.base.show.capitalize}}"
       title: "{{t.base.repository.pluralize.capitalize}}"
     new:

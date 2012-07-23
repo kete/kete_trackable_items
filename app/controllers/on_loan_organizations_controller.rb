@@ -15,7 +15,11 @@ class OnLoanOrganizationsController < ApplicationController
                                                        :conditions => ["LOWER(name) like :pattern_for_sql",
                                                                        { :pattern_for_sql => pattern_for_sql }])
     else
-      @on_loan_organizations = OnLoanOrganization.all
+      set_page_variables
+      
+      @on_loan_organizations = OnLoanOrganization.all.paginate(@page_options)
+
+      set_results_variables(@on_loan_organizations)
     end
 
     respond_to do |format|

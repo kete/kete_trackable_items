@@ -4,4 +4,8 @@
 
 <h2><%= @title -%></h2>
 
+<p>
+  <%= t('.displaying', :start => @start_record, :end => @end_record, :total => @on_loan_organizations.total_entries) -%>
+</p>
+
 <%= render :partial => 'on_loan_organizations', :locals => { :on_loan_organizations => @on_loan_organizations } -%>

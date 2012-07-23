@@ -40,6 +40,7 @@ en:
       name: "{{t.base.name.capitalize}}"
       save: "{{t.base.save}}"
     index:
+      displaying: "Showing {{start}} - {{end}} of {{total}}"
       for_name_pattern: " that match {{name_pattern}}"
       title: "{{t.base.on_loan_organization.pluralize.capitalize}}"
     new:

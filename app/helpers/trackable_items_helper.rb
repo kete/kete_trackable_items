@@ -31,7 +31,7 @@ module TrackableItemsHelper
       shelf_locations_count = 1
       trackable_item.shelf_locations.each do |shelf_location|
         html += '<li'
-        html += ' class="first"'if shelf_locations_count == 1
+        html += ' class="first"' if shelf_locations_count == 1
         html += '>'
 
         html += link_to(shelf_location.code,

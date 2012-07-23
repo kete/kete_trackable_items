@@ -22,36 +22,32 @@ ApplicationHelper.module_eval do
                                             :urlified_name => @current_basket.urlified_name},
                                           :tabindex => '2')
 
-    if @current_basket.repositories.count > 0
-      if @current_basket.repositories.count == 1
-        button_html = button_to(t('application_helper.add_ons_basket_admin_list.location_tracking'),
-                                repository_tracking_lists_url(:repository_id => @current_basket.repositories.first,
-                                                              :method => :post),
-                                :tabindex => '2')
-        html += javascript_tag("jQuery('#basket-toolbox').append('#{button_html}');")
-      else
-
-        html += "| " + link_to_redbox(t('application_helper.add_ons_basket_admin_list.location_tracking'),
-                                      'RB-choose-repository',
-                                      :tabindex => '2')
-        html += hidden_repository_new_tracking_list_chooser
-      end
-    end
-
+    html += tracking_list_create_html
     html
   end
 
-  def hidden_repository_new_tracking_list_chooser
+  def hidden_repository_new_tracking_list_chooser(order = nil)
     # choose a repository
-    html = '<div id="RB-choose-repository" style="display: none;">'
+    html = '<div id="RB-choose-repository'
+
+    html += "-#{order.id}" if order
+
+    html += '" style="display: none;">'
+
     html += '<div style="margin: 20px;">'
     html += "<h3>#{t('application_helper.add_ons_basket_admin_list.choose_repository')}</h3>"
     html += '</div>'
+
     @current_basket.repositories.each do |repository|
       html += '<div style="margin: 20px;">'
+
+      url_hash = { :repository_id => repository,
+        :method => :post }
+
+      url_hash[:order] = order if order
+
       html += button_to(repository.name,
-                        repository_tracking_lists_url(:repository_id => repository,
-                                                      :method => :post),
+                        repository_tracking_lists_url(url_hash),
                         :tabindex => '2')
       html += '</div>'
     end
@@ -62,5 +58,44 @@ ApplicationHelper.module_eval do
     html += '</div>'
 
     javascript_tag("jQuery('body').append('#{html}');")
+  end
+
+  def tracking_list_create_html(order = nil)
+    html = String.new
+    phrase = order.blank? ? t('application_helper.tracking_list_create_html.location_tracking') :
+      t('application_helper.tracking_list_create_html.tracking_list_from_order')
+
+    if @current_basket.repositories.count > 0
+      if @current_basket.repositories.count == 1
+
+        url_hash = { :repository_id => @current_basket.repositories.first,
+          :method => :post }
+
+        url_hash[:order] = order if order
+
+        button_html = button_to(phrase,
+                                repository_tracking_lists_url(url_hash),
+                                :tabindex => '2')
+
+        html += javascript_tag("jQuery('#basket-toolbox').append('#{button_html}');")
+      else
+
+        css_id = 'RB-choose-repository'
+        css_id += "-#{order.id}" if order
+
+        html += "| " unless order
+
+        html += link_to_redbox(phrase,
+                               css_id,
+                               :tabindex => '2')
+
+        html += hidden_repository_new_tracking_list_chooser(order)
+      end
+    end
+    html
+  end
+
+  def button_or_link_to_create_tracking_list_from(order)
+    tracking_list_create_html(order)
   end
 end

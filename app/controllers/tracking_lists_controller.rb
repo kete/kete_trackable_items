@@ -83,6 +83,13 @@ class TrackingListsController < ApplicationController
     @tracking_list = @repository.tracking_lists.build(params[:tracking_list])
 
     if @tracking_list.save
+      if params[:order]
+        @order = Order.find(params[:order])
+        @order.line_items.each do |line_item|
+          @tracking_list.tracked_items.create(:trackable_item => line_item.purchasable_item)
+        end
+      end
+
       redirect_to repository_tracking_list_url(:id => @tracking_list,
                                                :repository_id => @repository)
     end

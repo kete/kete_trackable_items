@@ -3,7 +3,7 @@ class RepositoriesController < ApplicationController
   # A copy of ApplicationController has been removed from the module tree but is still active!
   unloadable
 
-  include KeteTrackableItems::PaginateSetUp
+  include KeteTrackableItems::MatchingTrackableItemsControllerHelpers
 
   before_filter :get_repository, :except => [:new, :create, :index]
 
@@ -15,6 +15,47 @@ class RepositoriesController < ApplicationController
 
   def index
     @repositories = appropriate_repositories_for_basket
+
+    params[:trackable_type_param_key] = 'topics' unless params[:trackable_type_param_key]
+
+    if params[:within].blank?
+      if @current_basket == @site_basket
+        params[:within] = 'all'
+      else
+        params[:within] = @current_basket.id
+      end
+    end
+
+    if @current_basket != @site_basket && params[:within] != @current_basket.id 
+      raise "You cannot specify a basket other than your own."
+    end
+
+    params[:state] = 'on_shelf' unless params[:state]
+    @state = params[:state]
+
+    set_matching_trackable_items
+
+    @matching_class = session[:matching_class]
+    klass = @matching_class.constantize
+    @trackable_item_state_names = klass.workflow_spec.state_names
+
+    @trackable_items_counts = @trackable_item_state_names.inject(Hash.new) do |counts, state|
+      if params[:within] != 'all'
+        if params[:within] == 'central'
+          counts[state] = klass.workflow_in(state).not_in_these_baskets(repository_basket_ids_not_in_site).count
+        else
+          counts[state] = klass.workflow_in(state).in_basket(params[:within]).count
+        end
+
+      else
+        counts[state] = klass.workflow_in(state).count
+      end
+
+      counts
+    end
+    @trackable_items_counts[:all] = klass.count
+
+    set_results_variables(@matching_trackable_items)
   end
 
   def show

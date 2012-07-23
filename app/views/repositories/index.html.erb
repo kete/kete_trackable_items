@@ -20,3 +20,37 @@
 
 <br />
 <%= link_to t('.new') , new_repository_url if @site_admin %>
+
+<h2><%= t('.reports') -%></h2>
+
+<p>
+  <%= t('.displaying', :start => @start_record, :end => @end_record, :total => @matching_trackable_items.total_entries, :state => @state) -%>
+</p>
+<p>
+  [
+  <% @trackable_item_state_names.each do |state| -%>
+  <%= link_to_unless_current("#{state.to_s.humanize} (#{@trackable_items_counts[state]})", { :state => state }) -%>
+  |
+  <% end -%>
+  <%= link_to_unless_current("#{t('.all')} (#{@trackable_items_counts[:all]})", { :shelf_state => :all }) -%>
+  ]
+</p>
+
+<table  class="order">
+  <tr>
+    <% if @state.to_s == 'on_loan_to_organization'  || @state.to_s == 'all' -%>
+      <th abbr="On loan details"><%= t '.on_loan_details' %></th>
+    <% end -%>
+    <th abbr="Tracked Item Series No"><%= t '.item_series_no' -%></th>
+    <th abbr="Tracked Item Box No"><%= t '.item_box_no' -%></th>
+    <th abbr="Tracked Item Item No"><%= t '.item_item_no' -%></th>
+    <th abbr="Tracked Item"><%= t '.item_description'	-%></th>
+    <th abbr="Tracked Item Status"><%= t '.item_status' -%></th>
+    <th abbr="Tracked Item Shelf Code"><%= t '.item_shelf_code' -%></th>
+  </tr>
+
+  <%= render :partial => 'shared/matching_trackable_item', :collection => @matching_trackable_items -%>
+  
+  <tr><td colspan="7" style="text-align: right"><%= will_paginate @matching_trackable_items -%></td></tr>
+</table>
+

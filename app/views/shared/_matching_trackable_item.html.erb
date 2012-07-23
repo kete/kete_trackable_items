@@ -1,7 +1,7 @@
 <%# HACK: using archivescentral knowledge of what tracked_item.trackable_item is -%>
 <%# TODO: replace hack with configuration -%>
 <% item = matching_trackable_item
-   show_shelf_code = params[:controller] == 'tracking_lists'
+   show_shelf_code = (params[:controller] == 'tracking_lists' || params[:controller] == 'repositories')
    shelf_location ||= nil
    if show_shelf_code
      shelf_location ||= item.shelf_locations.first
@@ -9,6 +9,7 @@
 -%>
 
 <tr id="row-for-<%= item.id -%>">
+  <% if params[:controller] != 'repositories' -%>
   <td>
 	<div id="skip-for-<%= item.id -%>" style="display: inline;">
 	  <%= link_to_remote t('.skip'),
@@ -46,6 +47,13 @@
         alt="<%=t '.progress_indicator_image' %>"
         id="spinner-for-<%= item.id -%>" style="display:none;" />
   </td>
+ <% else -%>
+   <% if params[:state] == 'on_loan_to_organization' || params[:state] == 'all' -%>
+    <td>
+      <%= link_to(h(item.on_loan_organization.name), on_loan_organization_url(:id => item.on_loan_organization.id)) -%>
+    </td>
+   <% end -%>
+ <% end -%>
   <td><%= item.series_no -%></td>
   <td><%= item.box_no -%></td>
   <td><%= item.item_no -%></td>

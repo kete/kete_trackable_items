@@ -23,6 +23,7 @@ module KeteTrackableItems
 
         skip_already_associated_scope = Array.new
         existing_ids = Array.new
+        in_state_scope = Array.new
 
         case params[:controller]
         when 'shelf_locations'
@@ -33,6 +34,8 @@ module KeteTrackableItems
           existing_ids = @tracking_list.tracked_items.find(:all,
                                                            :select => 'trackable_item_id',
                                                            :conditions => { :trackable_item_type => class_name }).collect(&:trackable_item_id)
+        when 'repositories'
+          in_state_scope << ['workflow_in', params[:state]] if params[:state]
         else
           raise "Controller not currently handled."
         end
@@ -48,18 +51,28 @@ module KeteTrackableItems
         #
         # if the repository's basket is site, we need to make sure to not include results
         # from baskets that have their own repository, rather than being in the site wide catch-all
+        #
+        # case where within basket is specified as either all (i.e. don't limit, for site wide reporting)
+        # or central (everything not in another basket other than site)
+        # or where basket is explicitly specified
         basket_scope_pair = Array.new
-        if @current_basket != @site_basket
-          basket_scope_pair << ['in_basket', @current_basket.id]
+        if params[:within].present?
+          if params[:within] != 'all'
+            if params[:within] == 'central'
+              basket_scope_pair << ['not_in_these_baskets', repository_basket_ids_not_in_site]
+            else
+              basket_scope_pair << ['in_basket', params[:within]]
+            end
+          end
         else
-          if @repository.basket != @site_basket
-            basket_scope_pair << ['in_basket', @repository.basket_id]
+          if @current_basket != @site_basket
+            basket_scope_pair << ['in_basket', @current_basket.id]
           else
-            repository_basket_ids = Repository.find(:all,
-                                                    :select => 'DISTINCT(basket_id)',
-                                                    :conditions => "basket_id != #{@site_basket.id}").collect(&:basket_id)
-
-            basket_scope_pair << ['not_in_these_baskets', repository_basket_ids]
+            if @repository.basket != @site_basket
+              basket_scope_pair << ['in_basket', @repository.basket_id]
+            else
+              basket_scope_pair << ['not_in_these_baskets', repository_basket_ids_not_in_site]
+            end
           end
         end
 
@@ -71,9 +84,14 @@ module KeteTrackableItems
         # in case it is useful in future
         # always_scopes << 'with_state_on_shelf' if params[:controller] == 'tracking_lists'
         
-        scope_value_pairs = params[type_key_plural].select { |k, v| v.present? }
+        scope_value_pairs = Array.new
+        
+        if params[type_key_plural].present?
+          scope_value_pairs = params[type_key_plural].select { |k, v| v.present? }
+        end
         
         relevent_scopes = basket_scope_pair +
+          in_state_scope +
           always_scopes +
           scope_value_pairs +
           skip_already_associated_scope
@@ -108,6 +126,12 @@ module KeteTrackableItems
       else
         session[:matching_results_ids] = Array.new
       end
+    end
+
+    def repository_basket_ids_not_in_site
+      @repository_basket_ids ||= Repository.find(:all,
+                                                 :select => 'DISTINCT(basket_id)',
+                                                 :conditions => "basket_id != #{@site_basket.id}").collect(&:basket_id)
     end
   end
 end

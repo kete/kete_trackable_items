@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Walter McGinnis", "Noel Gomez", "Chris Toynbee"]
-  s.date = %q{2012-07-16}
+  s.date = %q{2012-07-23}
   s.description = %q{A Kete application add-on that allows for tracking the location of an item in a physical archive that corresponds to the item in the Kete application.}
   s.email = %q{walter@katipo.co.nz}
   s.extra_rdoc_files = [
@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
      "app/views/repositories/index.html.erb",
      "app/views/repositories/new.html.erb",
      "app/views/repositories/show.html.erb",
+     "app/views/shared/_matching_trackable_item.html.erb",
      "app/views/shared/_tracking.html.erb",
      "app/views/shelf_locations/_event_button.html.erb",
      "app/views/shelf_locations/_form.html.erb",
@@ -96,6 +97,7 @@ Gem::Specification.new do |s|
      "lib/kete_trackable_items/extensions/helpers/application_helper.rb",
      "lib/kete_trackable_items/extensions/models/basket.rb",
      "lib/kete_trackable_items/extensions/models/topic.rb",
+     "lib/kete_trackable_items/list_management_controllers.rb",
      "lib/kete_trackable_items/matching_trackable_items_controller_helpers.rb",
      "lib/kete_trackable_items/paginate_set_up.rb",
      "lib/kete_trackable_items/trackable_item.rb",
@@ -115,18 +117,18 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-      s.add_runtime_dependency(%q<kete_gets_trollied>, [">= 0"])
+      s.add_runtime_dependency(%q<kete_gets_trollied>, [">= 0.0.3"])
       s.add_runtime_dependency(%q<workflow>, [">= 0.8.0"])
       s.add_runtime_dependency(%q<ar-extensions>, [">= 0.9.5"])
     else
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-      s.add_dependency(%q<kete_gets_trollied>, [">= 0"])
+      s.add_dependency(%q<kete_gets_trollied>, [">= 0.0.3"])
       s.add_dependency(%q<workflow>, [">= 0.8.0"])
       s.add_dependency(%q<ar-extensions>, [">= 0.9.5"])
     end
   else
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-    s.add_dependency(%q<kete_gets_trollied>, [">= 0"])
+    s.add_dependency(%q<kete_gets_trollied>, [">= 0.0.3"])
     s.add_dependency(%q<workflow>, [">= 0.8.0"])
     s.add_dependency(%q<ar-extensions>, [">= 0.9.5"])
   end

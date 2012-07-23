@@ -30,6 +30,8 @@ module KeteTrackableItems
         send :belongs_to, :on_loan_organization
 
         self.non_versioned_columns << "on_loan_organization_id"
+        
+        OnLoanOrganization.has_many(self.name.tableize.to_sym)
 
         cattr_accessor :described_as_in_tracking_list
         self.described_as_in_tracking_list = options[:described_as] || :title

@@ -62,10 +62,17 @@ en:
       name: "{{t.base.name.capitalize}}"
       action: "{{t.base.action.capitalize}}"
     show:
-      back_to: "{{t.base.back.capitalize}} to {{t.base.on_loan_organization.pluralize}}"
       are_you_sure: "{{t.base.are_you_sure}}"
+      back_to: "{{t.base.back.capitalize}} to {{t.base.on_loan_organization.pluralize}}"
       edit: "{{t.base.edit.capitalize}}"
       delete: "{{t.base.delete.capitalize}}"
+      displaying: "Showing {{start}} - {{end}} of {{total}}"
+      item_box_no: "Box No"
+      item_description: "{{t.base.tracked_item.capitalize}}"
+      item_item_no: "Item No"
+      item_series_no: "Series No"
+      item_shelf_code: "{{t.base.shelf_code.capitalize}}"
+      items: "Items"
       name: "{{t.base.name.capitalize}}"
       title: "{{t.base.on_loan_organization.capitalize}}: {{name}}"
   repositories:

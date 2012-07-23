@@ -3,6 +3,8 @@ class OnLoanOrganizationsController < ApplicationController
   # A copy of ApplicationController has been removed from the module tree but is still active!
   unloadable
 
+  include KeteTrackableItems::PaginateSetUp
+
   before_filter :set_on_loan_organization, :except => [:index, :create, :new]
 
   def index
@@ -26,6 +28,15 @@ class OnLoanOrganizationsController < ApplicationController
   end
 
   def show
+    set_page_variables
+
+    params[:trackable_type_param_key] = 'topics' unless params[:trackable_type_param_key]
+    type_key_plural = params[:trackable_type_param_key]
+    
+    @matching_trackable_items = @current_basket == @site ? @on_loan_organization.send(type_key_plural).workflow_in('on_loan_to_organization').paginate(@page_options) :
+      @on_loan_organization.send(type_key_plural).in_basket(@current_basket.id).workflow_in('on_loan_to_organization').paginate(@page_options)
+
+    set_results_variables(@matching_trackable_items)
   end
 
   def new

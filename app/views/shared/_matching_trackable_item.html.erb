@@ -1,7 +1,7 @@
 <%# HACK: using archivescentral knowledge of what tracked_item.trackable_item is -%>
 <%# TODO: replace hack with configuration -%>
 <% item = matching_trackable_item
-   show_shelf_code = (params[:controller] == 'tracking_lists' || params[:controller] == 'repositories')
+   show_shelf_code = %w(tracking_lists repositories on_loan_organizations).include?(params[:controller])
    shelf_location ||= nil
    if show_shelf_code
      shelf_location ||= item.shelf_locations.first
@@ -9,7 +9,7 @@
 -%>
 
 <tr id="row-for-<%= item.id -%>">
-  <% if params[:controller] != 'repositories' -%>
+  <% if !%w(repositories on_loan_organizations).include?(params[:controller]) -%>
   <td>
 	<div id="skip-for-<%= item.id -%>" style="display: inline;">
 	  <%= link_to_remote t('.skip'),
@@ -47,7 +47,7 @@
         alt="<%=t '.progress_indicator_image' %>"
         id="spinner-for-<%= item.id -%>" style="display:none;" />
   </td>
- <% else -%>
+ <% elsif params[:controller] == 'repositories' -%>
    <% if params[:state] == 'on_loan_to_organization' || params[:state] == 'all' -%>
     <td>
       <%= link_to(h(item.on_loan_organization.name), on_loan_organization_url(:id => item.on_loan_organization.id)) -%>
@@ -58,7 +58,9 @@
   <td><%= item.box_no -%></td>
   <td><%= item.item_no -%></td>
   <td><%= link_to truncate(h(item.description_for_tracked_item), :length => 80, :omission => '...'), url_for_dc_identifier(item) -%></td>
-  <td><%= item.current_state_humanized -%></td>
+  <% unless params[:controller] == 'on_loan_organizations' -%>
+    <td><%= item.current_state_humanized -%></td>
+  <% end -%>
   <% if show_shelf_code -%>
     <td><%= link_to shelf_location.code, repository_shelf_location_url(:id  => shelf_location, :repository_id => shelf_location.repository)  if shelf_location.present? -%></td>
   <% end -%>

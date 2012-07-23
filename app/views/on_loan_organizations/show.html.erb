@@ -4,6 +4,26 @@
 
 <div id="contact-details"><%= h @on_loan_organization.contact_details -%></div>
 
+<h2><%= t('.items') -%></h2>
+
+<p>
+  <%= t('.displaying', :start => @start_record, :end => @end_record, :total => @matching_trackable_items.total_entries) -%>
+</p>
+
+<table  class="order">
+  <tr>
+    <th abbr="Tracked Item Series No"><%= t '.item_series_no' -%></th>
+    <th abbr="Tracked Item Box No"><%= t '.item_box_no' -%></th>
+    <th abbr="Tracked Item Item No"><%= t '.item_item_no' -%></th>
+    <th abbr="Tracked Item"><%= t '.item_description'	-%></th>
+    <th abbr="Tracked Item Shelf Code"><%= t '.item_shelf_code' -%></th>
+  </tr>
+
+  <%= render :partial => 'shared/matching_trackable_item', :collection => @matching_trackable_items -%>
+  
+  <tr><td colspan="7" style="text-align: right"><%= will_paginate @matching_trackable_items -%></td></tr>
+</table>
+
 <p>
   <%= link_to t('.edit'), edit_on_loan_organization_url(:id => @on_loan_organization) %>
   <br/>

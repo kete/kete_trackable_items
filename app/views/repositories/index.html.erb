@@ -24,7 +24,7 @@
 <h2><%= t('.reports') -%></h2>
 
 <p>
-  <%= t('.displaying', :start => @start_record, :end => @end_record, :total => @matching_trackable_items.total_entries, :state => @state) -%>
+  <%= t('.displaying', :start => @start_record, :end => @end_record, :total => @matching_trackable_items.total_entries, :state => @state.humanize.downcase) -%>
 </p>
 <p>
   [

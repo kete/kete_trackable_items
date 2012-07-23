@@ -90,13 +90,13 @@ module KeteTrackableItems
           scope_value_pairs = params[type_key_plural].select { |k, v| v.present? }
         end
         
-        relevent_scopes = basket_scope_pair +
+        @relevent_scopes = basket_scope_pair +
           in_state_scope +
           always_scopes +
           scope_value_pairs +
           skip_already_associated_scope
 
-        @matching_trackable_items = relevent_scopes.inject(klass) do |model_class, relevent_scope|
+        @matching_trackable_items = @relevent_scopes.inject(klass) do |model_class, relevent_scope|
           if relevent_scope.is_a?(Array)
             model_class.send(relevent_scope.first, relevent_scope.last)
           else
@@ -108,7 +108,7 @@ module KeteTrackableItems
 
         set_results_variables(@matching_trackable_items)
 
-        @matching_trackable_items_only_ids = relevent_scopes.inject(klass) do |model_class, relevent_scope|
+        @matching_trackable_items_only_ids = @relevent_scopes.inject(klass) do |model_class, relevent_scope|
           if relevent_scope.is_a?(Array)
             model_class.send(relevent_scope.first, relevent_scope.last)
           else

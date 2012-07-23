@@ -35,25 +35,31 @@ class RepositoriesController < ApplicationController
 
     set_matching_trackable_items
 
-    @matching_class = session[:matching_class]
-    klass = @matching_class.constantize
+    klass = session[:matching_class].constantize
     @trackable_item_state_names = klass.workflow_spec.state_names
 
-    @trackable_items_counts = @trackable_item_state_names.inject(Hash.new) do |counts, state|
-      if params[:within] != 'all'
-        if params[:within] == 'central'
-          counts[state] = klass.workflow_in(state).not_in_these_baskets(repository_basket_ids_not_in_site).count
-        else
-          counts[state] = klass.workflow_in(state).in_basket(params[:within]).count
-        end
+    scopes_without_state_scope = @relevent_scopes
+    scopes_without_state_scope.delete(['workflow_in', @state])
 
-      else
-        counts[state] = klass.workflow_in(state).count
+    @trackable_items_counts = Hash.new
+    
+    state_names_count = 1
+    @trackable_item_state_names.each do |state|
+      
+      count_scopes_for_state = scopes_without_state_scope.inject(klass) do |model_class, relevent_scope|
+        if relevent_scope.is_a?(Array)
+          model_class.send(relevent_scope.first, relevent_scope.last)
+        else
+          model_class.send(relevent_scope)
+        end
       end
 
-      counts
+      @trackable_items_counts[:all] = count_scopes_for_state.count if state_names_count == 1
+
+      @trackable_items_counts[state] = count_scopes_for_state.workflow_in(state).count
+
+      state_names_count += 1
     end
-    @trackable_items_counts[:all] = klass.count
 
     set_results_variables(@matching_trackable_items)
   end

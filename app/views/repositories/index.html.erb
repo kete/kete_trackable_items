@@ -4,6 +4,9 @@
 
 <table>
   <tr>
+    <% if @current_basket == @site_basket -%>
+      <th><%= t('.basket_name') -%></th>
+    <% end %>
     <th><%= t('.name') -%></th>
     <th></th>
     <th></th>
@@ -11,6 +14,9 @@
 
 <% @repositories.each do |repository| %>
   <tr>
+    <% if @current_basket == @site_basket -%>
+      <td><%= repository.basket.name -%></td>
+    <% end %>
     <td><%= repository.name %></td>
     <td><%= link_to (t('.show'), repository_url(:id => repository)) %></td>
     <td><%= link_to (t('.edit'), edit_repository_url(:id => repository)) if @site_admin %></td>

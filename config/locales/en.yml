@@ -86,6 +86,7 @@ en:
       save: "{{t.base.save}}"
     index:
       all: "{{t.base.all}}"
+      basket_name: "{{t.base.basket.capitalize}}"
       displaying: "Showing {{state}} {{start}} - {{end}} of {{total}}"
       edit: "{{t.base.edit.capitalize}}"
       item_box_no: "Box No"

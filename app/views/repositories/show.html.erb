@@ -1,4 +1,8 @@
-<% @title = t('.title', :name => h(@repository.name)) -%>
+<% @title = t('.title', :name => h(@repository.name))
+  if @site_basket == @current_basket
+    @title = @repository.basket.name + ' ' + @title
+  end
+-%>
 
 <h2><%= @title -%></h2>
 

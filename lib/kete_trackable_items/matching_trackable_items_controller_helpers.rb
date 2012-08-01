@@ -121,7 +121,7 @@ module KeteTrackableItems
     end
 
     def set_session_for_matching_trackable_items
-      if @matching_trackable_items_only_ids.any?
+      if @matching_trackable_items_only_ids.present?
         session[:matching_results_ids] = @matching_trackable_items_only_ids
       else
         session[:matching_results_ids] = Array.new

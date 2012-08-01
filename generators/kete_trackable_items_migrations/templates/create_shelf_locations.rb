@@ -3,7 +3,7 @@ class CreateShelfLocations < ActiveRecord::Migration
     create_table :shelf_locations do |t|
       t.string :code, :null => false
       t.integer :repository_id, :null => false
-      t.string :workflow_state, :default => 'emtpy', :null => false
+      t.string :workflow_state, :default => 'empty', :null => false
 
       t.timestamps
     end

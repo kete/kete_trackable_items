@@ -20,7 +20,7 @@ class RepositoriesController < ApplicationController
 
     if params[:within].blank?
       if @current_basket == @site_basket
-        params[:within] = 'all'
+        params[:within] = 'central'
       else
         params[:within] = @current_basket.id
       end

@@ -30,13 +30,13 @@ class RepositoriesController < ApplicationController
       raise "You cannot specify a basket other than your own."
     end
 
-    params[:state] = 'on_shelf' unless params[:state]
+    params[:state] = 'unallocated' unless params[:state]
     @state = params[:state]
 
     set_matching_trackable_items
 
     klass = session[:matching_class].constantize
-    @trackable_item_state_names = klass.workflow_spec.state_names
+    @trackable_item_state_names = klass.workflow_spec.state_names - [:on_shelf]
 
     scopes_without_state_scope = @relevent_scopes
     scopes_without_state_scope.delete(['workflow_in', @state])

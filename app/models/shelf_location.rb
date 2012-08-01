@@ -22,14 +22,14 @@ class ShelfLocation < ActiveRecord::Base
     state :allocated do
       # probably want to create an instance method for clear_out
       # that deactivates all trackable_item_shelf_locations
-      event :clear_out, :transitions_to => :available
-      event :deallocate, :transitions_to => :available
+      event :clear_out, :transitions_to => :empty
+      event :deallocate, :transitions_to => :empty
       # shelf_locations can have more than one trackable_item allocated to them
       event :allocate, :transitions_to => :allocated
     end
 
     state :deactivated do
-      event :reactivate, :transitions_to => :available
+      event :reactivate, :transitions_to => :empty
     end
 
     on_transition do |from, to, event_name, *event_args|

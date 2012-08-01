@@ -17,6 +17,7 @@ class ShelfLocationsController < ApplicationController
                                                           :conditions => ["LOWER(code) like :pattern_for_sql",
                                                                           { :pattern_for_sql => pattern_for_sql }])
     else
+      params[:per_page] = 100 unless params[:per_page]
       set_page_variables
 
       @state = params[:shelf_state].present? ? params[:shelf_state] : 'all'

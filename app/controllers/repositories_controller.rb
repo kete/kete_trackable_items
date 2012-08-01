@@ -65,6 +65,7 @@ class RepositoriesController < ApplicationController
   end
 
   def show
+    params[:per_page] = 100 unless params[:per_page]
     set_page_variables
 
     @state = params[:shelf_state].present? ? params[:shelf_state] : 'all'

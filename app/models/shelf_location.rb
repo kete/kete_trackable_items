@@ -14,7 +14,7 @@ class ShelfLocation < ActiveRecord::Base
   default_scope :order => 'code ASC'
 
   workflow do
-    state :available do
+    state :empty do
       event :allocate, :transitions_to => :allocated
       event :deactivate, :transitions_to => :deactivated
     end

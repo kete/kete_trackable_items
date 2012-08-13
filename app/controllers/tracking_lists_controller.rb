@@ -131,9 +131,9 @@ class TrackingListsController < ApplicationController
         @tracking_list.send(event + '!')
         @successful = @tracking_list.reload.current_state != original_state
         @state_change_failed = !@successful
-        url = repository_url(:id => @tracking_list,
-                             :repository_id => @repository,
-                             :download_modal => true)
+        url = repository_tracking_list_url(:id => @tracking_list,
+                                           :repository_id => @repository,
+                                           :download_modal => true)
       end
     else
       # to handle large amount of matches that span paginated pages of results

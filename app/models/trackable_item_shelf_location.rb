@@ -10,7 +10,7 @@ class TrackableItemShelfLocation < ActiveRecord::Base
   belongs_to :shelf_location
   belongs_to :trackable_item, :polymorphic => true
 
-  validates_presence_of :shelf_location, :message => lambda { I18n.t('trackable_item_shelf_location.shelf_location_blank_or_does_not_match') }
+  validates_presence_of :shelf_location_id, :message => lambda { I18n.t('trackable_item_shelf_location.shelf_location_blank_or_does_not_match') }
   validates_presence_of :trackable_item, :message => lambda { I18n.t('trackable_item_shelf_location.trackable_item_blank_or_does_not_match') }
 
   # needs to be unique to shelf_location to trackable_item

@@ -127,12 +127,14 @@ class ShelfLocationsController < ApplicationController
         value
       end
 
-      @successful = TrackableItemShelfLocation.import(values)
+      if values.present?
+        @successful = TrackableItemShelfLocation.import(values)
 
-      if @successful
-        @shelf_location.new_allocation
-        matching_class.constantize.find(matching_results_ids).each do |trackable_item|
-          trackable_item.new_allocation
+        if @successful
+          @shelf_location.new_allocation
+          matching_class.constantize.find(matching_results_ids).each do |trackable_item|
+            trackable_item.new_allocation
+          end
         end
       end
     end

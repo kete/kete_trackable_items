@@ -8,6 +8,40 @@ You'll need to add the following to your application's config/initializers/mime_
 
 Mime::Type.register "application/vnd.ms-excel", :xls
 
+You'll also need to create a config file in your application that looks something like this under config/trackable_item_scopes.yml:
+
+topic:
+  prerequisite_extensions:
+    - "extend ExtendedContentHelpers"
+    - "extend ExtendedContentScopeHelpers"
+  
+  search_scopes:
+    always_within_scopes:
+      type_item: "{ :conditions => { :topic_type_id => 8 } }"
+    text_searches:
+      - series_no_is: "lambda { |pattern|
+      { :conditions => field_condition_sql_for(pattern, 109, true) }
+      }"
+      - box_no_is: "lambda { |pattern|
+      { :conditions => field_condition_sql_for(pattern, 112, true) }
+      }"
+      - item_no_is: "lambda { |pattern|
+      { :conditions => field_condition_sql_for(pattern, 110, true) }
+      }"
+
+# use these instead of _is text_searches if want to pattern matching
+# that matches right hand side truncation
+# i.e. user search input of "10" will match "100" as well as "10", "101", etc.
+#       - series_no_matches: "lambda { |pattern|
+#      { :conditions => field_condition_sql_for(pattern, 109) }
+#      }"
+#      - box_no_matches: "lambda { |pattern|
+#      { :conditions => field_condition_sql_for(pattern, 112) }
+#      }"
+#      - item_no_matches: "lambda { |pattern|
+#       { :conditions => field_condition_sql_for(pattern, 110) }
+#      }"
+
 == Note on Patches/Pull Requests
  
 * Fork the project.

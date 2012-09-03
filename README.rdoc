@@ -4,6 +4,10 @@ A Rails engine gem that works in conjunction with kete_gets_trollied to track wh
 
 == Usage
 
+For role based permissions to work properly when a logged out user tries to access tracking pages, you'll need to add the following to config/environment.rb after the 'AUTHORIZATION_MIXIN = "object roles"' line:
+
+LOGIN_REQUIRED_REDIRECTION = { :controller => 'account', :action => 'login' }
+
 You'll need to add the following to your application's config/initializers/mime_types.rb
 
 Mime::Type.register "application/vnd.ms-excel", :xls

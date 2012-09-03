@@ -3,6 +3,8 @@ class TrackableItemShelfLocationsController < ApplicationController
   # A copy of ApplicationController has been removed from the module tree but is still active!
   unloadable
 
+  permit "site_admin or admin of :site_basket or admin of :current_basket"
+
   def new
     @repositories = appropriate_repositories_for_basket
 
@@ -88,5 +90,4 @@ class TrackableItemShelfLocationsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
 end

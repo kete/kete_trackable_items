@@ -5,6 +5,8 @@ class TrackingEventsController < ApplicationController
 
   include KeteTrackableItems::PaginateSetUp
 
+  permit "site_admin or admin of :site_basket or admin of :current_basket"
+
   def index
     set_page_variables
 

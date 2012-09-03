@@ -9,6 +9,8 @@ class TrackingListsController < ApplicationController
   before_filter :set_repository
   before_filter :set_tracking_list, :except => [:index, :create]
 
+  permit "site_admin or admin of :site_basket or admin of :current_basket"
+
   def index
     @tracking_lists = TrackingList.all
   end

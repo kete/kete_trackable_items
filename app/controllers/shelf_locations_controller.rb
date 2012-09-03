@@ -9,6 +9,8 @@ class ShelfLocationsController < ApplicationController
   before_filter :set_repository
   before_filter :set_shelf_location, :except => [:index, :create, :new]
 
+  permit "site_admin or admin of :site_basket or admin of :current_basket"
+
   def index
     if params[:code_pattern].present?
       @code_pattern = params[:code_pattern]

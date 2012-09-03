@@ -11,7 +11,7 @@ class RepositoriesController < ApplicationController
 
   permit "site_admin or admin of :site_basket", :except => READABLE_ACTIONS
 
-  permit "site_admin or admin of :site_basket or moderator of :current_basket or admin of :current_basket", :only => READABLE_ACTIONS
+  permit "site_admin or admin of :site_basket or admin of :current_basket", :only => READABLE_ACTIONS
 
   def index
     @repositories = appropriate_repositories_for_basket

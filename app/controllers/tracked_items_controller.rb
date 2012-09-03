@@ -6,6 +6,8 @@ class TrackedItemsController < ApplicationController
   before_filter :get_tracked_item, :except => [:create]
   before_filter :get_trackable_item
   before_filter :get_tracking_list
+
+  permit "site_admin or admin of :site_basket or admin of :current_basket"
   
   def create
     tracked_item = @trackable_item.tracked_items.build(@tracking_list)

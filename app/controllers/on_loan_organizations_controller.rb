@@ -7,6 +7,8 @@ class OnLoanOrganizationsController < ApplicationController
 
   before_filter :set_on_loan_organization, :except => [:index, :create, :new]
 
+  permit "site_admin or admin of :site_basket or admin of :current_basket", :only => [:create, :update, :destroy]
+
   def index
     if params[:name_pattern].present?
       @name_pattern = params[:name_pattern]

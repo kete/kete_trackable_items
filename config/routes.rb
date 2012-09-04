@@ -10,4 +10,9 @@ ActionController::Routing::Routes.draw do |map|
 
     repository.resources :tracking_lists, :member => list_management_members
   end
+
+  # Various RSS feeds not associated with search
+  map.with_options :controller => 'tracking_lists', :action => "show" do |tracking_list|
+    tracking_list.tracking_list_xls ':urlified_name/repositories/:repository_id/tracking_lists/:id/trackinglist.:format'
+  end
 end

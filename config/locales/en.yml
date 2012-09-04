@@ -257,6 +257,7 @@ en:
       tracked_item_series_no: "Series No"
       tracked_item_shelf_code: "{{t.base.shelf_code.capitalize}}"
       tracked_item_status: "{{t.base.status.capitalize}}"
+      tracking_list: "{{t.base.tracking_list}}"
       tracking_list_controls_preface: "{{t.base.tracking_list.capitalize}} {{t.base.action.pluralize}}:"
     trackable_item_search_form:
       search_button: "{{t.base.search}}"

@@ -7,32 +7,8 @@ xml.Workbook({
   'xmlns:ss'   => "urn:schemas-microsoft-com:office:spreadsheet" 
   }) do
 
-  xml.Worksheet 'ss:Name' => t('.tracked_items') do
+  xml.Worksheet 'ss:Name' => t('.tracking_list') do
     xml.Table do
-      # Tracked List Header
-      xml.Row do
-        xml.Cell { xml.Data 'List ID', 'ss:Type' => 'String' }
-        xml.Cell { xml.Data 'Repository', 'ss:Type' => 'String' }
-        xml.Cell { xml.Data 'Current State', 'ss:Type' => 'String' }
-      end
-
-      # Tracked List Data
-      xml.Row do
-        xml.Cell { xml.Data @tracking_list.id, 'ss:Type' => 'String' }
-        xml.Cell { xml.Data @tracking_list.repository.name, 'ss:Type' => 'String' }
-        xml.Cell { xml.Data @tracking_list.current_state_humanized, 'ss:Type' => 'String' }
-      end
-
-      # Tracked Items Header
-      xml.Row do
-        xml.Cell { xml.Data 'Series No', 'ss:Type' => 'String' }
-        xml.Cell { xml.Data 'Box No', 'ss:Type' => 'String' }
-        xml.Cell { xml.Data 'Item No', 'ss:Type' => 'String' }
-        xml.Cell { xml.Data 'Description', 'ss:Type' => 'String' }
-        xml.Cell { xml.Data 'Status', 'ss:Type' => 'String' }
-        xml.Cell { xml.Data 'Shelf Code', 'ss:Type' => 'String' }
-      end
-
       # Rows
       for tracked_item_trackable_item_pair in @tracked_item_trackable_item_pairs
       	item = tracked_item_trackable_item_pair[1]

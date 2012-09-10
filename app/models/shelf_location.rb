@@ -78,13 +78,18 @@ class ShelfLocation < ActiveRecord::Base
   end
 
   def mapping_deactivated_or_destroyed
-    deallocate! if allocated? && trackable_items.size == 0
+    # only deallocate if this the last trackable_item
+    deallocate! if allocated? && trackable_items.size == 1
   end
 
   def clear_out
     trackable_item_shelf_locations.each do |mapping|
-      mapping.make_deactivated
+      mapping.make_deactivated if mapping.active?
     end
+  end
+
+  def mapping_reactivated
+    allocate!
   end
 
   def name_for_tracking_event

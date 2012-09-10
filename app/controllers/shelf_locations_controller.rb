@@ -52,6 +52,8 @@ class ShelfLocationsController < ApplicationController
 
     set_page_variables
 
+    @page_options[:conditions] = "workflow_state = 'active'"
+
     @trackable_item_shelf_locations = @shelf_location.trackable_item_shelf_locations.paginate(@page_options)
 
     set_results_variables(@trackable_item_shelf_locations)

@@ -46,6 +46,15 @@ class TrackableItemShelfLocation < ActiveRecord::Base
     deactivate!
   end
 
+  def tell_associations_reactivated
+    shelf_location.mapping_reactivated
+    trackable_item.mapping_reactivated
+  end
+
+  def reactivate
+    tell_associations_reactivated
+  end
+
   private
   
   def update_state_of_shelf_location_and_trackable_item

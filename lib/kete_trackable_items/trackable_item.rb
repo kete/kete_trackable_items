@@ -109,7 +109,12 @@ module KeteTrackableItems
       end
 
       def mapping_deactivated_or_destroyed
-        unassign_location! if on_shelf? && !has_shelf_locations?
+        # only deallocate if this the last active trackable_item_shelf_location
+        unassign_location! if on_shelf? && shelf_locations.size == 1
+      end
+
+      def mapping_reactivated
+        allocate!
       end
     end
   end

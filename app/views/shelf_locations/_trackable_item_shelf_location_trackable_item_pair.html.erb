@@ -4,7 +4,7 @@
 <% trackable_item = trackable_item_shelf_location_trackable_item_pair[1] -%>
 <tr>
   <td>
-    <% if trackable_item.on_shelf? -%>
+    <% if trackable_item.on_shelf? && trackable_item_shelf_location.active? -%>
       <%= button_to t('.deallocate'), { :controller => :trackable_item_shelf_locations,
       :action => :update,
       :id => trackable_item_shelf_location,

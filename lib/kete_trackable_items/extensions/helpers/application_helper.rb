@@ -61,7 +61,7 @@ ApplicationHelper.module_eval do
   end
 
   def tracking_list_create_html(order = nil)
-    html = String.new
+    Html = String.new
     phrase = order.blank? ? t('application_helper.tracking_list_create_html.location_tracking') :
       t('application_helper.tracking_list_create_html.tracking_list_from_order')
 
@@ -71,13 +71,18 @@ ApplicationHelper.module_eval do
         url_hash = { :repository_id => @current_basket.repositories.first,
           :method => :post }
 
-        url_hash[:order] = order if order
+        if order
+          url_hash[:order] = order
+          html += '<li class="first">' + button_to(phrase,
+                                                   repository_tracking_lists_url(url_hash),
+                                                   :tabindex => '2') + '</li>'
+        else
+          button_html = button_to(phrase,
+                                  repository_tracking_lists_url(url_hash),
+                                  :tabindex => '2')
 
-        button_html = button_to(phrase,
-                                repository_tracking_lists_url(url_hash),
-                                :tabindex => '2')
-
-        html += javascript_tag("jQuery('#basket-toolbox').append('#{button_html}');")
+          html += javascript_tag("jQuery('#basket-toolbox').append('#{button_html}');")
+        end
       else
 
         css_id = 'RB-choose-repository'

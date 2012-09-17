@@ -5,7 +5,7 @@
 
   <h3><%=t(".currently") %> <%= item.current_state_humanized -%>
     <% if item.on_loan_to_organization? -%>
-     <%= link_to(h(item.on_loan_to_organization.name), on_loan_organization_url( :id => item.on_loan_organization)) -%>
+     <%= link_to(h(item.on_loan_organization.name), on_loan_organization_url( :id => item.on_loan_organization)) -%>
     <% end -%>
     <% if item.tracking_events.size > 0 -%>
       ( <%= link_to(t('.history'), tracking_events_url( :historical_item_type => item.class.name, :historical_item_id => item.id )) -%> )

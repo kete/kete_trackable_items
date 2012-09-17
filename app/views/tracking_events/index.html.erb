@@ -24,7 +24,7 @@
     <td><%= verb_or_event.humanize -%>
       <%= event.historical_receiver.name_for_tracking_event if event.historical_receiver -%>
     </td>
-    <td><%= event.created_at.to_s(:short) -%></td>
+    <td><%= event.created_at.to_s(:long) -%></td>
   </tr>
 <% end %>
 

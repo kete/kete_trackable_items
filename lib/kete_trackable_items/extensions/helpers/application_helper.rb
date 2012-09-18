@@ -26,7 +26,7 @@ ApplicationHelper.module_eval do
     html
   end
 
-  def hidden_repository_new_tracking_list_chooser(order = nil)
+  def hidden_repository_new_tracking_list_chooser(basket, order = nil)
     # choose a repository
     html = '<div id="RB-choose-repository'
 
@@ -38,10 +38,12 @@ ApplicationHelper.module_eval do
     html += "<h3>#{t('application_helper.add_ons_basket_admin_list.choose_repository')}</h3>"
     html += '</div>'
 
-    @current_basket.repositories.each do |repository|
+    basket.repositories.each do |repository|
       html += '<div style="margin: 20px;">'
 
-      url_hash = { :repository_id => repository,
+      url_hash = {
+        :urlified_name => basket.urlified_name,
+        :repository_id => repository,
         :method => :post }
 
       url_hash[:order] = order if order
@@ -65,13 +67,19 @@ ApplicationHelper.module_eval do
     phrase = order.blank? ? t('application_helper.tracking_list_create_html.location_tracking') :
       t('application_helper.tracking_list_create_html.tracking_list_from_order')
     basket = order.blank? ? @current_basket : order.basket
-    repositories = basket.repositories.count == 0 &&
-      basket != @site_basket ? @site_basket.repositories : basket.repositories
+    repositories = basket.repositories
+    target_basket = basket
+    if basket.repositories.count == 0 && basket != @site_basket
+      repositories = @site_basket.repositories
+      target_basket= @site_basket
+    end
 
     if repositories.count > 0
       if repositories.count == 1
 
-        url_hash = { :repository_id => repositories.first,
+        url_hash = {
+          :urlified_name => target_basket.urlified_name,
+          :repository_id => repositories.first,
           :method => :post }
 
         if order
@@ -97,7 +105,7 @@ ApplicationHelper.module_eval do
                                css_id,
                                :tabindex => '2')
 
-        html += hidden_repository_new_tracking_list_chooser(order)
+        html += hidden_repository_new_tracking_list_chooser(target_basket, order)
       end
     end
     html

@@ -64,11 +64,14 @@ ApplicationHelper.module_eval do
     html = String.new
     phrase = order.blank? ? t('application_helper.tracking_list_create_html.location_tracking') :
       t('application_helper.tracking_list_create_html.tracking_list_from_order')
+    basket = order.blank? ? @current_basket : order.basket
+    repositories = basket.repositories.count == 0 &&
+      basket != @site_basket ? @site_basket.repositories : basket.repositories
 
-    if @current_basket.repositories.count > 0
-      if @current_basket.repositories.count == 1
+    if repositories.count > 0
+      if repositories.count == 1
 
-        url_hash = { :repository_id => @current_basket.repositories.first,
+        url_hash = { :repository_id => repositories.first,
           :method => :post }
 
         if order

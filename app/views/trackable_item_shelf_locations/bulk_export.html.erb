@@ -1,0 +1,12 @@
+<% form_tag 'generate_export', :method => "post" do %>
+  <select name="basket_id">
+    <% @basket_options.each do |basket| %>
+      <option <%= "selected=selected" if basket == @current_basket -%> value=<%= basket.id -%>><%= basket.name -%></input>
+    <% end %>
+  </select  >
+  <%= submit_tag 'Generate Export' %>
+<% end %>
+<% form_tag('bulk_import', :method => "post", :multipart => true) do %>
+  <%= file_field_tag 'import' %>
+  <%= submit_tag %>
+<% end %>

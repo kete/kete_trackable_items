@@ -53,7 +53,7 @@ ApplicationHelper.module_eval do
                         :tabindex => '2')
       html += '</div>'
     end
-    
+
     html += '<div style="text-align: right; margin-right: 20px; margin-bottom: 20px;">'
     html += link_to_close_redbox(t('application_helper.hidden_repository_new_tracking_list_chooser.cancel'))
     html += '</div>'

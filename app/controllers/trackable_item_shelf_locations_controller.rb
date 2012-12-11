@@ -1,3 +1,4 @@
+require 'bulk_allocation'
 class TrackableItemShelfLocationsController < ApplicationController
   # Prevents the following error from showing up, common in Rails engines
   # A copy of ApplicationController has been removed from the module tree but is still active!
@@ -107,22 +108,23 @@ class TrackableItemShelfLocationsController < ApplicationController
     end
   end
 
-  def bulk_export
+  def bulk_allocation
     @basket_options = Basket.find(:all, :conditions=> ['id in (SELECT t.basket_id FROM topics t WHERE extended_content LIKE ?)', '%legacy_identifier%'])
     render
   end
 
   def bulk_import
-    file = File.new("#{Rails.root.to_s}/tmp/import-#{Time.now.strftime '%Y%m%d-%H%M'}.xlsx", "w")
+    file = File.new("#{Rails.root.to_s}/tmp/import-#{Time.now.strftime '%Y%m%d-%H%M%S'}.xlsx", "w")
     file.write(params[:import].read)
     file.close
-    BulkAllocation::import(file.path)
-    redirect_to :action => 'bulk_export'
+    BulkAllocation.import(file.path)
+    File.delete file.path
+    redirect_to :action => 'bulk_allocation'
   end
 
   def generate_export
     basket = Basket.find(params[:basket_id] )
-    file = BulkAllocation::export(basket)
+    file = BulkAllocation.export(basket)
     headers["Content-Disposition"] = "attachment; filename=#{File.basename file.path}"
     send_data file.read, :filename => File.basename(file.path)
   end

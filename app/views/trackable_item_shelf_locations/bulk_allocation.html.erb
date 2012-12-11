@@ -1,0 +1,5 @@
+<h2><%= t('application_helper.add_ons_basket_admin_list.bulk_shelf_location_allocation_title', :basket => h(@current_basket.name)) %></h2>
+<% form_tag('bulk_import', :method => "post", :multipart => true) do %>
+  <%= file_field_tag 'import' %>
+  <%= submit_tag t('application_helper.add_ons_basket_admin_list.import_file') %>
+<% end %>

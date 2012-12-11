@@ -16,11 +16,18 @@ ApplicationHelper.module_eval do
   def add_ons_basket_admin_list
     html = superseded_add_ons_basket_admin_list
 
-    html += "| " + link_to_unless_current(t('application_helper.add_ons_basket_admin_list.location_admin'),
+    html += " | " + link_to_unless_current(t('application_helper.add_ons_basket_admin_list.location_admin'),
                                           { :controller => :repositories,
                                             :action => :index,
                                             :urlified_name => @current_basket.urlified_name},
                                           :tabindex => '2')
+
+    html += " | " + link_to_unless_current(t('application_helper.add_ons_basket_admin_list.bulk_shelf_location_allocation'),
+                                            { :controller => :trackable_item_shelf_locations,
+                                              :action => :bulk_allocation,
+                                              :urlified_name => @current_basket.urlified_name
+                                            },
+                                            :tabindex => '3')
 
     html += tracking_list_create_html
     html

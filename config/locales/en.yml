@@ -4,6 +4,9 @@ en:
     add_ons_basket_admin_list:
       choose_repository: "{{t.base.choose.capitalize}} {{t.base.repository}}"
       location_admin: "location admin"
+      bulk_shelf_location_allocation: 'bulk shelf location allocation'
+      bulk_shelf_location_allocation_title: 'Import shelf location changes for {{t.base.basket}}: {{basket}}'
+      import_file: 'Import file'
     add_trackable_items_links:
       add_items_to_tracking_list: "{{t.base.add.capitalize}} {{t.base.trackable_item.pluralize}}"
       close_add_items_to_tracking_list: "{{t.base.close.capitalize}} {{t.base.add}} {{t.base.trackable_item.pluralize}}"

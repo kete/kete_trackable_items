@@ -66,6 +66,7 @@ Gem::Specification.new do |s|
      "app/views/shelf_locations/index.html.erb",
      "app/views/shelf_locations/new.html.erb",
      "app/views/shelf_locations/show.html.erb",
+     "app/views/trackable_item_shelf_locations/bulk_allocation.html.erb",
      "app/views/trackable_item_shelf_locations/new.html.erb",
      "app/views/tracked_items/_tracked_item_trackable_item_pair.html.erb",
      "app/views/tracking_events/index.html.erb",
@@ -91,6 +92,8 @@ Gem::Specification.new do |s|
      "generators/kete_trackable_items_migrations/templates/create_tracking_events.rb",
      "generators/kete_trackable_items_migrations/templates/create_tracking_lists.rb",
      "kete_trackable_items.gemspec",
+     "lib/bulk_allocation.rb",
+     "lib/excel_doc.rb",
      "lib/kete_trackable_items.rb",
      "lib/kete_trackable_items/controller_helpers.rb",
      "lib/kete_trackable_items/extensions/controllers/application_controller.rb",
@@ -120,17 +123,23 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<kete_gets_trollied>, [">= 0.0.3"])
       s.add_runtime_dependency(%q<workflow>, [">= 0.8.0"])
       s.add_runtime_dependency(%q<ar-extensions>, [">= 0.9.5"])
+      s.add_runtime_dependency(%q<rubyXL>, [">= 1.2.10"])
+      s.add_runtime_dependency(%q<rubyzip>, [">= 0.9.9"])
     else
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
       s.add_dependency(%q<kete_gets_trollied>, [">= 0.0.3"])
       s.add_dependency(%q<workflow>, [">= 0.8.0"])
       s.add_dependency(%q<ar-extensions>, [">= 0.9.5"])
+      s.add_dependency(%q<rubyXL>, [">= 1.2.10"])
+      s.add_dependency(%q<rubyzip>, [">= 0.9.9"])
     end
   else
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     s.add_dependency(%q<kete_gets_trollied>, [">= 0.0.3"])
     s.add_dependency(%q<workflow>, [">= 0.8.0"])
     s.add_dependency(%q<ar-extensions>, [">= 0.9.5"])
+    s.add_dependency(%q<rubyXL>, [">= 1.2.10"])
+    s.add_dependency(%q<rubyzip>, [">= 0.9.9"])
   end
 end
 

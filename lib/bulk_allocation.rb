@@ -15,6 +15,8 @@ class MapFromExcel < ExcelRow
 end
 
 class BulkAllocation
+  extend ExtendedContentHelpers
+  extend ExtendedContentScopeHelpers
   # Export the current Mappings of shelf locations for trackable items
   def self.export(basket)
     con = ActiveRecord::Base.connection
@@ -61,8 +63,7 @@ class BulkAllocation
         next
       end
 
-      matching_topic = Topic.find(:first, :conditions =>
-        ["extended_content like ?", "%<legacy_identifier xml_element_name=\"dc:identifier\">#{row[:legacy_id]}</legacy_identifier>%"])
+      matching_topic = Topic.find(:first, :conditions => field_condition_sql_for("#{row[:legacy_id]}", 100)) # '100' here represents the ID of the extended field in the database...
       if matching_topic.nil?
         #$logger.warn "Could not find matching topic for legacy_identifier: #{row[:legacy_id]}"
         next

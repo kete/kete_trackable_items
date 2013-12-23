@@ -24,13 +24,15 @@ module KeteTrackableItems
 
         # tracking history, can be historical_item or historical_receiver
         send :has_many, :tracking_events, :as => :historical_item, :dependent => :delete_all
-        send :has_many, :tracking_receiving_events, :as => :historical_receiver, :dependent => :delete_all
+
+        send :has_many, :tracking_receiving_events, :class_name => "TrackingEvent",
+        :as => :historical_receiver, :dependent => :delete_all
 
         # when a trackable_item is in 'on_loan' state, which on_loan_organization is it on loan to?
         send :belongs_to, :on_loan_organization
 
         self.non_versioned_columns << "on_loan_organization_id"
-        
+
         OnLoanOrganization.has_many(self.name.tableize.to_sym)
 
         cattr_accessor :described_as_in_tracking_list
@@ -38,7 +40,7 @@ module KeteTrackableItems
 
         # set up our states and events through workflow gem
         send :include, KeteTrackableItems::WorkflowUtilities
-    
+
         class_eval do
           shared_code_as_string = shared_tracking_workflow_specs_as_string
 

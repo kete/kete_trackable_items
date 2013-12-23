@@ -16,7 +16,7 @@ class TrackableItemShelfLocationsController < ApplicationController
 
     @trackable_item_shelf_location = @trackable_item.present? ? @trackable_item.trackable_item_shelf_locations.build : TrackableItemShelfLocation.new
   end
-  
+
   def create
     repository_id = params[:trackable_item_shelf_location].delete(:repository_id)
     code = params[:trackable_item_shelf_location].delete(:code)
@@ -39,8 +39,15 @@ class TrackableItemShelfLocationsController < ApplicationController
         options[:trackable_item_type] = tracked_item.trackable_item_type
         options[:trackable_item_id] = tracked_item.trackable_item_id
 
-        @trackable_item_shelf_location = TrackableItemShelfLocation.new(options)
-        @successful = @trackable_item_shelf_location.save
+        previously_deactivated = options.merge(:workflow_state => "deactivated")
+        @trackable_item_shelf_location = TrackableItemShelfLocation.first(:conditions => previously_deactivated)
+        if @trackable_item_shelf_location
+          @trackable_item_shelf_location.reactivate!
+          @successful = true
+        else
+          @trackable_item_shelf_location = TrackableItemShelfLocation.new(options)
+          @successful = @trackable_item_shelf_location.save
+        end
 
         # stop at the point we get failure, so we only report the error on that one object
         # far from perfect solution, but hopefully very unlikely
@@ -79,7 +86,7 @@ class TrackableItemShelfLocationsController < ApplicationController
     else
       @successful = @trackable_item_shelf_location.update_attributes(params[:shelf_location])
     end
-    
+
     if @successful || @state_change_failed
       flash[:notice] = t('shelf_locations.update.state_change_failed', :event_transition => params[:event].humanize) if @state_change_failed
 

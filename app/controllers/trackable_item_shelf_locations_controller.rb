@@ -56,9 +56,18 @@ class TrackableItemShelfLocationsController < ApplicationController
       @tracking_list.allocate! if @successful
 
     else
-      @trackable_item_shelf_location = TrackableItemShelfLocation.new(params[:trackable_item_shelf_location])
+      previously_deactivated = params[:trackable_item_shelf_location].merge(:workflow_state => "deactivated")
+      @trackable_item_shelf_location = TrackableItemShelfLocation.first(:conditions => previously_deactivated)
+
+      if @trackable_item_shelf_location
+        @trackable_item_shelf_location.reactivate!
+        @successful = true
+      else
+        @trackable_item_shelf_location = TrackableItemShelfLocation.new(params[:trackable_item_shelf_location])
+        @successful = @trackable_item_shelf_location.save
+      end
+
       @trackable_item = @trackable_item_shelf_location.trackable_item
-      @successful = @trackable_item_shelf_location.save
     end
 
     if @successful

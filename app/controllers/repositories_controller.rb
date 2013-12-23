@@ -26,7 +26,8 @@ class RepositoriesController < ApplicationController
       end
     end
 
-    if @current_basket != @site_basket && params[:within] != @current_basket.id 
+    if @current_basket != @site_basket &&
+        params[:within].to_i != @current_basket.id
       raise "You cannot specify a basket other than your own."
     end
 
@@ -42,10 +43,10 @@ class RepositoriesController < ApplicationController
     scopes_without_state_scope.delete(['workflow_in', @state])
 
     @trackable_items_counts = Hash.new
-    
+
     state_names_count = 1
     @trackable_item_state_names.each do |state|
-      
+
       count_scopes_for_state = scopes_without_state_scope.inject(klass) do |model_class, relevent_scope|
         if relevent_scope.is_a?(Array)
           model_class.send(relevent_scope.first, relevent_scope.last)
@@ -74,7 +75,7 @@ class RepositoriesController < ApplicationController
     end
 
     @shelf_locations = @repository.shelf_locations.paginate(@page_options)
-    
+
     set_results_variables(@shelf_locations)
   end
 
@@ -113,7 +114,7 @@ class RepositoriesController < ApplicationController
   end
 
   private
-  
+
   def get_repository
     begin
       @repository = @current_basket.repositories.find(params[:id])

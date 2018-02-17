@@ -18,7 +18,7 @@ class ShelfLocation < ActiveRecord::Base
       event :allocate, :transitions_to => :allocated
       event :deactivate, :transitions_to => :deactivated
     end
-    
+
     state :allocated do
       # probably want to create an instance method for clear_out
       # that deactivates all trackable_item_shelf_locations
@@ -39,7 +39,7 @@ class ShelfLocation < ActiveRecord::Base
         :event => event_name.to_s }
 
       attribute_options[:historical_receiver] = trackable_items.last if event_name == :allocate
-      
+
       TrackingEvent.create!(attribute_options)
     end
   end

@@ -25,7 +25,7 @@ ApplicationHelper.module_eval do
     html += " | " + link_to_unless_current(t('application_helper.add_ons_basket_admin_list.bulk_shelf_location_allocation'),
                                            { :controller => :trackable_item_shelf_locations,
                                              :action => :bulk_allocation,
-                                             :urlified_name => @current_basket.urlified_name},
+                                             :urlified_name => @current_basket.urlified_name },
                                            :tabindex => '3')
 
     html += tracking_list_create_html

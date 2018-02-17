@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # name
 # address, contact details?
 # used in Item when current_location is on_loan

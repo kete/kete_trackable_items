@@ -5,7 +5,7 @@ module KeteTrackableItems
       base.extend(ClassMethods)
       base.send :include, InstanceMethods
     end
-    
+
     # mostly grabbed from trollied, would be nice if split into shared lib
     module ClassMethods
       # returns a Hash where keys are event name and values are event object
@@ -78,7 +78,7 @@ module KeteTrackableItems
           named_scope :workflow_in, lambda { |*args|
             options = args.last.is_a?(Hash) ? args.pop : Hash.new
             state = args.is_a?(Array) ? args.first : args
-            
+
             if state == 'all'
               options
             else

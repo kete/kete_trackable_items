@@ -34,9 +34,9 @@ class ShelfLocation < ActiveRecord::Base
 
     on_transition do |from, to, event_name, *event_args|
       attribute_options = { :historical_item => self,
-        :verb => to.to_s,
-        :before_state => from.to_s,
-        :event => event_name.to_s }
+                            :verb => to.to_s,
+                            :before_state => from.to_s,
+                            :event => event_name.to_s }
 
       attribute_options[:historical_receiver] = trackable_items.last if event_name == :allocate
 

@@ -5,7 +5,7 @@ module TrackableItemsHelper
     # if no repositories are associated with this basket, specify site
 
     options = { :trackable_item => { :id => trackable_item.id,
-        :type => trackable_item.class.name } }
+                                     :type => trackable_item.class.name } }
 
     options[:urlified_name] = @site_basket.urlified_name if @current_basket.repositories.count < 1
 

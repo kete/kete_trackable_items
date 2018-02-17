@@ -17,17 +17,16 @@ ApplicationHelper.module_eval do
     html = superseded_add_ons_basket_admin_list
 
     html += " | " + link_to_unless_current(t('application_helper.add_ons_basket_admin_list.location_admin'),
-                                          { :controller => :repositories,
-                                            :action => :index,
-                                            :urlified_name => @current_basket.urlified_name },
-                                          :tabindex => '2')
+                                           { :controller => :repositories,
+                                             :action => :index,
+                                             :urlified_name => @current_basket.urlified_name },
+                                           :tabindex => '2')
 
     html += " | " + link_to_unless_current(t('application_helper.add_ons_basket_admin_list.bulk_shelf_location_allocation'),
-                                            { :controller => :trackable_item_shelf_locations,
-                                              :action => :bulk_allocation,
-                                              :urlified_name => @current_basket.urlified_name
-                                            },
-                                            :tabindex => '3')
+                                           { :controller => :trackable_item_shelf_locations,
+                                             :action => :bulk_allocation,
+                                             :urlified_name => @current_basket.urlified_name},
+                                           :tabindex => '3')
 
     html += tracking_list_create_html
     html
@@ -51,7 +50,8 @@ ApplicationHelper.module_eval do
       url_hash = {
         :urlified_name => basket.urlified_name,
         :repository_id => repository,
-        :method => :post }
+        :method => :post 
+      }
 
       url_hash[:order] = order if order
 
@@ -87,7 +87,8 @@ ApplicationHelper.module_eval do
         url_hash = {
           :urlified_name => target_basket.urlified_name,
           :repository_id => repositories.first,
-          :method => :post }
+          :method => :post 
+        }
 
         if order
           url_hash[:order] = order

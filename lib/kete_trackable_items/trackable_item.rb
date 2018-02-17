@@ -26,7 +26,7 @@ module KeteTrackableItems
         send :has_many, :tracking_events, :as => :historical_item, :dependent => :delete_all
 
         send :has_many, :tracking_receiving_events, :class_name => "TrackingEvent",
-        :as => :historical_receiver, :dependent => :delete_all
+                                                    :as => :historical_receiver, :dependent => :delete_all
 
         # when a trackable_item is in 'on_loan' state, which on_loan_organization is it on loan to?
         send :belongs_to, :on_loan_organization
@@ -60,9 +60,9 @@ module KeteTrackableItems
 
             on_transition do |from, to, event_name, *event_args|
               attribute_options = { :historical_item => self,
-                :verb => to.to_s,
-                :before_state => from.to_s,
-                :event => event_name.to_s }
+                                    :verb => to.to_s,
+                                    :before_state => from.to_s,
+                                    :event => event_name.to_s }
 
               historical_receiver = nil
               case event_name

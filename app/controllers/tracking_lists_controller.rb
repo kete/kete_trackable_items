@@ -7,7 +7,7 @@ class TrackingListsController < ApplicationController
   include KeteTrackableItems::ListManagementControllers
 
   before_filter :set_repository
-  before_filter :set_tracking_list, :except => [:index, :create]
+  before_filter :set_tracking_list, :except => %i[index create]
 
   permit "site_admin or admin of :site_basket or admin of :current_basket"
 

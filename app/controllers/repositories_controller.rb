@@ -5,9 +5,9 @@ class RepositoriesController < ApplicationController
 
   include KeteTrackableItems::MatchingTrackableItemsControllerHelpers
 
-  before_filter :get_repository, :except => [:new, :create, :index]
+  before_filter :get_repository, :except => %i[new create index]
 
-  READABLE_ACTIONS = [:show, :index]
+  READABLE_ACTIONS = %i[show index]
 
   permit "site_admin or admin of :site_basket", :except => READABLE_ACTIONS
 

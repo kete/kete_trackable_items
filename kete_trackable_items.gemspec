@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{kete_trackable_items}
+  s.name = %q(kete_trackable_items)
   s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Walter McGinnis", "Noel Gomez", "Chris Toynbee"]
-  s.date = %q{2012-07-23}
-  s.description = %q{A Kete application add-on that allows for tracking the location of an item in a physical archive that corresponds to the item in the Kete application.}
-  s.email = %q{walter@katipo.co.nz}
+  s.date = %q(2012-07-23)
+  s.description = %q(A Kete application add-on that allows for tracking the location of an item in a physical archive that corresponds to the item in the Kete application.)
+  s.email = %q(walter@katipo.co.nz)
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -108,10 +108,10 @@ Gem::Specification.new do |s|
      "lib/kete_trackable_items/workflow_utilities.rb",
      "rails/init.rb"
   ]
-  s.homepage = %q{http://github.com/kete/kete_trackable_items}
+  s.homepage = %q(http://github.com/kete/kete_trackable_items)
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q(1.3.7)
   s.summary = %q{A Rails engine gem that works in conjunction with kete_gets_trollied to track where an item (with a corresponding physical archive) is physically located.}
 
   if s.respond_to? :specification_version then
@@ -119,26 +119,26 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-      s.add_runtime_dependency(%q<ar-extensions>, [">= 0.9.5"])
-      s.add_runtime_dependency(%q<kete_gets_trollied>, [">= 0.0.3"])
-      s.add_runtime_dependency(%q<rubyXL>, [">= 1.2.10"])
-      s.add_runtime_dependency(%q<rubyzip>, [">= 0.9.9"])
-      s.add_runtime_dependency(%q<workflow>, [">= 0.8.0"])
+      s.add_development_dependency(%q(thoughtbot-shoulda), [">= 0"])
+      s.add_runtime_dependency(%q(ar-extensions), [">= 0.9.5"])
+      s.add_runtime_dependency(%q(kete_gets_trollied), [">= 0.0.3"])
+      s.add_runtime_dependency(%q(rubyXL), [">= 1.2.10"])
+      s.add_runtime_dependency(%q(rubyzip), [">= 0.9.9"])
+      s.add_runtime_dependency(%q(workflow), [">= 0.8.0"])
     else
-      s.add_dependency(%q<ar-extensions>, [">= 0.9.5"])
-      s.add_dependency(%q<kete_gets_trollied>, [">= 0.0.3"])
-      s.add_dependency(%q<rubyXL>, [">= 1.2.10"])
-      s.add_dependency(%q<rubyzip>, [">= 0.9.9"])
-      s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-      s.add_dependency(%q<workflow>, [">= 0.8.0"])
+      s.add_dependency(%q(ar-extensions), [">= 0.9.5"])
+      s.add_dependency(%q(kete_gets_trollied), [">= 0.0.3"])
+      s.add_dependency(%q(rubyXL), [">= 1.2.10"])
+      s.add_dependency(%q(rubyzip), [">= 0.9.9"])
+      s.add_dependency(%q(thoughtbot-shoulda), [">= 0"])
+      s.add_dependency(%q(workflow), [">= 0.8.0"])
     end
   else
-    s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-    s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-    s.add_dependency(%q<workflow>, [">= 0.8.0"])
-    s.add_dependency(%q<workflow>, [">= 0.8.0"])
-    s.add_dependency(%q<workflow>, [">= 0.8.0"])
-    s.add_dependency(%q<workflow>, [">= 0.8.0"])
+    s.add_dependency(%q(thoughtbot-shoulda), [">= 0"])
+    s.add_dependency(%q(thoughtbot-shoulda), [">= 0"])
+    s.add_dependency(%q(workflow), [">= 0.8.0"])
+    s.add_dependency(%q(workflow), [">= 0.8.0"])
+    s.add_dependency(%q(workflow), [">= 0.8.0"])
+    s.add_dependency(%q(workflow), [">= 0.8.0"])
   end
 end

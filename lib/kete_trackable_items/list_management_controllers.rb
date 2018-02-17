@@ -12,7 +12,7 @@ module KeteTrackableItems
         render :nothing => true
       rescue
         render :nothing => true, :status => 500
-      end      
+      end
     end
 
     # assumes matching_results_ids in the session
@@ -24,7 +24,7 @@ module KeteTrackableItems
         render :nothing => true
       rescue
         render :nothing => true, :status => 500
-      end      
+      end
     end
 
     def clear_session_variables_for_list_building

@@ -2,7 +2,7 @@ require 'ar-extensions'
 class TrackedItem < ActiveRecord::Base
   belongs_to :tracking_list
   belongs_to :trackable_item, :polymorphic => true
-  
+
   delegate :description_for_tracked_item, :to => :trackable_item
 
   validates_presence_of :tracking_list, :message => lambda { I18n.t('tracked_item.tracking_list_blank_or_does_not_match') }

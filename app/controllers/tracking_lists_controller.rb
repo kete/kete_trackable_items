@@ -38,7 +38,7 @@ class TrackingListsController < ApplicationController
       @tracked_items = @tracking_list.tracked_items
     else
       set_page_variables
-      
+
       @tracked_items = @tracking_list.tracked_items.paginate(@page_options)
 
       set_results_variables(@tracked_items)
@@ -151,7 +151,7 @@ class TrackingListsController < ApplicationController
 
       @successful = TrackedItem.import(values)
     end
-    
+
     if @successful || @state_change_failed
       clear_session_variables_for_list_building
 

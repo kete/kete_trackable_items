@@ -83,13 +83,13 @@ module KeteTrackableItems
         # dropping this scope constraint, but leaving for reference
         # in case it is useful in future
         # always_scopes << 'with_state_on_shelf' if params[:controller] == 'tracking_lists'
-        
+
         scope_value_pairs = Array.new
-        
+
         if params[type_key_plural].present?
           scope_value_pairs = params[type_key_plural].select { |k, v| v.present? }
         end
-        
+
         @relevent_scopes = basket_scope_pair +
           in_state_scope +
           always_scopes +

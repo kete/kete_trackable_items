@@ -18,7 +18,7 @@ class OnLoanOrganizationsController < ApplicationController
                                                                        { :pattern_for_sql => pattern_for_sql }])
     else
       set_page_variables
-      
+
       @on_loan_organizations = OnLoanOrganization.all.paginate(@page_options)
 
       set_results_variables(@on_loan_organizations)
@@ -38,7 +38,7 @@ class OnLoanOrganizationsController < ApplicationController
 
     params[:trackable_type_param_key] = 'topics' unless params[:trackable_type_param_key]
     type_key_plural = params[:trackable_type_param_key]
-    
+
     @matching_trackable_items = @current_basket == @site ? @on_loan_organization.send(type_key_plural).workflow_in('on_loan_to_organization').paginate(@page_options) :
       @on_loan_organization.send(type_key_plural).in_basket(@current_basket.id).workflow_in('on_loan_to_organization').paginate(@page_options)
 
@@ -98,7 +98,7 @@ class OnLoanOrganizationsController < ApplicationController
   end
 
   private
-  
+
   def set_on_loan_organization
     @on_loan_organization = OnLoanOrganization.find(params[:id])
   end

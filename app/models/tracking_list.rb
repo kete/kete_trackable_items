@@ -15,7 +15,7 @@ class TrackingList < ActiveRecord::Base
 
   # set up workflow states, some are shared with trackable_items
   shared_code_as_string = shared_tracking_workflow_specs_as_string
-  
+
   specification = Proc.new {
     state :new do
       # use a tracking list to allocate items in bulk to a shelf_location
@@ -31,7 +31,7 @@ class TrackingList < ActiveRecord::Base
 
       event :clear_list, :transitions_to => :new
     end
-    
+
     eval(shared_code_as_string)
 
     # we replace to_be_refiled transitions with complete event only
@@ -70,7 +70,7 @@ class TrackingList < ActiveRecord::Base
       TrackingEvent.create!(attribute_options)
     end
   }
-  
+
   workflow(&specification)
 
   set_up_workflow_named_scopes.call

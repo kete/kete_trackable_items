@@ -26,9 +26,9 @@ class ShelfLocationsController < ApplicationController
       if @state != 'all'
         @page_options[:conditions] = ["workflow_state = ?", @state]
       end
-      
+
       @shelf_locations = @repository.shelf_locations.paginate(@page_options)
-      
+
       set_results_variables(@shelf_locations)
     end
 
@@ -142,7 +142,7 @@ class ShelfLocationsController < ApplicationController
         end
       end
     end
-    
+
     if @successful || @state_change_failed
       clear_session_variables_for_list_building
 

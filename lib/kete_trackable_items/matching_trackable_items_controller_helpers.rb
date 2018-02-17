@@ -91,10 +91,10 @@ module KeteTrackableItems
         end
 
         @relevent_scopes = basket_scope_pair +
-          in_state_scope +
-          always_scopes +
-          scope_value_pairs +
-          skip_already_associated_scope
+                           in_state_scope +
+                           always_scopes +
+                           scope_value_pairs +
+                           skip_already_associated_scope
 
         @matching_trackable_items = @relevent_scopes.inject(klass) do |model_class, relevent_scope|
           if relevent_scope.is_a?(Array)

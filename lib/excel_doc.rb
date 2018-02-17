@@ -35,8 +35,8 @@ class ExcelDoc
       @worksheet = @workbook.worksheets[0]
       @headers   = @worksheet[0].map { |i| i.value.underscore.to_sym }
       @data      = @worksheet.each_with_index.map do |row, row_number|
-                      row_class.new row, row_number, headers
-                   end
+        row_class.new row, row_number, headers
+      end
       @data.shift # shift out heading line
     end
 

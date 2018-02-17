@@ -27,7 +27,7 @@ class RepositoriesController < ApplicationController
     end
 
     if @current_basket != @site_basket &&
-        params[:within].to_i != @current_basket.id
+       params[:within].to_i != @current_basket.id
       raise "You cannot specify a basket other than your own."
     end
 

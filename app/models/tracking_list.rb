@@ -16,7 +16,7 @@ class TrackingList < ActiveRecord::Base
   # set up workflow states, some are shared with trackable_items
   shared_code_as_string = shared_tracking_workflow_specs_as_string
 
-  specification = Proc.new {
+  specification = Proc.new do
     state :new do
       # use a tracking list to allocate items in bulk to a shelf_location
       event :allocate, :transitions_to => :completed
@@ -69,7 +69,7 @@ class TrackingList < ActiveRecord::Base
 
       TrackingEvent.create!(attribute_options)
     end
-  }
+  end
 
   workflow(&specification)
 
@@ -80,11 +80,11 @@ class TrackingList < ActiveRecord::Base
   workflow_event_names.each do |event_name|
     skip_events = %w[cancel complete reactivate allocate]
     unless skip_events.include?(event_name.to_s)
-      code = Proc.new {
+      code = Proc.new do
         tracked_items.each do |tracked_item|
           tracked_item.trackable_item.send("#{event_name}!")
         end
-      }
+      end
 
       define_method(event_name, &code)
     end

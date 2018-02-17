@@ -67,7 +67,7 @@ module KeteTrackableItems
       end
 
       def set_up_workflow_named_scopes
-        Proc.new {
+        Proc.new do
           # create a named_scope for each of our declared states
           workflow_spec.state_names.each do |name|
             scope_name = "with_state_#{name}".to_sym
@@ -85,7 +85,7 @@ module KeteTrackableItems
               { :conditions => { :workflow_state => state.to_s }.merge(options) }
             end
           }
-        }
+        end
       end
     end
 

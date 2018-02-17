@@ -109,7 +109,7 @@ class TrackableItemShelfLocationsController < ApplicationController
   end
 
   def bulk_allocation
-    @basket_options = Basket.find(:all, :conditions=> ['id in (SELECT t.basket_id FROM topics t WHERE extended_content LIKE ?)', '%legacy_identifier%'])
+    @basket_options = Basket.find(:all, :conditions => ['id in (SELECT t.basket_id FROM topics t WHERE extended_content LIKE ?)', '%legacy_identifier%'])
     render
   end
 
@@ -123,7 +123,7 @@ class TrackableItemShelfLocationsController < ApplicationController
   end
 
   def generate_export
-    basket = Basket.find(params[:basket_id] )
+    basket = Basket.find(params[:basket_id])
     file = BulkAllocation.export(basket)
     headers["Content-Disposition"] = "attachment; filename=#{File.basename file.path}"
     send_data file.read, :filename => File.basename(file.path)

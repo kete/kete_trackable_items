@@ -91,7 +91,7 @@ class TrackingList < ActiveRecord::Base
   end
 
   def name_for_tracking_event
-    repository.name + ': ' + I18n.t('tracking_list.name_for_tracking_event.tracking_list') + ' '+ id.to_s
+    repository.name + ': ' + I18n.t('tracking_list.name_for_tracking_event.tracking_list') + ' ' + id.to_s
   end
 
   def loan_to(on_loan_organization)

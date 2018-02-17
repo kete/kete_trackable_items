@@ -48,7 +48,7 @@ class BulkAllocation
 
   # Import the new mappings of shelf locations for trackable items
   def self.import(file)
-    rows = ExcelDoc.new(file).read(row_class=MapFromExcel)
+    rows = ExcelDoc.new(file).read(row_class = MapFromExcel)
     locations = Hash.new
     repositories = Hash.new
 

@@ -1,11 +1,11 @@
 require "rubyXL"
 
 class ExcelDoc
-  def initialize path
+  def initialize(path)
     @path = path
   end
 
-  def write data
+  def write(data)
     @workbook = RubyXL::Workbook.new
     @worksheet = @workbook.worksheets[0]
     @headers = data.first.keys
@@ -29,7 +29,7 @@ class ExcelDoc
     @workbook.write(@path)
   end
 
-  def read row_class=ExcelRow
+  def read(row_class=ExcelRow)
     unless @data.present?
       @workbook  = RubyXL::Parser.parse(@path)
       @worksheet = @workbook.worksheets[0]
@@ -47,7 +47,7 @@ class ExcelDoc
 end
 
 class ExcelRow < Hash
-  def initialize row, row_number, headers
+  def initialize(row, row_number, headers)
     row.each_with_index do |item, index2|
       self[headers[index2]] = item.value
     end

@@ -6,4 +6,3 @@ kete_trackable_items_controllers = %w(on_loan_organizations repositories shelf_l
 
 ApplicationController.add_ons_full_width_content_wrapper_controllers += kete_trackable_items_controllers
 ApplicationController.add_ons_content_wrapper_end_controllers += kete_trackable_items_controllers
-

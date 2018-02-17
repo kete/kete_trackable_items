@@ -18,7 +18,7 @@ module KeteTrackableItems
         # flatten
         events_hash = Hash.new
         events.each do |v|
-          v.each do |key,value|
+          v.each do |key, value|
             events_hash[key] = value
           end
         end

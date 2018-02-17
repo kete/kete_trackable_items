@@ -19,7 +19,7 @@ ApplicationHelper.module_eval do
     html += " | " + link_to_unless_current(t('application_helper.add_ons_basket_admin_list.location_admin'),
                                           { :controller => :repositories,
                                             :action => :index,
-                                            :urlified_name => @current_basket.urlified_name},
+                                            :urlified_name => @current_basket.urlified_name },
                                           :tabindex => '2')
 
     html += " | " + link_to_unless_current(t('application_helper.add_ons_basket_admin_list.bulk_shelf_location_allocation'),
@@ -78,7 +78,7 @@ ApplicationHelper.module_eval do
     target_basket = basket
     if basket.repositories.count == 0 && basket != @site_basket
       repositories = @site_basket.repositories
-      target_basket= @site_basket
+      target_basket = @site_basket
     end
 
     if repositories.count > 0

@@ -66,7 +66,7 @@ class ShelfLocation < ActiveRecord::Base
   def trackable_items
     @trackable_items = Array.new
 
-    trackable_items_types_and_ids.each do |k,v|
+    trackable_items_types_and_ids.each do |k, v|
       @trackable_items += k.constantize.find(v)
     end
 

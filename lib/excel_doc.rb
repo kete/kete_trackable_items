@@ -12,7 +12,7 @@ class ExcelDoc
     col_count = 0
     @headers.each do |head|
       @worksheet.add_cell(0, col_count, head.to_s)
-      col_count+=1
+      col_count += 1
     end
 
     row_count = 1 #Headings were inserted at row 0, so start the count for data at row 1
@@ -21,19 +21,19 @@ class ExcelDoc
       col_count = 0 # reset column count for each row
       @headers.each do |head|
         @worksheet.add_cell(row_count, col_count, row[head])
-        col_count+=1
+        col_count += 1
       end
-      row_count+=1
+      row_count += 1
     end
 
     @workbook.write(@path)
   end
 
-  def read(row_class=ExcelRow)
+  def read(row_class = ExcelRow)
     unless @data.present?
       @workbook  = RubyXL::Parser.parse(@path)
       @worksheet = @workbook.worksheets[0]
-      @headers   = @worksheet[0].map {|i| i.value.underscore.to_sym}
+      @headers   = @worksheet[0].map { |i| i.value.underscore.to_sym }
       @data      = @worksheet.each_with_index.map do |row, row_number|
                       row_class.new row, row_number, headers
                    end

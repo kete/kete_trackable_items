@@ -21,7 +21,7 @@ config.to_prepare do
   # in a config and have them available to kete_trackable_items code
   Kete.define_reader_method_as('trackable_item_scopes',
                                YAML.load(IO.read(File.join(Rails.root, 'config/trackable_item_scopes.yml'))))
-  
+
   Kete.trackable_item_scopes.each do |key, options|
     klass = key.camelize.constantize
     key = key.to_sym

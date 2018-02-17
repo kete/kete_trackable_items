@@ -13,7 +13,7 @@ class TrackingEventsController < ApplicationController
     if params[:historical_item_id] && params[:historical_item_type]
       @historical_item = params[:historical_item_type].constantize.find(params[:historical_item_id])
     end
-    
+
     @tracking_events = @historical_item ? @historical_item.tracking_events.paginate(@page_options) : TrackingEvents.all.paginate(@page_options)
 
     set_results_variables(@tracking_events)

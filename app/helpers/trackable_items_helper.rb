@@ -49,5 +49,4 @@ module TrackableItemsHelper
 
     html
   end
-
 end

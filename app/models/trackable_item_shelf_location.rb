@@ -25,7 +25,7 @@ class TrackableItemShelfLocation < ActiveRecord::Base
     state :active do
       event :deactivate, :transitions_to => :deactivated
     end
-   
+
     state :deactivated do
       event :reactivate, :transitions_to => :active
     end
@@ -56,7 +56,7 @@ class TrackableItemShelfLocation < ActiveRecord::Base
   end
 
   private
-  
+
   def update_state_of_shelf_location_and_trackable_item
     shelf_location.new_allocation
     trackable_item.new_allocation

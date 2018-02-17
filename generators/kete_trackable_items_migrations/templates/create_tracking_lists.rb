@@ -11,5 +11,4 @@ class CreateTrackingLists < ActiveRecord::Migration
   def self.down
     drop_table :tracking_lists
   end
-
 end

@@ -20,7 +20,7 @@ config.to_prepare do
   # i.e. you can place your own Kete site's extended fields set up dependent search definitions
   # in a config and have them available to kete_trackable_items code
   Kete.define_reader_method_as('trackable_item_scopes',
-                               YAML.load(IO.read(File.join(Rails.root, 'config/trackable_item_scopes.yml'))))
+                               YAML.safe_load(IO.read(File.join(Rails.root, 'config/trackable_item_scopes.yml'))))
 
   Kete.trackable_item_scopes.each do |key, options|
     klass = key.camelize.constantize

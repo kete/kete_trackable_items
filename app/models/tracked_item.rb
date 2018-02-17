@@ -9,7 +9,7 @@ class TrackedItem < ActiveRecord::Base
   validates_presence_of :trackable_item, :message => lambda { I18n.t('tracked_item.trackable_item_blank_or_does_not_match') }
 
   # needs to be unique to tracking_list
-  validates_uniqueness_of :tracking_list_id, :scope => [:trackable_item_type, :trackable_item_id]
+  validates_uniqueness_of :tracking_list_id, :scope => %i[trackable_item_type trackable_item_id]
 
   private
 

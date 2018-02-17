@@ -7,7 +7,7 @@ class ShelfLocationsController < ApplicationController
   include KeteTrackableItems::ListManagementControllers
 
   before_filter :set_repository
-  before_filter :set_shelf_location, :except => [:index, :create, :new]
+  before_filter :set_shelf_location, :except => %i[index create new]
 
   permit "site_admin or admin of :site_basket or admin of :current_basket"
 

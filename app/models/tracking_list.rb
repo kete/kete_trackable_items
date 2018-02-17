@@ -78,7 +78,7 @@ class TrackingList < ActiveRecord::Base
   # send workflow event, except cancel, to tracked_items
   # upon event being called on tracking_list
   workflow_event_names.each do |event_name|
-    skip_events = %w(cancel complete reactivate allocate)
+    skip_events = %w[cancel complete reactivate allocate]
     unless skip_events.include?(event_name.to_s)
       code = Proc.new {
         tracked_items.each do |tracked_item|

@@ -14,7 +14,7 @@ class TrackableItemShelfLocation < ActiveRecord::Base
   validates_presence_of :trackable_item, :message => lambda { I18n.t('trackable_item_shelf_location.trackable_item_blank_or_does_not_match') }
 
   # needs to be unique to shelf_location to trackable_item
-  validates_uniqueness_of :shelf_location_id, :scope => [:trackable_item_type, :trackable_item_id], :message => lambda { I18n.t('trackable_item_shelf_location.previously_allocated_reactivate_instead') }
+  validates_uniqueness_of :shelf_location_id, :scope => %i[trackable_item_type trackable_item_id], :message => lambda { I18n.t('trackable_item_shelf_location.previously_allocated_reactivate_instead') }
 
   delegate :repository, :to => :shelf_location, :allow_nil => true
   delegate :repository_id, :to => :shelf_location, :allow_nil => true

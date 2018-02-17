@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "kete_trackable_items"
-    gem.summary = %Q{A Rails engine gem that works in conjunction with kete_gets_trollied to track where an item (with a corresponding physical archive) is physically located.}
-    gem.description = %Q{A Kete application add-on that allows for tracking the location of an item in a physical archive that corresponds to the item in the Kete application.}
+    gem.summary = %{A Rails engine gem that works in conjunction with kete_gets_trollied to track where an item (with a corresponding physical archive) is physically located.}
+    gem.description = %(A Kete application add-on that allows for tracking the location of an item in a physical archive that corresponds to the item in the Kete application.)
     gem.email = "walter@katipo.co.nz"
     gem.homepage = "http://github.com/kete/kete_trackable_items"
     gem.authors = ["Walter McGinnis", "Noel Gomez", "Chris Toynbee"]

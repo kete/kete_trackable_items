@@ -5,9 +5,9 @@ class OnLoanOrganizationsController < ApplicationController
 
   include KeteTrackableItems::PaginateSetUp
 
-  before_filter :set_on_loan_organization, :except => [:index, :create, :new]
+  before_filter :set_on_loan_organization, :except => %i[index create new]
 
-  permit "site_admin or admin of :site_basket or admin of :current_basket", :only => [:create, :update, :destroy]
+  permit "site_admin or admin of :site_basket or admin of :current_basket", :only => %i[create update destroy]
 
   def index
     if params[:name_pattern].present?

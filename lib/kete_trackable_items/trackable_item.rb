@@ -8,7 +8,7 @@ module KeteTrackableItems
 
     module ClassMethods
       def set_up_as_trackable_item(*args)
-        options = args.last.is_a?(Hash) ? args.pop : Hash.new
+        options = args.last.is_a?(Hash) ? args.pop : {}
 
         # don't allow multiple calls
         return if self.included_modules.include?(KeteTrackableItems::TrackableItem::InstanceMethods)

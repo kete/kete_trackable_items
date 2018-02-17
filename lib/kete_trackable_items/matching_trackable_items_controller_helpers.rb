@@ -21,9 +21,9 @@ module KeteTrackableItems
         session[:matching_class] = class_name
         klass = class_name.constantize
 
-        skip_already_associated_scope = Array.new
-        existing_ids = Array.new
-        in_state_scope = Array.new
+        skip_already_associated_scope = []
+        existing_ids = []
+        in_state_scope = []
 
         case params[:controller]
         when 'shelf_locations'
@@ -55,7 +55,7 @@ module KeteTrackableItems
         # case where within basket is specified as either all (i.e. don't limit, for site wide reporting)
         # or central (everything not in another basket other than site)
         # or where basket is explicitly specified
-        basket_scope_pair = Array.new
+        basket_scope_pair = []
         if params[:within].present?
           if params[:within] != 'all'
             if params[:within] == 'central'
@@ -84,7 +84,7 @@ module KeteTrackableItems
         # in case it is useful in future
         # always_scopes << 'with_state_on_shelf' if params[:controller] == 'tracking_lists'
 
-        scope_value_pairs = Array.new
+        scope_value_pairs = []
 
         if params[type_key_plural].present?
           scope_value_pairs = params[type_key_plural].select { |k, v| v.present? }
@@ -124,7 +124,7 @@ module KeteTrackableItems
       if @matching_trackable_items_only_ids.present?
         session[:matching_results_ids] = @matching_trackable_items_only_ids
       else
-        session[:matching_results_ids] = Array.new
+        session[:matching_results_ids] = []
       end
     end
 

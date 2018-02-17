@@ -70,7 +70,7 @@ ApplicationHelper.module_eval do
   end
 
   def tracking_list_create_html(order = nil)
-    html = String.new
+    html = ''
     phrase = order.blank? ? t('application_helper.tracking_list_create_html.location_tracking') :
       t('application_helper.tracking_list_create_html.tracking_list_from_order')
     basket = order.blank? ? @current_basket : order.basket

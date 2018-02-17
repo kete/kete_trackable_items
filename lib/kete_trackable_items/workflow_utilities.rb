@@ -16,7 +16,7 @@ module KeteTrackableItems
         events = events.select { |e| e.present? }
 
         # flatten
-        events_hash = Hash.new
+        events_hash = {}
         events.each do |v|
           v.each do |key, value|
             events_hash[key] = value
@@ -76,7 +76,7 @@ module KeteTrackableItems
 
           # workflow_in(state_name)
           named_scope :workflow_in, lambda { |*args|
-            options = args.last.is_a?(Hash) ? args.pop : Hash.new
+            options = args.last.is_a?(Hash) ? args.pop : {}
             state = args.is_a?(Array) ? args.first : args
 
             if state == 'all'

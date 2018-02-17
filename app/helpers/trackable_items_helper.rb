@@ -21,7 +21,7 @@ module TrackableItemsHelper
   end
 
   def shelf_locations_or_appropriate_action(trackable_item)
-    html = String.new
+    html = ''
 
     additional = false
     if trackable_item.has_shelf_locations?

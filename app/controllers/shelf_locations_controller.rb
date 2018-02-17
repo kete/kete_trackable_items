@@ -62,23 +62,23 @@ class ShelfLocationsController < ApplicationController
     # do not want to use @shelf_location.trackable_items, as that would be all items for a shelf location
     # which could be very large
     # instead, just want to grab trackable_items for this page's trackable_item_shelf_locations
-    types_and_ids = @trackable_item_shelf_locations.inject(Hash.new) do |result, tracked_item|
+    types_and_ids = @trackable_item_shelf_locations.inject({}) do |result, tracked_item|
       type_key = tracked_item.trackable_item_type
       item_id = tracked_item.trackable_item_id
 
-      values = result[type_key] || Array.new
+      values = result[type_key] || []
       values << item_id
 
       result[type_key] = values
       result
     end
 
-    trackable_items_by_type = Hash.new
+    trackable_items_by_type = {}
     types_and_ids.each do |k, v|
       trackable_items_by_type[k] = k.constantize.find(v)
     end
 
-    @trackable_item_shelf_location_trackable_item_pairs = @trackable_item_shelf_locations.inject(Array.new) do |result, trackable_item_shelf_location|
+    @trackable_item_shelf_location_trackable_item_pairs = @trackable_item_shelf_locations.inject([]) do |result, trackable_item_shelf_location|
       trackable_item = trackable_items_by_type[trackable_item_shelf_location.trackable_item_type].select do |item|
         item.id == trackable_item_shelf_location.trackable_item_id
       end.first
@@ -124,7 +124,7 @@ class ShelfLocationsController < ApplicationController
       # we use ids in session to create trackable_item_shelf_locations
       matching_class = session[:matching_class]
       matching_results_ids = session[:matching_results_ids]
-      values = matching_results_ids.inject(Array.new) do |value, matching_id|
+      values = matching_results_ids.inject([]) do |value, matching_id|
         value << TrackableItemShelfLocation.new(:trackable_item_type => matching_class,
                                                 :trackable_item_id => matching_id,
                                                 :shelf_location_id => @shelf_location.id)

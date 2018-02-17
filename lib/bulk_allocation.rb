@@ -49,8 +49,8 @@ class BulkAllocation
   # Import the new mappings of shelf locations for trackable items
   def self.import(file)
     rows = ExcelDoc.new(file).read(row_class = MapFromExcel)
-    locations = Hash.new
-    repositories = Hash.new
+    locations = {}
+    repositories = {}
 
     #$logger = Logger.new("#{Rails.root.to_s}/log/uber.log")
     #$logger.level = 0

@@ -42,7 +42,7 @@ class RepositoriesController < ApplicationController
     scopes_without_state_scope = @relevent_scopes
     scopes_without_state_scope.delete(['workflow_in', @state])
 
-    @trackable_items_counts = Hash.new
+    @trackable_items_counts = {}
 
     state_names_count = 1
     @trackable_item_state_names.each do |state|

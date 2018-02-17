@@ -45,23 +45,23 @@ class TrackingListsController < ApplicationController
     end
 
     # we want to gather our trackable_items in as few queries as possible
-    types_and_ids = @tracked_items.inject(Hash.new) do |result, tracked_item|
+    types_and_ids = @tracked_items.inject({}) do |result, tracked_item|
       type_key = tracked_item.trackable_item_type
       item_id = tracked_item.trackable_item_id
 
-      values = result[type_key] || Array.new
+      values = result[type_key] || []
       values << item_id
 
       result[type_key] = values
       result
     end
 
-    trackable_items_by_type = Hash.new
+    trackable_items_by_type = {}
     types_and_ids.each do |k, v|
       trackable_items_by_type[k] = k.constantize.find(v)
     end
 
-    @tracked_item_trackable_item_pairs = @tracked_items.inject(Array.new) do |result, tracked_item|
+    @tracked_item_trackable_item_pairs = @tracked_items.inject([]) do |result, tracked_item|
       trackable_item = trackable_items_by_type[tracked_item.trackable_item_type].select do |item|
         item.id == tracked_item.trackable_item_id
       end.first
@@ -142,7 +142,7 @@ class TrackingListsController < ApplicationController
       # we use ids in session to create tracked_items
       matching_class = session[:matching_class]
       matching_results_ids = session[:matching_results_ids]
-      values = matching_results_ids.inject(Array.new) do |value, matching_id|
+      values = matching_results_ids.inject([]) do |value, matching_id|
         value << TrackedItem.new(:trackable_item_type => matching_class,
                                  :trackable_item_id => matching_id,
                                  :tracking_list_id => @tracking_list.id)

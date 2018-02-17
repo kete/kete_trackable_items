@@ -1,4 +1,4 @@
-xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
 xml.Workbook({
   'xmlns'      => "urn:schemas-microsoft-com:office:spreadsheet",
   'xmlns:o'    => "urn:schemas-microsoft-com:office:office",
@@ -18,11 +18,11 @@ xml.Workbook({
           xml.Cell { xml.Data item.item_no, 'ss:Type' => 'String' }
           xml.Cell { xml.Data item.title, 'ss:Type' => 'String' }
           xml.Cell { xml.Data item.current_state_humanized, 'ss:Type' => 'String' }
-    if item.shelf_locations.any?
-      xml.Cell { xml.Data item.shelf_locations.first.code, 'ss:Type' => 'String' }
-    else
-      xml.Cell { xml.Data '', 'ss:Type' => 'String' }
-    end
+          if item.shelf_locations.any?
+            xml.Cell { xml.Data item.shelf_locations.first.code, 'ss:Type' => 'String' }
+          else
+            xml.Cell { xml.Data '', 'ss:Type' => 'String' }
+          end
         end
       end
     end

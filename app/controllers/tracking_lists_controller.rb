@@ -57,7 +57,7 @@ class TrackingListsController < ApplicationController
     end
 
     trackable_items_by_type = Hash.new
-    types_and_ids.each do |k,v|
+    types_and_ids.each do |k, v|
       trackable_items_by_type[k] = k.constantize.find(v)
     end
 

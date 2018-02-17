@@ -142,4 +142,3 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rubyzip>, [">= 0.9.9"])
   end
 end
-

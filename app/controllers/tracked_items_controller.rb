@@ -12,9 +12,7 @@ class TrackedItemsController < ApplicationController
   def create
     tracked_item = @trackable_item.tracked_items.build(@tracking_list)
 
-    if tracked_item.save
-      redirect_to tracking_list_url(:id => @tracking_list)
-    end
+    redirect_to tracking_list_url(:id => @tracking_list) if tracked_item.save
   end
 
   def destroy

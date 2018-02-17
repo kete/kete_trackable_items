@@ -46,7 +46,6 @@ class RepositoriesController < ApplicationController
 
     state_names_count = 1
     @trackable_item_state_names.each do |state|
-
       count_scopes_for_state = scopes_without_state_scope.inject(klass) do |model_class, relevent_scope|
         if relevent_scope.is_a?(Array)
           model_class.send(relevent_scope.first, relevent_scope.last)

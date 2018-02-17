@@ -9,9 +9,7 @@ module TrackableItemShelfLocationsHelper
           var new_shelf_locations_url = \"/#{urlified_name}/repositories/\" + repository_id + \"/shelf_locations.json\";
           
           trackable_item_shelf_location_code_auto_completer.url = new_shelf_locations_url;
-
         });
-
       });")
   end
 end

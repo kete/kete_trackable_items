@@ -28,11 +28,11 @@ config.to_prepare do
 
     if options['prerequisite_extensions'].present?
       options['prerequisite_extensions'].each do |code|
-        extension = Proc.new {
+        extension = Proc.new do
           klass.class_eval do
             eval(code)
           end
-        }
+        end
 
         Kete.add_code_to_extensions_for(key, extension)
       end
@@ -41,11 +41,11 @@ config.to_prepare do
     if options['search_scopes'].present?
       if options['search_scopes']['always_within_scopes'].present?
         options['search_scopes']['always_within_scopes'].each do |scope_key, scope_code|
-          extension = Proc.new {
+          extension = Proc.new do
             klass.class_eval do
               named_scope(scope_key.to_sym, eval(scope_code))
             end
-          }
+          end
 
           Kete.add_code_to_extensions_for(key, extension)
         end
@@ -54,11 +54,11 @@ config.to_prepare do
       if options['search_scopes']['text_searches'].present?
         options['search_scopes']['text_searches'].each do |search_specs|
           search_specs.each do |scope_key, scope_code|
-            extension = Proc.new {
+            extension = Proc.new do
               klass.class_eval do
                 named_scope(scope_key.to_sym, eval(scope_code))
               end
-            }
+            end
             Kete.add_code_to_extensions_for(key, extension)
           end
         end

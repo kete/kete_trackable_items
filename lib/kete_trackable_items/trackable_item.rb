@@ -44,7 +44,7 @@ module KeteTrackableItems
         class_eval do
           shared_code_as_string = shared_tracking_workflow_specs_as_string
 
-          specification = Proc.new {
+          specification = Proc.new do
             state :unallocated do
               event :allocate, :transitions_to => :on_shelf
               event :display, :transitions_to => :displayed
@@ -76,7 +76,7 @@ module KeteTrackableItems
 
               TrackingEvent.create!(attribute_options)
             end
-          }
+          end
 
           workflow(&specification)
 

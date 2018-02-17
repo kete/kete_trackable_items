@@ -103,7 +103,7 @@ module KeteTrackableItems
         send(self.class.described_as_in_tracking_list)
       end
 
-      alias :name_for_tracking_event :description_for_tracked_item
+      alias name_for_tracking_event description_for_tracked_item
 
       # add workflow triggered methods that run when corresponding event is triggered as necessary
       def new_allocation

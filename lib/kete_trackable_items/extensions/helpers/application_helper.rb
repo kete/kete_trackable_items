@@ -50,7 +50,7 @@ ApplicationHelper.module_eval do
       url_hash = {
         :urlified_name => basket.urlified_name,
         :repository_id => repository,
-        :method => :post 
+        :method => :post
       }
 
       url_hash[:order] = order if order
@@ -87,7 +87,7 @@ ApplicationHelper.module_eval do
         url_hash = {
           :urlified_name => target_basket.urlified_name,
           :repository_id => repositories.first,
-          :method => :post 
+          :method => :post
         }
 
         if order
